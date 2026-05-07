@@ -14,3 +14,13 @@ const toast=document.getElementById('toast');
 function showToast(title,msg,ok){document.getElementById('toastTitle').textContent=title;document.getElementById('toastMsg').textContent=msg;toast.classList.toggle('success',!!ok);toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),4200);}
 document.getElementById('contactForm').addEventListener('submit',function(e){e.preventDefault();const n=document.getElementById('fname').value.trim(),em=document.getElementById('femail').value.trim(),s=document.getElementById('fsubject').value.trim(),m=document.getElementById('fmessage').value.trim();if(!n||!em||!s||!m){showToast('Incomplete','Please fill in all fields.',false);return;}const body='Name: '+n+'%0D%0AEmail: '+em+'%0D%0A%0D%0A'+encodeURIComponent(m);showToast('Message Ready','Opening your email client...',true);setTimeout(()=>{window.location.href='mailto:DyedForAmerica@Gmail.com?subject='+encodeURIComponent(s)+'&body='+body;this.reset();},700);});
 document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){const t=document.querySelector(this.getAttribute('href'));if(t){e.preventDefault();window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-80,behavior:'smooth'});}});});
+const stripeLinks = {
+  "10": "LINK_FOR_SOCKS",
+  "15": "LINK_FOR_PINS",
+  "20": "LINK_FOR_HATS",
+  "25": "LINK_FOR_SHIRTS",
+  "45": "LINK_FOR_PANTS",
+  "55": "LINK_FOR_HOODIES",
+  "75": "LINK_FOR_TAPESTRIES",
+  "300": "LINK_FOR_BEDSPREADS"
+};
