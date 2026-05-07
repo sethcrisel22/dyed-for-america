@@ -88,97 +88,10 @@
     <div class="divider-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
     <p class="lede">Every piece is dyed, rinsed, and inspected by hand. No two will ever match.</p>
   </div>
-  <div class="filter-bar reveal">
-    <button class="filter-btn active" data-filter="all">All Pieces</button>
-    <button class="filter-btn" data-filter="tshirts">T-Shirts</button>
-    <button class="filter-btn" data-filter="pants">Pants</button>
-    <button class="filter-btn" data-filter="tapestries">Tapestries</button>
-    <button class="filter-btn" data-filter="socks">Socks</button>
-    <button class="filter-btn" data-filter="bedding">Bedding</button>
-  </div>
-  <div class="product-grid">
 
-    <article class="product-card reveal" data-category="tshirts">
-      <div class="product-img-wrap light-bg">
-        <div class="product-badge">1 Of 1</div>
-        <div class="product-badge sz">MED</div>
-        <img id="img-shirt" src="shirt.jpeg" alt="Diagonal Rainbow Tee">
-      </div>
-      <div class="product-info">
-        <div class="product-cat">T-Shirt &middot; Diagonal Sweep</div>
-        <div class="product-name">Diagonal Rainbow Tee</div>
-        <p class="product-desc">Ice-dye diagonal arc across a deep purple and slate canvas. Full spectrum sweep. No two folds land the same.</p>
-        <div class="product-foot">
-          <div class="product-price">$25<small>USD</small></div>
-          <a href="https://buy.stripe.com/cNi6oHf784L2goUdSgeZ202" target="_blank" rel="noopener" class="buy-btn">Buy <i class="fas fa-arrow-right"></i></a>
-        </div>
-      </div>
-    </article>
-
-    <article class="product-card reveal delay-1" data-category="pants">
-      <div class="product-img-wrap contain">
-        <div class="product-badge">1 Of 1</div>
-        <img id="img-pants" src="pants.jpeg" alt="Galaxy Sweatpants">
-      </div>
-      <div class="product-info">
-        <div class="product-cat">Bottoms &middot; Joggers</div>
-        <div class="product-name">Galaxy Sweatpants</div>
-        <p class="product-desc">Fleece jogger dyed in a galaxy fold &mdash; pinks, golds, and deep blues radiating from center. Drawstring waist, deep pockets, all-day comfort.</p>
-        <div class="product-foot">
-          <div class="product-price">$45<small>USD</small></div>
-          <a href="https://buy.stripe.com/eVq7sLaQSdhyc8E8xWeZ203" target="_blank" rel="noopener" class="buy-btn">Buy <i class="fas fa-arrow-right"></i></a>
-        </div>
-      </div>
-    </article>
-
-    <article class="product-card reveal delay-2" data-category="tapestries">
-      <div class="product-img-wrap">
-        <div class="product-badge">1 Of 1</div>
-        <img id="img-tapestry" src="tapestry.jpeg" alt="Peace Sign Tapestry">
-      </div>
-      <div class="product-info">
-        <div class="product-cat">Wall Art &middot; Giant</div>
-        <div class="product-name">Peace Sign Tapestry</div>
-        <p class="product-desc">Wall-sized peace mandala, mirror-folded and ice-dyed. Electric blue rays, fire core, deep jewel tones. Statement piece for any room.</p>
-        <div class="product-foot">
-          <div class="product-price">$75<small>USD</small></div>
-          <a href="https://buy.stripe.com/4gM9AT7EG4L22y49C0eZ204" target="_blank" rel="noopener" class="buy-btn">Buy <i class="fas fa-arrow-right"></i></a>
-        </div>
-      </div>
-    </article>
-
-    <article class="product-card reveal" data-category="socks">
-      <div class="product-img-wrap contain">
-        <div class="product-badge">1 Of 1</div>
-        <img id="img-socks" src="socks.jpeg" alt="Hand-Dyed Knee-High Socks">
-      </div>
-      <div class="product-info">
-        <div class="product-cat">Accessories &middot; Knee-High</div>
-        <div class="product-name">Hand-Dyed Knee Socks</div>
-        <p class="product-desc">Long-rib knee socks in a soft pastel watercolor wash. Each pair completely unique. Festival-ready and made for the long haul.</p>
-        <div class="product-foot">
-          <div class="product-price">$10<small>USD</small></div>
-          <a href="https://buy.stripe.com/7sY5kD4sufpGc8E6pOeZ201" target="_blank" rel="noopener" class="buy-btn">Buy <i class="fas fa-arrow-right"></i></a>
-        </div>
-      </div>
-    </article>
-
-    <article class="product-card featured-card reveal" data-category="bedding">
-      <div class="product-img-wrap">
-        <div class="product-badge featured">Hero Piece</div>
-        <img id="img-bedspread" src="bedspread.jpeg" alt="Custom Tie-Dye Bedspread Set">
-      </div>
-      <div class="product-info">
-        <div class="product-cat">Custom &middot; Bedding Set</div>
-        <div class="product-name">The Sunburst<br>Bedspread Set</div>
-        <p class="product-desc">A weekend-long, hands-in-the-dye-bath commission. Cotton spread with matching pillow shams &mdash; concentric sunburst around a fire-orange core. Custom orders welcomed &mdash; your colors, your bed size, your vibe.</p>
-        <div class="product-foot">
-          <div class="product-price">$300<small>USD</small></div>
-          <a href="https://buy.stripe.com/14A8wP3oqa5ma0w15ueZ205" target="_blank" rel="noopener" class="buy-btn">Commission <i class="fas fa-arrow-right"></i></a>
-        </div>
-      </div>
-    </article>
-
+  <!-- Dynamic Product Grid -->
+  <div class="product-grid" id="product-grid">
+    <!-- JavaScript will populate this from products.js -->
   </div>
 </section>
 
@@ -284,6 +197,7 @@
   <div class="toast-text"><div class="title" id="toastTitle">Ready</div><p id="toastMsg">Done.</p></div>
 </div>
 
+<script src="products.js" defer></script>
 <script src="script.js" defer></script>
 </body>
 </html>
