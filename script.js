@@ -1,4 +1,4 @@
-// --- UI & NAVIGATION ---
+// --- 1. UI & NAVIGATION ---
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => { 
     if(navbar) navbar.classList.toggle('scrolled', window.scrollY > 60); 
@@ -15,20 +15,21 @@ if(hamburger && mobileMenu) {
 
 function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-// --- DYNAMIC SHOP ENGINE ---
+// --- 2. DYNAMIC SHOP ENGINE ---
 const container = document.getElementById('product-grid');
 
 function displayProducts(filterValue = 'all') {
     if (!container) return;
     container.innerHTML = ''; 
 
-    // Filter logic
+    // Filter the products array (from products.js)
     const filtered = products.filter(item => filterValue === 'all' || item.cat === filterValue);
 
     filtered.forEach(item => {
         const isSold = item.status === 'sold';
         const card = document.createElement('article');
-        // We add 'in' immediately so they aren't invisible
+        
+        // FIX: We add 'in' class immediately so they aren't hidden by the reveal animation
         card.className = `product-card reveal in ${isSold ? 'sold-out' : ''}`;
         
         card.innerHTML = `
@@ -56,31 +57,28 @@ function displayProducts(filterValue = 'all') {
 function goToStripe(id, category) {
     const baseLink = stripeLinks[category];
     if (baseLink) {
-        // Redirects to Stripe with the Item ID attached
         window.location.href = `${baseLink}?client_reference_id=${id}`;
-    } else {
-        console.error("No link found for category:", category);
     }
 }
 
-// --- FILTER BUTTON INITIALIZATION ---
-function initFilters() {
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            filterBtns.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            displayProducts(this.dataset.filter);
-        });
+// --- 3. FILTER BUTTONS ---
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        displayProducts(this.dataset.filter);
     });
-}
+});
 
-// --- INITIALIZE ON LOAD ---
+// --- 4. REVEAL ANIMATION (For static sections) ---
+const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+}, {threshold: 0.1});
+
+// --- 5. INITIALIZE ---
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof products !== 'undefined') {
         displayProducts();
-        initFilters();
-    } else {
-        console.error("Inventory data (products.js) not loaded!");
     }
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 });
