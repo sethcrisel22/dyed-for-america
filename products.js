@@ -1,6 +1,5 @@
 // products.js
 
-// --- 1. CATEGORY STRIPE PAYMENT LINKS ---
 const stripeLinks = {
   "shirt": "https://buy.stripe.com/cNi6oHf784L2goUdSgeZ202",
   "pants": "https://buy.stripe.com/eVq7sLaQSdhyc8E8xWeZ203",
@@ -10,8 +9,6 @@ const stripeLinks = {
   "hoodie": "https://buy.stripe.com/eVqcN58IK91ifkQ15ueZ207"
 };
 
-// --- 2. PRODUCT INVENTORY DATA ---
-// UPDATED: Image paths are now full URLs to ensure they load from any environment.
 const products = [
   { 
     id: "SH-001", 
@@ -30,7 +27,7 @@ const products = [
     size: "LG", 
     cat: "pants", 
     img: "https://i.postimg.cc/8chJg5p9/pants.jpeg", 
-    desc: "Comfortable and stylish joggers with a soft, cosmic blend of pastel tones. Ideal for lounging or adventure.",
+    desc: "Comfortable joggers with a soft, cosmic blend of pastel tones. Ideal for lounging or adventure.",
     status: "available" 
   },
   { 
@@ -60,7 +57,7 @@ const products = [
     size: "Queen", 
     cat: "bedding", 
     img: "https://i.postimg.cc/k4GzWcWw/bedspread.jpeg", 
-    desc: "Transform your bedroom with this radiant sunburst design. Includes queen-sized duvet and two pillow shams.",
+    desc: "Transform your bedroom with this radiant sunburst design. Includes queen-sized duvet and shams.",
     status: "available" 
   }
 ];
