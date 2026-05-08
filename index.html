@@ -89,9 +89,19 @@
     <p class="lede">Every piece is dyed, rinsed, and inspected by hand. No two will ever match.</p>
   </div>
 
-  <!-- Dynamic Product Grid -->
+  <div class="filter-bar reveal">
+    <button class="filter-btn active" data-filter="all">All Pieces</button>
+    <button class="filter-btn" data-filter="shirt">T-Shirts</button>
+    <button class="filter-btn" data-filter="pants">Pants</button>
+    <button class="filter-btn" data-filter="hoodie">Hoodies</button>
+    <button class="filter-btn" data-filter="tapestry">Tapestries</button>
+    <button class="filter-btn" data-filter="socks">Socks</button>
+    <button class="filter-btn" data-filter="bedding">Bedding</button>
+    <button class="filter-btn" data-filter="accessories">Pins</button>
+  </div>
+
   <div class="product-grid" id="product-grid">
-    <!-- JavaScript will populate this from products.js -->
+    <!-- Products injected by script.js -->
   </div>
 </section>
 
@@ -197,10 +207,7 @@
   <div class="toast-text"><div class="title" id="toastTitle">Ready</div><p id="toastMsg">Done.</p></div>
 </div>
 
-<script src="products.js" defer></script>
-<script src="script.js" defer></script>
+<script src="products.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
-<button class="filter-btn" data-filter="hoodies">Hoodies</button>
-<button class="filter-btn" data-filter="hats">Hats</button>
-<button class="filter-btn" data-filter="accessories">Pins</button>
