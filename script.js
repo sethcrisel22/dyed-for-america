@@ -1,10 +1,12 @@
-// --- UI LOGIC ---
+// --- UI & NAVIGATION ---
 const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => { if(navbar) navbar.classList.toggle('scrolled', window.scrollY > 60); });
+window.addEventListener('scroll', () => { 
+    if(navbar) navbar.classList.toggle('scrolled', window.scrollY > 60); 
+});
 
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
-if(hamburger) {
+if(hamburger && mobileMenu) {
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('active');
         mobileMenu.classList.toggle('active');
@@ -20,11 +22,13 @@ function displayProducts(filterValue = 'all') {
     if (!container) return;
     container.innerHTML = ''; 
 
+    // Filter logic
     const filtered = products.filter(item => filterValue === 'all' || item.cat === filterValue);
 
     filtered.forEach(item => {
         const isSold = item.status === 'sold';
         const card = document.createElement('article');
+        // We add 'in' immediately so they aren't invisible
         card.className = `product-card reveal in ${isSold ? 'sold-out' : ''}`;
         
         card.innerHTML = `
@@ -52,21 +56,31 @@ function displayProducts(filterValue = 'all') {
 function goToStripe(id, category) {
     const baseLink = stripeLinks[category];
     if (baseLink) {
-        // We still send the ID to Stripe so it shows up in your dashboard automatically
+        // Redirects to Stripe with the Item ID attached
         window.location.href = `${baseLink}?client_reference_id=${id}`;
     } else {
-        alert("Payment link for this category not found.");
+        console.error("No link found for category:", category);
     }
 }
 
-// --- FILTERING ---
-document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        displayProducts(this.dataset.filter);
+// --- FILTER BUTTON INITIALIZATION ---
+function initFilters() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            displayProducts(this.dataset.filter);
+        });
     });
-});
+}
 
-// Start Shop
-if (typeof products !== 'undefined') { displayProducts(); }
+// --- INITIALIZE ON LOAD ---
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof products !== 'undefined') {
+        displayProducts();
+        initFilters();
+    } else {
+        console.error("Inventory data (products.js) not loaded!");
+    }
+});
