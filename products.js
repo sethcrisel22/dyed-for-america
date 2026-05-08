@@ -1,3 +1,4 @@
+// --- CATEGORY PAY LINKS ---
 const stripeLinks = {
   "shirt": "https://buy.stripe.com/cNi6oHf784L2goUdSgeZ202",
   "pants": "https://buy.stripe.com/eVq7sLaQSdhyc8E8xWeZ203",
@@ -7,6 +8,7 @@ const stripeLinks = {
   "hoodie": "https://buy.stripe.com/eVqcN58IK91ifkQ15ueZ207"
 };
 
+// --- INVENTORY DATA ---
 const products = [
   { id: "SH-001", name: "Diagonal Rainbow Sweep", price: "25", size: "MED", cat: "shirt", img: "shirt.jpeg", status: "available" },
   { id: "PA-001", name: "Pastel Galaxy Joggers", price: "45", size: "LG", cat: "pants", img: "pants.jpeg", status: "available" },
