@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Dyed For America — Veteran-owned, hand-dyed premium apparel. Bold colors. True freedom.">
+<meta name="description" content="Dyed For America — Veteran-owned, hand-dyed premium apparel.">
 <meta name="theme-color" content="#0B1F3D">
 <title>Dyed For America | Bold Colors. True Freedom.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +16,7 @@
 
 <nav class="navbar" id="navbar">
   <div class="nav-brand" onclick="scrollToTop()">
-    <div class="nav-logo"><img src="Logo.png" alt="Captain Tie Dye logo"></div>
+    <div class="nav-logo"><img src="Logo.png" alt="Logo"></div>
     <div>
       <div class="nav-wordmark">Dyed <span class="accent">/</span> For <span class="accent">/</span> America</div>
       <span class="nav-tag">Bold colors. true freedom.</span>
@@ -26,7 +26,6 @@
     <a href="#shop" class="nav-link">Shop</a>
     <a href="#about" class="nav-link">Our Story</a>
     <a href="#mission" class="nav-link">Craft</a>
-    <a href="#testimonials" class="nav-link">Reviews</a>
     <a href="#contact" class="nav-link">Contact</a>
   </div>
   <a href="#shop" class="nav-cta">Shop Now</a>
@@ -41,7 +40,7 @@
 </div>
 
 <header class="hero">
-  <div class="hero-bg" id="hero-bg"></div>
+  <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <div class="hero-eyebrow">Veteran-Owned &middot; Hand-Dyed In The U.S.A.</div>
@@ -73,31 +72,26 @@
     <button class="filter-btn" data-filter="tapestry">Tapestries</button>
     <button class="filter-btn" data-filter="socks">Socks</button>
     <button class="filter-btn" data-filter="bedding">Bedding</button>
-    <button class="filter-btn" data-filter="accessories">Pins</button>
   </div>
 
   <div class="product-grid" id="product-grid">
-    <!-- JS will populate this -->
+    <!-- JavaScript builds the cards here -->
   </div>
 </section>
 
 <section class="about" id="about">
   <div class="about-flag-strip reveal">
-    <img src="flag.jpeg" alt="Dyed For America flag art">
+    <img src="flag.jpeg" alt="Flag Art">
   </div>
   <div class="about-grid">
     <div class="about-visual reveal">
-      <div class="about-img-frame">
-        <img src="Logo.png" alt="Captain Tie Dye">
-      </div>
+      <div class="about-img-frame"><img src="Logo.png" alt="Captain Tie Dye"></div>
       <div class="about-stamp">Est<span>2017</span>Keystone Lake</div>
     </div>
-    <div class="about-content reveal delay-1">
+    <div class="about-content reveal">
       <span class="eyebrow">Our Story</span>
       <h2>Born In A <em>Clawfoot</em> Tub</h2>
-      <p class="script">&ldquo;It started as a hobby. It became the work.&rdquo;</p>
-      <p>In 2017, Capt. Tie Dye hatched, fully grown, on the sandy shores of Keystone Lake, Oklahoma. CTD popped in with his top hat and pipe, his cape, and the long johns of many colors. With his trusty sidekicks, Rascal and Grenade, CTD set up camp in the festival scene, creating fractals, bleach, and reverse mandalas.</p>
-      <p>A small but dedicated following from the mid-west continued growing across the US and Canada. CTD takes pride in his humble beginnings and continues to create each one-of-a-kind piece with his own hands.</p>
+      <p>In 2017, Capt. Tie Dye hatched on the shores of Keystone Lake, Oklahoma. What started as a hobby became a mission to create one-of-a-kind pieces with his own hands.</p>
     </div>
   </div>
 </section>
@@ -105,53 +99,37 @@
 <section class="mission" id="mission">
   <div class="section-head reveal">
     <span class="eyebrow">The Craft</span>
-    <h2>Four <em>Promises</em>. Zero Compromise.</h2>
-    <div class="divider-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+    <h2>Four <em>Promises</em>.</h2>
   </div>
   <div class="mission-grid">
-    <div class="mission-card reveal"><div class="num">— 01 —</div><h3>Hand-Made</h3><p>Every fold, every dye bath done by hand in a shipping container in Oklahoma.</p></div>
-    <div class="mission-card reveal delay-1"><div class="num">— 02 —</div><h3>US Sourced</h3><p>Dyes, blanks, and supplies—all sourced inside the United States.</p></div>
-    <div class="mission-card reveal delay-2"><div class="num">— 03 —</div><h3>One Of One</h3><p>We do not produce "batches". Every piece is a unique fingerprint.</p></div>
-    <div class="mission-card reveal delay-3"><div class="num">— 04 —</div><h3>Veteran Owned</h3><p>Operated with discipline and pride.</p></div>
+    <div class="mission-card reveal"><h3>Hand-Made</h3><p>Every fold done by hand in Oklahoma.</p></div>
+    <div class="mission-card reveal"><h3>US Sourced</h3><p>Dyes and blanks sourced in the USA.</p></div>
+    <div class="mission-card reveal"><h3>One Of One</h3><p>Every piece is a unique fingerprint.</p></div>
+    <div class="mission-card reveal"><h3>Veteran Owned</h3><p>Operated with discipline and pride.</p></div>
   </div>
 </section>
 
 <section class="contact" id="contact">
-  <div class="section-head reveal">
-    <span class="eyebrow">Reach Out</span>
-    <h2>Let's <em>Build</em> Something</h2>
-  </div>
+  <div class="section-head reveal"><h2>Let's <em>Build</em> Something</h2></div>
   <div class="contact-grid">
-    <div class="contact-info reveal">
-      <h3>The Details</h3>
-      <p>Have a custom idea? Send a message directly to the vat.</p>
-      <div class="contact-methods">
-        <div class="method"><strong>Email:</strong> DyedForAmerica@Gmail.com</div>
-        <div class="method"><strong>Location:</strong> Keystone Lake, Oklahoma</div>
-      </div>
+    <div class="contact-info">
+      <p>Email: DyedForAmerica@Gmail.com</p>
+      <p>Location: Keystone Lake, Oklahoma</p>
     </div>
-    <div class="contact-form-wrap reveal delay-1">
-      <form id="contactForm" class="contact-form">
-        <div class="form-group"><input type="text" id="fname" placeholder="Your Name" required></div>
-        <div class="form-group"><input type="email" id="femail" placeholder="Your Email" required></div>
-        <div class="form-group"><input type="text" id="fsubject" placeholder="Subject" required></div>
-        <div class="form-group"><textarea id="fmessage" rows="5" placeholder="Message" required></textarea></div>
-        <button type="submit" class="btn btn-primary">Send Message</button>
-      </form>
-    </div>
+    <form id="contactForm" class="contact-form">
+      <input type="text" placeholder="Name" required>
+      <input type="email" placeholder="Email" required>
+      <textarea rows="4" placeholder="Message" required></textarea>
+      <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
   </div>
 </section>
 
 <footer class="footer">
   <div class="foot-bottom">
-    <p>&copy; 2026 Dyed For America. All pieces hand-dyed in the U.S.A.</p>
-    <span class="vet-mark"><i class="fas fa-medal"></i> Veteran Owned & Operated</span>
+    <p>&copy; 2026 Dyed For America. Veteran Owned & Operated.</p>
   </div>
 </footer>
-
-<div class="toast" id="toast">
-  <div class="toast-text"><div class="title" id="toastTitle">Ready</div><p id="toastMsg">Done.</p></div>
-</div>
 
 <script src="products.js"></script>
 <script src="script.js"></script>
