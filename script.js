@@ -1,96 +1,141 @@
-// --- 1. UI & NAVIGATION ---
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => { 
-    if(navbar) navbar.classList.toggle('scrolled', window.scrollY > 60); 
+// script.js
+
+// --- 1. CORE UI & NAVIGATION ---
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize Navbar scroll behavior
+    const navbar = document.getElementById('navbar');
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 60);
+        });
+    }
+
+    // Initialize Mobile Menu (Hamburger)
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+        // Close mobile menu when a link is clicked
+        mobileMenu.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+    }
+
+    // Initialize Shop Engine
+    if (typeof products !== 'undefined' && products.length > 0) {
+        displayProducts('all'); // Display all products on initial load
+        initFilters();
+    } else {
+        const productGrid = document.getElementById('product-grid');
+        if(productGrid) productGrid.innerHTML = '<p>No products available at this time. Please check back soon!</p>';
+        console.error("Product data (products.js) is missing or empty.");
+    }
+
+    // Initialize Scroll Animations for static content
+    const revealObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => {
+        // Do not apply observer to dynamically generated cards that already have 'in'
+        if (!el.closest('.product-card')) {
+            revealObserver.observe(el);
+        }
+    });
 });
 
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
-if(hamburger && mobileMenu) {
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        mobileMenu.classList.toggle('active');
-    });
-}
-
-function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-
 // --- 2. DYNAMIC SHOP ENGINE ---
-const container = document.getElementById('product-grid');
+const productGrid = document.getElementById('product-grid');
 
-function displayProducts(filterValue = 'all') {
-    if (!container) return;
-    container.innerHTML = ''; 
+/**
+ * Renders products into the product grid based on a filter.
+ * @param {string} filter - The category to display (e.g., 'shirt', 'all').
+ */
+function displayProducts(filter = 'all') {
+    if (!productGrid) return;
+    
+    productGrid.innerHTML = ''; // Clear existing products
 
-    // Filter the products array (defined in products.js)
-    const filtered = products.filter(item => filterValue === 'all' || item.cat === filterValue);
+    const filteredProducts = products.filter(product => filter === 'all' || product.cat === filter);
 
-    filtered.forEach(item => {
-        const isSold = item.status === 'sold';
+    if (filteredProducts.length === 0) {
+        productGrid.innerHTML = `<p style="text-align: center; grid-column: 1 / -1;">No products found in this category.</p>`;
+        return;
+    }
+
+    filteredProducts.forEach(product => {
+        const isSold = product.status === 'sold';
         const card = document.createElement('article');
         
-        // We add 'in' class immediately so they aren't hidden by the reveal animation
-        card.className = `product-card reveal in ${isSold ? 'sold-out' : ''}`;
-        
+        // Add 'in' class immediately to make dynamically generated cards visible.
+        card.className = `product-card reveal in`;
+
         card.innerHTML = `
             <div class="product-img-wrap">
-                ${isSold ? '<div class="product-badge featured" style="background:var(--red)">SOLD</div>' : '<div class="product-badge">1 OF 1</div>'}
-                <div class="product-badge sz">${item.size}</div>
-                <img src="${item.img}" alt="${item.name}" onerror="this.src='Logo.png'" style="${isSold ? 'filter: grayscale(1) opacity(0.4)' : ''}">
+                ${isSold 
+                    ? '<div class="product-badge featured">SOLD</div>' 
+                    : '<div class="product-badge">1 OF 1</div>'
+                }
+                <div class="product-badge sz">${product.size}</div>
+                <img src="${product.img}" alt="${product.name}" onerror="this.onerror=null;this.src='Logo.png';" style="${isSold ? 'filter: grayscale(1)' : ''}">
             </div>
             <div class="product-info">
-                <div class="product-cat">ID: #${item.id} &middot; ${item.cat.toUpperCase()}</div>
-                <div class="product-name">${item.name}</div>
+                <div class="product-cat">ID: #${product.id} &middot; ${product.cat.toUpperCase()}</div>
+                <h3 class="product-name">${product.name}</h3>
+                <p class="product-desc">${product.desc}</p>
                 <div class="product-foot">
-                    <div class="product-price">$${item.price}</div>
+                    <div class="product-price">$${product.price}</div>
                     ${isSold 
-                        ? '<button class="buy-btn" style="background:#666" disabled>SOLD OUT</button>' 
-                        : `<button onclick="goToStripe('${item.id}', '${item.cat}')" class="buy-btn">Buy <i class="fas fa-arrow-right"></i></button>`
+                        ? '<button class="buy-btn" disabled>SOLD OUT</button>' 
+                        : `<a href="#" onclick="goToStripe('${product.id}', '${product.cat}'); return false;" class="buy-btn">Buy Now <i class="fas fa-arrow-right"></i></a>`
                     }
                 </div>
             </div>
         `;
-        container.appendChild(card);
+        productGrid.appendChild(card);
     });
 }
 
+/**
+ * Redirects the user to the correct Stripe payment link with a reference ID.
+ * @param {string} id - The product ID.
+ * @param {string} category - The product category.
+ */
 function goToStripe(id, category) {
-    if (typeof stripeLinks !== 'undefined' && stripeLinks[category]) {
-        window.location.href = `${stripeLinks[category]}?client_reference_id=${id}`;
+    if (stripeLinks && stripeLinks[category]) {
+        const url = `${stripeLinks[category]}?client_reference_id=${id}`;
+        window.location.href = url;
     } else {
-        console.error("Stripe link missing for category:", category);
+        console.error(`Stripe link for category "${category}" not found.`);
+        alert('Sorry, there was an error processing this item. Please contact support.');
     }
 }
 
 // --- 3. FILTER BUTTON LOGIC ---
 function initFilters() {
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            filterBtns.forEach(b => b.classList.remove('active'));
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            filterButtons.forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
             displayProducts(this.dataset.filter);
         });
     });
 }
 
-// --- 4. REVEAL ANIMATION OBSERVER ---
-const revealObs = new IntersectionObserver(entries => {
-    entries.forEach(e => { 
-        if(e.isIntersecting) e.target.classList.add('in'); 
-    });
-}, { threshold: 0.1 });
-
-// --- 5. INITIALIZE EVERYTHING ---
-document.addEventListener('DOMContentLoaded', () => {
-    // Check if data is loaded
-    if (typeof products !== 'undefined') {
-        displayProducts();
-        initFilters();
-    } else {
-        console.error("Inventory data (products.js) not found!");
-    }
-
-    // Start animations for static sections
-    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-});
+/**
+ * Utility function to scroll to the top of the page.
+ */
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
