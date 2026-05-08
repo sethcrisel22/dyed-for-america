@@ -22,14 +22,13 @@ function displayProducts(filterValue = 'all') {
     if (!container) return;
     container.innerHTML = ''; 
 
-    // Filter the products array (from products.js)
     const filtered = products.filter(item => filterValue === 'all' || item.cat === filterValue);
 
     filtered.forEach(item => {
         const isSold = item.status === 'sold';
         const card = document.createElement('article');
         
-        // FIX: We add 'in' class immediately so they aren't hidden by the reveal animation
+        // We add 'in' class immediately so they aren't hidden by the reveal animation
         card.className = `product-card reveal in ${isSold ? 'sold-out' : ''}`;
         
         card.innerHTML = `
