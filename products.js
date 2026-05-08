@@ -1,7 +1,6 @@
 // products.js
 
 // --- 1. CATEGORY STRIPE PAYMENT LINKS ---
-// Each category has a unique Stripe link for streamlined checkout.
 const stripeLinks = {
   "shirt": "https://buy.stripe.com/cNi6oHf784L2goUdSgeZ202",
   "pants": "https://buy.stripe.com/eVq7sLaQSdhyc8E8xWeZ203",
@@ -12,9 +11,7 @@ const stripeLinks = {
 };
 
 // --- 2. PRODUCT INVENTORY DATA ---
-// The single source of truth for all products displayed on the site.
-// 'cat' must match a filter button's 'data-filter' value.
-// 'img' must be the exact filename, ending in .jpeg.
+// UPDATED: Image paths are now full URLs to ensure they load from any environment.
 const products = [
   { 
     id: "SH-001", 
@@ -22,7 +19,7 @@ const products = [
     price: "25", 
     size: "MED", 
     cat: "shirt", 
-    img: "shirt.jpeg", 
+    img: "https://i.postimg.cc/5N4M4FkW/shirt.jpeg", 
     desc: "A classic crewneck tee featuring a vibrant, diagonal burst of color. Perfect for standing out.",
     status: "available" 
   },
@@ -32,7 +29,7 @@ const products = [
     price: "45", 
     size: "LG", 
     cat: "pants", 
-    img: "pants.jpeg", 
+    img: "https://i.postimg.cc/8chJg5p9/pants.jpeg", 
     desc: "Comfortable and stylish joggers with a soft, cosmic blend of pastel tones. Ideal for lounging or adventure.",
     status: "available" 
   },
@@ -42,7 +39,7 @@ const products = [
     price: "75", 
     size: "Giant", 
     cat: "tapestry", 
-    img: "tapestry.jpeg", 
+    img: "https://i.postimg.cc/L8yCgS2T/tapestry.jpeg", 
     desc: "A massive, electrifying peace sign mandala. The ultimate statement piece for any wall or gathering.",
     status: "available" 
   },
@@ -52,7 +49,7 @@ const products = [
     price: "10", 
     size: "OS", 
     cat: "socks", 
-    img: "socks.jpeg", 
+    img: "https://i.postimg.cc/d1yTKMf4/socks.jpeg", 
     desc: "A subtle wash of watercolor hues on comfortable, durable knee-high socks. One size fits most.",
     status: "available" 
   },
@@ -62,7 +59,7 @@ const products = [
     price: "300", 
     size: "Queen", 
     cat: "bedding", 
-    img: "bedspread.jpeg", 
+    img: "https://i.postimg.cc/k4GzWcWw/bedspread.jpeg", 
     desc: "Transform your bedroom with this radiant sunburst design. Includes queen-sized duvet and two pillow shams.",
     status: "available" 
   }
