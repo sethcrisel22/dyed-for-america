@@ -9,7 +9,6 @@ const stripeLinks = {
 };
 
 // --- INVENTORY DATA ---
-// NOTE: Make sure the 'img' filename matches your GitHub file EXACTLY (.jpeg vs .jpg)
 const products = [
   { 
     id: "SH-001", 
