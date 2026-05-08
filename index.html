@@ -3,59 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Dyed For America — Veteran-owned, hand-dyed premium apparel. Bold colors. True freedom.">
-    <meta name="theme-color" content="#0B1F3D">
-    <title>Dyed For America | Bold Colors. True Freedom.</title>
-    <link rel="icon" href="https://i.postimg.cc/P5g42p5w/Logo.png" type="image/png">
+    <title>Dyed For America | Diagnostic Test</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    
+    <!-- ALL CSS IS NOW EMBEDDED DIRECTLY IN THIS FILE -->
+    <style>
+        :root{--navy:#0B1F3D;--navy-deep:#061429;--red:#C41E3A;--gold:#C8922A;--gold-light:#E0AE45;--cream:#F7F2E8;--cream-warm:#EFE8D8;--bone:#FFFFFF;--line:rgba(11,31,61,0.12);--shadow-sm:0 2px 8px rgba(11,31,61,0.08);--shadow-md:0 12px 32px rgba(11,31,61,0.14);--shadow-lg:0 28px 64px rgba(11,31,61,0.22);--ease:cubic-bezier(0.22,1,0.36,1);}
+        *{margin:0;padding:0;box-sizing:border-box;}
+        html{scroll-behavior:smooth;}
+        body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--navy);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+        section{scroll-margin-top:90px;}
+        img{display:block;max-width:100%;}
+        a{color:inherit;text-decoration:none;}
+        button{font-family:inherit;cursor:pointer;border:none;background:none;}
+        h1,h2,h3,h4{font-family:'Teko',sans-serif;font-weight:600;line-height:0.95;letter-spacing:0.01em;text-transform:uppercase;}
+        .navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(11,31,61,0.6);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);border-bottom:1px solid rgba(200,146,42,0.18);transition:all 0.4s var(--ease);}
+        .navbar.scrolled{background:rgba(11,31,61,0.94);padding:10px 40px;box-shadow:0 4px 24px rgba(0,0,0,0.3);}
+        .nav-brand{display:flex;align-items:center;gap:14px;cursor:pointer;}
+        .nav-logo{width:56px;height:56px;border-radius:50%;background:var(--cream);border:2px solid var(--gold);overflow:hidden;flex-shrink:0;transition:transform 0.4s var(--ease);}
+        .nav-brand:hover .nav-logo{transform:rotate(-8deg) scale(1.05);}
+        .nav-logo img{width:100%;height:100%;object-fit:cover;}
+        .nav-wordmark{font-family:'Teko',sans-serif;font-weight:700;font-size:22px;color:var(--cream);line-height:1;letter-spacing:0.04em;text-transform:uppercase;}
+        .nav-wordmark .accent{color:var(--gold);}
+        .nav-tag{font-family:'Caveat',cursive;font-size:14px;color:var(--gold-light);line-height:1;margin-top:4px;display:block;}
+        .nav-links{display:flex;align-items:center;gap:38px;}
+        .nav-link{color:var(--cream);font-size:13px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;position:relative;padding:6px 0;transition:color 0.3s ease;}
+        .nav-link::after{content:'';position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--gold);transition:width 0.3s var(--ease);}
+        .nav-link:hover{color:var(--gold-light);}
+        .nav-link:hover::after{width:100%;}
+        .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--navy-deep);}
+        .hero-bg{position:absolute;inset:0;background-image: url('https://i.postimg.cc/W3B9tYfB/flag.jpeg');background-size:cover;background-position:center;filter:contrast(1.08) saturate(1.15) brightness(0.6);transform:scale(1.05);}
+        .hero-overlay{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(11,31,61,0.5) 0%,rgba(6,20,41,0.92) 80%),linear-gradient(180deg,rgba(11,31,61,0.55) 0%,rgba(6,20,41,0.88) 100%);}
+        .hero-content{position:relative;z-index:2;text-align:center;padding:160px 30px 100px;max-width:1200px;margin:0 auto;width:100%;}
+        .hero-eyebrow{display:inline-flex;align-items:center;gap:14px;color:var(--gold);font-size:12px;letter-spacing:0.32em;margin-bottom:32px;}
+        .hero-eyebrow::before,.hero-eyebrow::after{content:'';width:40px;height:1px;background:var(--gold);}
+        .hero h1{font-size:clamp(64px,12vw,192px);color:var(--cream);line-height:0.85;margin-bottom:22px;}
+        .hero-script{font-family:'Caveat',cursive;font-weight:700;font-size:clamp(28px,4vw,44px);color:var(--gold-light);margin:14px 0 44px;}
+        .section-head{text-align:center;max-width:800px;margin:0 auto 80px;padding:0 20px;}
+        .section-head .eyebrow{font-size:11px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:var(--red);margin-bottom:18px;display:block;}
+        .section-head h2{font-size:clamp(48px,7vw,96px);color:var(--navy);margin-bottom:22px;line-height:0.9;}
+        .section-head h2 em{font-style:italic;color:var(--red);font-weight:500;}
+        .section-head .lede{font-family:'Caveat',cursive;font-size:24px;color:var(--navy);opacity:0.85;margin-top:8px;}
+        .divider-stars{display:flex;justify-content:center;align-items:center;gap:16px;margin:24px 0 8px;color:var(--gold);}
+        .divider-stars::before,.divider-stars::after{content:'';width:80px;height:1px;background:var(--gold);}
+        .divider-stars i{font-size:12px;}
+        .shop{padding:130px 40px;background:var(--cream);position:relative;}
+        .filter-bar{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:60px;}
+        .filter-btn{padding:12px 22px;font-family:'Teko',sans-serif;font-size:16px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;background:transparent;color:var(--navy);border:1px solid var(--line);transition:all 0.3s var(--ease);}
+        .filter-btn:hover{border-color:var(--navy);}
+        .filter-btn.active{background:var(--navy);color:var(--cream);border-color:var(--navy);}
+        .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:32px;max-width:1300px;margin:0 auto;}
+        .product-card{background:var(--bone);position:relative;overflow:hidden;transition:all 0.5s var(--ease);border:1px solid var(--line);display:flex;flex-direction:column;}
+        .product-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:var(--gold);}
+        .product-img-wrap{position:relative;aspect-ratio:4/5;overflow:hidden;}
+        .product-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.8s var(--ease);}
+        .product-card:hover .product-img-wrap img{transform:scale(1.05);}
+        .product-badge{position:absolute;top:14px;left:14px;background:var(--navy);color:var(--cream);padding:7px 13px;font-family:'Teko',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;z-index:2;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
+        .product-badge.sz{background:var(--gold);color:var(--navy);left:auto;right:14px;}
+        .product-badge.featured{background:var(--red);}
+        .product-info{padding:24px 24px 28px;display:flex;flex-direction:column;flex:1;}
+        .product-cat{font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:10px;}
+        .product-name{font-family:'Teko',sans-serif;font-size:28px;font-weight:600;letter-spacing:0.02em;text-transform:uppercase;color:var(--navy);line-height:1;margin-bottom:12px;}
+        .product-desc{font-size:13px;color:rgba(11,31,61,0.7);line-height:1.6;margin-bottom:18px;flex:1;}
+        .product-foot{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--line);}
+        .product-price{font-family:'Teko',sans-serif;font-size:32px;font-weight:700;color:var(--navy);line-height:1;}
+        .buy-btn{display:inline-flex;align-items:center;gap:10px;padding:13px 20px;background:var(--red);color:var(--cream);font-family:'Teko',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;transition:all 0.3s var(--ease);}
+        .buy-btn:hover{background:var(--navy);gap:14px;}
+        .buy-btn:disabled{background:#666;cursor:not-allowed;}
+        .about{padding:0 0 140px;background:var(--cream);position:relative;overflow:hidden;}
+        .about-flag-strip{width:100%;height:240px;overflow:hidden;position:relative;}
+        .about-flag-strip img{width:100%;height:100%;object-fit:cover;object-position:center 45%;filter:brightness(0.82);}
+        .about-flag-strip::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to bottom,transparent,var(--cream));}
+        .about-grid{max-width:1200px;margin:60px auto 0;display:grid;grid-template-columns:1fr 1.3fr;gap:90px;align-items:center;padding:0 40px;}
+        .about-visual{position:relative;}
+        .about-img-frame{position:relative;aspect-ratio:1;background:var(--gold);transform:rotate(-3deg);transition:transform 0.6s var(--ease);}
+        .about-img-frame:hover{transform:rotate(0);}
+        .about-img-frame img{width:100%;height:100%;object-fit:cover;transform:rotate(3deg);}
+        .about-content .eyebrow{color:var(--red);font-size:11px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;display:block;margin-bottom:20px;}
+        .about-content h2{font-size:clamp(48px,6vw,84px);color:var(--navy);line-height:0.92;margin-bottom:32px;}
+        .about-content p{font-size:16px;line-height:1.8;color:rgba(11,31,61,0.85);margin-bottom:20px;}
+        .mission{padding:140px 40px;background:var(--navy);color:var(--cream);position:relative;overflow:hidden;}
+        .mission .section-head h2{color:var(--cream);}.mission .section-head .eyebrow{color:var(--gold);}
+        .mission-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;}
+        .mission-card{padding:50px 28px;background:var(--navy-deep);border:1px solid rgba(200,146,42,0.15);text-align:center;transition:all 0.4s var(--ease);}
+        .mission-icon{width:64px;height:64px;margin:0 auto 22px;display:grid;place-items:center;border:1px solid var(--gold);border-radius:50%;color:var(--gold);font-size:22px;}
+        .mission-card h3{font-size:24px;color:var(--cream);margin-bottom:14px;letter-spacing:0.04em;}
+        .mission-card p{font-size:14px;line-height:1.7;color:rgba(247,242,232,0.7);}
+        .contact{padding:140px 40px;background:var(--navy);color:var(--cream);position:relative;overflow:hidden;}
+        .contact .section-head h2{color:var(--cream);}.contact .section-head .eyebrow{color:var(--gold);}
+        .contact-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:80px;position:relative;z-index:2;}
+        .contact-info h3{font-family:'Teko',sans-serif;font-size:34px;color:var(--gold);margin-bottom:28px;text-transform:uppercase;}
+        .contact-list{list-style:none;margin-bottom:36px;}
+        .contact-list li{display:flex;align-items:flex-start;gap:18px;padding:18px 0;border-bottom:1px solid rgba(200,146,42,0.18);}
+        .contact-icon{width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--gold);border-radius:50%;color:var(--gold);font-size:16px;flex-shrink:0;}
+        .contact-meta .label{font-family:'Teko',sans-serif;font-size:12px;letter-spacing:0.24em;text-transform:uppercase;color:var(--gold-light);margin-bottom:6px;}
+        .contact-meta .val{font-size:15px;color:var(--cream);font-weight:500;}
+        .contact-form{background:var(--navy-deep);padding:48px 44px;border:1px solid rgba(200,146,42,0.18);}
+        .form-group{margin-bottom:20px;}
+        .form-group label{display:block;font-family:'Teko',sans-serif;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold-light);margin-bottom:9px;}
+        .form-group input,.form-group textarea{width:100%;padding:13px 15px;background:rgba(247,242,232,0.04);border:1px solid rgba(200,146,42,0.2);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:15px;}
+        .submit-btn{width:100%;padding:17px;background:var(--red);color:var(--cream);font-family:'Teko',sans-serif;font-size:18px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;border:2px solid var(--red);}
+        .footer{background:var(--navy-deep);color:var(--cream);padding:80px 40px 28px;border-top:3px solid var(--gold);}
+        .foot-bottom{max-width:1200px;margin:0 auto;padding-top:26px;border-top:1px solid rgba(200,146,42,0.2);display:flex;justify-content:space-between;align-items:center;}
+        .foot-bottom p,.foot-bottom a{font-size:12px;color:rgba(247,242,232,0.5);letter-spacing:0.1em;}
+        .vet-mark{display:inline-flex;align-items:center;gap:8px;color:var(--gold);font-family:'Teko',sans-serif;letter-spacing:0.2em;text-transform:uppercase;font-size:13px;}
+        .reveal{opacity:0;transform:translateY(36px);transition:opacity 0.9s var(--ease),transform 0.9s var(--ease);}
+        .reveal.in{opacity:1;transform:translateY(0);}
+        @media(max-width:900px){.nav-links{display:none;}.about-grid, .contact-grid, .mission-grid{grid-template-columns:1fr;}}
+    </style>
 </head>
 <body>
 
 <nav class="navbar" id="navbar">
-    <div class="nav-brand" onclick="scrollToTop()">
-        <div class="nav-logo"><img src="https://i.postimg.cc/P5g42p5w/Logo.png" alt="Dyed For America Logo"></div>
+    <div class="nav-brand">
+        <div class="nav-logo"><img src="https://i.postimg.cc/P5g42p5w/Logo.png" alt="Logo"></div>
         <div>
             <div class="nav-wordmark">Dyed <span class="accent">/</span> For <span class="accent">/</span> America</div>
-            <span class="nav-tag">Bold colors. true freedom.</span>
         </div>
     </div>
-    <div class="nav-links">
-        <a href="#shop" class="nav-link">Shop</a>
-        <a href="#about" class="nav-link">Our Story</a>
-        <a href="#mission" class="nav-link">Our Craft</a>
-        <a href="#contact" class="nav-link">Contact</a>
-    </div>
-    <a href="#shop" class="nav-cta">Shop Now</a>
-    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
-
-<div class="mobile-menu" id="mobileMenu">
-    <a href="#shop" class="nav-link">Shop</a>
-    <a href="#about" class="nav-link">Our Story</a>
-    <a href="#mission" class="nav-link">Our Craft</a>
-    <a href="#contact" class="nav-link">Contact</a>
-</div>
 
 <header class="hero">
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
-    <div class="hero-grain"></div>
     <div class="hero-content">
         <div class="hero-eyebrow">Veteran-Owned &middot; Hand-Dyed In The U.S.A.</div>
-        <h1>
-            <span class="line"><span class="line-inner">Dyed</span></span>
-            <span class="line"><span class="line-inner">For</span></span>
-            <span class="line"><span class="line-inner">America</span></span>
-        </h1>
+        <h1>Dyed For America</h1>
         <div class="hero-script">Bold colors. True freedom.</div>
-        <div class="hero-actions">
-            <a href="#shop" class="btn btn-primary">Shop The Collection <i class="fas fa-arrow-right"></i></a>
-            <a href="#about" class="btn btn-ghost">Our Story</a>
-        </div>
     </div>
 </header>
 
@@ -68,7 +145,7 @@
             <p class="lede">Every piece is a unique work of art, dyed by hand in Oklahoma.</p>
         </div>
 
-        <div class="filter-bar reveal" id="filter-bar">
+        <div class="filter-bar" id="filter-bar">
             <button class="filter-btn active" data-filter="all">All Pieces</button>
             <button class="filter-btn" data-filter="shirt">T-Shirts</button>
             <button class="filter-btn" data-filter="pants">Pants</button>
@@ -79,8 +156,8 @@
         </div>
 
         <div class="product-grid" id="product-grid">
-            <!-- This message will appear if the script fails -->
-            <p style="text-align: center; grid-column: 1 / -1;">Loading products...</p>
+            <!-- JS will render products here. If this text stays, JS is broken. -->
+            <p style="grid-column: 1 / -1; text-align: center;">Initializing Shop...</p>
         </div>
     </section>
 
@@ -91,57 +168,12 @@
         <div class="about-grid">
             <div class="about-visual reveal">
                 <div class="about-img-frame"><img src="https://i.postimg.cc/P5g42p5w/Logo.png" alt="Captain Tie Dye"></div>
-                <div class="about-stamp">Est<span>2017</span>Keystone Lake</div>
             </div>
             <div class="about-content reveal">
                 <span class="eyebrow">Our Story</span>
                 <h2>Born In A <em>Clawfoot</em> Tub</h2>
-                <p class="script">&ldquo;It started as a hobby. It became the work.&rdquo;</p>
                 <p>In 2017, Capt. Tie Dye hatched on the shores of Keystone Lake, Oklahoma. When family medical issues arose, what started as a hobby began to take center stage. Pot ash, twine, boiling water and ice combined in the clawfoot tub of a converted shipping container to meet financial needs.</p>
             </div>
-        </div>
-    </section>
-
-    <section class="mission" id="mission">
-        <div class="section-head reveal">
-            <span class="eyebrow">The Craft</span>
-            <h2>Four <em>Promises</em>. Zero Compromise.</h2>
-        </div>
-        <div class="mission-grid">
-            <div class="mission-card reveal"><div class="mission-icon"><i class="fas fa-hands-holding"></i></div><h3>Hand-Made</h3><p>Every fold, dye bath, and rinse is done by hand in Oklahoma.</p></div>
-            <div class="mission-card reveal"><div class="mission-icon"><i class="fas fa-flag-usa"></i></div><h3>US Sourced</h3><p>Dyes, blanks, string, and supplies — all sourced inside the United States.</p></div>
-            <div class="mission-card reveal"><div class="mission-icon"><i class="fas fa-fingerprint"></i></div><h3>One Of One</h3><p>Ice dye and gravity ensure every piece is a unique fingerprint.</p></div>
-            <div class="mission-card reveal"><div class="mission-icon"><i class="fas fa-medal"></i></div><h3>Veteran Owned</h3><p>Operated with the exact same attention to detail and discipline required in uniform.</p></div>
-        </div>
-    </section>
-
-    <section class="contact" id="contact">
-        <div class="section-head reveal">
-            <span class="eyebrow">Get In Touch</span>
-            <h2>Custom Work & <em>Questions</em></h2>
-        </div>
-        <div class="contact-grid">
-            <div class="contact-info reveal">
-                <h3>Contact Details</h3>
-                <ul class="contact-list">
-                    <li>
-                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                        <div class="contact-meta"><div class="label">Email</div><div class="val"><a href="mailto:DyedForAmerica@Gmail.com">DyedForAmerica@Gmail.com</a></div></div>
-                    </li>
-                    <li>
-                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <div class="contact-meta"><div class="label">Location</div><div class="val">Keystone Lake, Oklahoma</div></div>
-                    </li>
-                </ul>
-            </div>
-            <form id="contactForm" class="contact-form reveal">
-                <div class="form-row">
-                    <div class="form-group"><label for="fname">Full Name</label><input type="text" id="fname" name="name" required></div>
-                    <div class="form-group"><label for="femail">Email Address</label><input type="email" id="femail" name="email" required></div>
-                </div>
-                <div class="form-group"><label for="fmessage">Message</label><textarea id="fmessage" name="message" required></textarea></div>
-                <button type="submit" class="submit-btn">Send Message <i class="fas fa-paper-plane"></i></button>
-            </form>
         </div>
     </section>
 </main>
@@ -153,9 +185,118 @@
     </div>
 </footer>
 
-<!-- DEFER ensures scripts run after the HTML is ready, in the correct order -->
-<script src="products.js" defer></script>
-<script src="script.js" defer></script>
+<!-- ALL JAVASCRIPT IS NOW EMBEDDED DIRECTLY IN THIS FILE -->
+<script>
+// --- BLOCK 1: PRODUCT DATA ---
+// Normally in products.js
+const stripeLinks = {
+  "shirt": "https://buy.stripe.com/cNi6oHf784L2goUdSgeZ202",
+  "pants": "https://buy.stripe.com/eVq7sLaQSdhyc8E8xWeZ203",
+  "socks": "https://buy.stripe.com/7sY5kD4sufpGc8E6pOeZ201",
+  "tapestry": "https://buy.stripe.com/4gM9AT7EG4L22y49C0eZ204",
+  "bedding": "https://buy.stripe.com/14A8wP3oqa5ma0w15ueZ205",
+  "hoodie": "https://buy.stripe.com/eVqcN58IK91ifkQ15ueZ207"
+};
+
+const products = [
+  { id: "SH-001", name: "Diagonal Rainbow Sweep", price: "25", size: "MED", cat: "shirt", img: "https://i.postimg.cc/5N4M4FkW/shirt.jpeg", desc: "A classic crewneck tee featuring a vibrant, diagonal burst of color.", status: "available" },
+  { id: "PA-001", name: "Pastel Galaxy Joggers", price: "45", size: "LG", cat: "pants", img: "https://i.postimg.cc/8chJg5p9/pants.jpeg", desc: "Comfortable joggers with a soft, cosmic blend of pastel tones.", status: "available" },
+  { id: "TAP-001", name: "Electric Peace Mandala", price: "75", size: "Giant", cat: "tapestry", img: "https://i.postimg.cc/L8yCgS2T/tapestry.jpeg", desc: "A massive, electrifying peace sign mandala. The ultimate statement piece.", status: "available" },
+  { id: "SK-001", name: "Watercolor Knee Highs", price: "10", size: "OS", cat: "socks", img: "https://i.postimg.cc/d1yTKMf4/socks.jpeg", desc: "A subtle wash of watercolor hues on comfortable knee-high socks.", status: "available" },
+  { id: "BD-001", name: "Sunburst Bedspread Set", price: "300", size: "Queen", cat: "bedding", img: "https://i.postimg.cc/k4GzWcWw/bedspread.jpeg", desc: "Transform your bedroom with this radiant sunburst design.", status: "available" }
+];
+
+// --- BLOCK 2: SITE ENGINE ---
+// Normally in script.js
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM Content Loaded. Starting application.");
+    
+    const productGrid = document.getElementById('product-grid');
+    const filterBar = document.getElementById('filter-bar');
+
+    // --- Safety Checks ---
+    if (!productGrid || !filterBar) {
+        console.error("CRITICAL: Missing product-grid or filter-bar element.");
+        return;
+    }
+    if (typeof products === 'undefined' || !Array.isArray(products)) {
+        console.error("CRITICAL: Product data is missing or not an array.");
+        productGrid.innerHTML = "<p>Error: Product data could not be loaded.</p>";
+        return;
+    }
+
+    // --- Main Rendering Function ---
+    const renderProducts = (filter = 'all') => {
+        console.log(`Rendering products with filter: ${filter}`);
+        const filteredProducts = products.filter(p => filter === 'all' || p.cat === filter);
+        
+        productGrid.innerHTML = ''; // Clear the grid
+
+        if (filteredProducts.length === 0) {
+            productGrid.innerHTML = `<p style="grid-column: 1 / -1; text-align: center;">No products in this category.</p>`;
+            return;
+        }
+
+        filteredProducts.forEach(product => {
+            const isSold = product.status === 'sold';
+            const cardHTML = `
+                <div class="product-card reveal in">
+                    <div class="product-img-wrap">
+                        ${isSold ? '<div class="product-badge featured">SOLD</div>' : '<div class="product-badge">1 OF 1</div>'}
+                        <div class="product-badge sz">${product.size}</div>
+                        <img src="${product.img}" alt="${product.name}" onerror="this.style.display='none'">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-cat">ID: #${product.id} &middot; ${product.cat.toUpperCase()}</div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-desc">${product.desc}</p>
+                        <div class="product-foot">
+                            <div class="product-price">$${product.price}</div>
+                            <button class="buy-btn" data-id="${product.id}" data-cat="${product.cat}" ${isSold ? 'disabled' : ''}>
+                                ${isSold ? 'SOLD OUT' : 'Buy Now <i class="fas fa-arrow-right"></i>'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            productGrid.insertAdjacentHTML('beforeend', cardHTML);
+        });
+        console.log(`Rendered ${filteredProducts.length} products successfully.`);
+    };
+
+    // --- Event Listeners ---
+    filterBar.addEventListener('click', (e) => {
+        if (e.target.matches('.filter-btn')) {
+            filterBar.querySelector('.active').classList.remove('active');
+            e.target.classList.add('active');
+            renderProducts(e.target.dataset.filter);
+        }
+    });
+
+    productGrid.addEventListener('click', (e) => {
+        const buyButton = e.target.closest('.buy-btn:not(:disabled)');
+        if (buyButton) {
+            const { id, cat } = buyButton.dataset;
+            if (stripeLinks[cat]) {
+                window.location.href = `${stripeLinks[cat]}?client_reference_id=${id}`;
+            } else {
+                console.error(`No Stripe link for category: ${cat}`);
+            }
+        }
+    });
+
+    // --- Initial Load ---
+    renderProducts('all');
+
+    // --- Scroll Animations for static content ---
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('in');
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal:not(.product-card)').forEach(el => revealObserver.observe(el));
+});
+</script>
 
 </body>
 </html>
