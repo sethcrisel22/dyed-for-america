@@ -1,4 +1,5 @@
-// --- CATEGORY PAY LINKS ---
+// --- 1. CATEGORY PAY LINKS ---
+// These links are used when a customer clicks "Buy" based on the item's category.
 const stripeLinks = {
   "shirt": "https://buy.stripe.com/cNi6oHf784L2goUdSgeZ202",
   "pants": "https://buy.stripe.com/eVq7sLaQSdhyc8E8xWeZ203",
@@ -8,11 +9,54 @@ const stripeLinks = {
   "hoodie": "https://buy.stripe.com/eVqcN58IK91ifkQ15ueZ207"
 };
 
-// --- INVENTORY DATA ---
+// --- 2. PRODUCT INVENTORY ---
+// id: Must be unique for every item.
+// cat: Must match the 'data-filter' in index.html (shirt, pants, hoodie, tapestry, socks, bedding).
+// img: Must match the filename on GitHub EXACTLY (including .jpeg vs .jpg).
 const products = [
-  { id: "SH-001", name: "Diagonal Rainbow Sweep", price: "25", size: "MED", cat: "shirt", img: "shirt.jpeg", status: "available" },
-  { id: "PA-001", name: "Pastel Galaxy Joggers", price: "45", size: "LG", cat: "pants", img: "pants.jpeg", status: "available" },
-  { id: "TAP-001", name: "Electric Peace Mandala", price: "75", size: "Giant", cat: "tapestry", img: "tapestry.jpeg", status: "available" },
-  { id: "SK-001", name: "Watercolor Knee Highs", price: "10", size: "OS", cat: "socks", img: "socks.jpeg", status: "available" },
-  { id: "BD-001", name: "Sunburst Bedspread Set", price: "300", size: "Queen", cat: "bedding", img: "bedspread.jpeg", status: "available" }
+  { 
+    id: "SH-001", 
+    name: "Diagonal Rainbow Sweep", 
+    price: "25", 
+    size: "MED", 
+    cat: "shirt", 
+    img: "shirt.jpeg", 
+    status: "available" 
+  },
+  { 
+    id: "PA-001", 
+    name: "Pastel Galaxy Joggers", 
+    price: "45", 
+    size: "LG", 
+    cat: "pants", 
+    img: "pants.jpeg", 
+    status: "available" 
+  },
+  { 
+    id: "TAP-001", 
+    name: "Electric Peace Mandala", 
+    price: "75", 
+    size: "Giant", 
+    cat: "tapestry", 
+    img: "tapestry.jpeg", 
+    status: "available" 
+  },
+  { 
+    id: "SK-001", 
+    name: "Watercolor Knee Highs", 
+    price: "10", 
+    size: "OS", 
+    cat: "socks", 
+    img: "socks.jpeg", 
+    status: "available" 
+  },
+  { 
+    id: "BD-001", 
+    name: "Sunburst Bedspread Set", 
+    price: "300", 
+    size: "Queen", 
+    cat: "bedding", 
+    img: "bedspread.jpeg", 
+    status: "available" 
+  }
 ];
