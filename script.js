@@ -2,7 +2,6 @@
 
 // --- 1. CORE UI & NAVIGATION ---
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize Navbar scroll behavior
     const navbar = document.getElementById('navbar');
     if (navbar) {
         window.addEventListener('scroll', () => {
@@ -10,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Initialize Mobile Menu (Hamburger)
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     if (hamburger && mobileMenu) {
@@ -18,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
             hamburger.classList.toggle('active');
             mobileMenu.classList.toggle('active');
         });
-        // Close mobile menu when a link is clicked
         mobileMenu.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
@@ -27,9 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Initialize Shop Engine
     if (typeof products !== 'undefined' && products.length > 0) {
-        displayProducts('all'); // Display all products on initial load
+        displayProducts('all');
         initFilters();
     } else {
         const productGrid = document.getElementById('product-grid');
@@ -37,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("Product data (products.js) is missing or empty.");
     }
 
-    // Initialize Scroll Animations for static content
     const revealObserver = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -46,25 +41,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.reveal').forEach(el => {
-        // Do not apply observer to dynamically generated cards that already have 'in'
-        if (!el.closest('.product-card')) {
-            revealObserver.observe(el);
-        }
+    document.querySelectorAll('.reveal:not(.product-card)').forEach(el => {
+        revealObserver.observe(el);
     });
 });
 
 // --- 2. DYNAMIC SHOP ENGINE ---
 const productGrid = document.getElementById('product-grid');
 
-/**
- * Renders products into the product grid based on a filter.
- * @param {string} filter - The category to display (e.g., 'shirt', 'all').
- */
 function displayProducts(filter = 'all') {
     if (!productGrid) return;
     
-    productGrid.innerHTML = ''; // Clear existing products
+    productGrid.innerHTML = ''; 
 
     const filteredProducts = products.filter(product => filter === 'all' || product.cat === filter);
 
@@ -76,18 +64,14 @@ function displayProducts(filter = 'all') {
     filteredProducts.forEach(product => {
         const isSold = product.status === 'sold';
         const card = document.createElement('article');
-        
-        // Add 'in' class immediately to make dynamically generated cards visible.
         card.className = `product-card reveal in`;
 
+        // UPDATED: The onerror fallback now points to the public URL for the logo.
         card.innerHTML = `
             <div class="product-img-wrap">
-                ${isSold 
-                    ? '<div class="product-badge featured">SOLD</div>' 
-                    : '<div class="product-badge">1 OF 1</div>'
-                }
+                ${isSold ? '<div class="product-badge featured">SOLD</div>' : '<div class="product-badge">1 OF 1</div>'}
                 <div class="product-badge sz">${product.size}</div>
-                <img src="${product.img}" alt="${product.name}" onerror="this.onerror=null;this.src='Logo.png';" style="${isSold ? 'filter: grayscale(1)' : ''}">
+                <img src="${product.img}" alt="${product.name}" onerror="this.onerror=null;this.src='https://i.postimg.cc/P5g42p5w/Logo.png';" style="${isSold ? 'filter: grayscale(1)' : ''}">
             </div>
             <div class="product-info">
                 <div class="product-cat">ID: #${product.id} &middot; ${product.cat.toUpperCase()}</div>
@@ -106,11 +90,6 @@ function displayProducts(filter = 'all') {
     });
 }
 
-/**
- * Redirects the user to the correct Stripe payment link with a reference ID.
- * @param {string} id - The product ID.
- * @param {string} category - The product category.
- */
 function goToStripe(id, category) {
     if (stripeLinks && stripeLinks[category]) {
         const url = `${stripeLinks[category]}?client_reference_id=${id}`;
@@ -133,9 +112,6 @@ function initFilters() {
     });
 }
 
-/**
- * Utility function to scroll to the top of the page.
- */
 function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
