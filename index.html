@@ -6,7 +6,6 @@
     <meta name="description" content="Dyed For America — Veteran-owned, hand-dyed premium apparel. Bold colors. True freedom.">
     <meta name="theme-color" content="#0B1F3D">
     <title>Dyed For America | Bold Colors. True Freedom.</title>
-    <!-- UPDATED: Icon path is now a full URL -->
     <link rel="icon" href="https://i.postimg.cc/P5g42p5w/Logo.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +17,6 @@
 
 <nav class="navbar" id="navbar">
     <div class="nav-brand" onclick="scrollToTop()">
-        <!-- UPDATED: Logo path is now a full URL -->
         <div class="nav-logo"><img src="https://i.postimg.cc/P5g42p5w/Logo.png" alt="Dyed For America Logo"></div>
         <div>
             <div class="nav-wordmark">Dyed <span class="accent">/</span> For <span class="accent">/</span> America</div>
@@ -58,15 +56,7 @@
             <a href="#shop" class="btn btn-primary">Shop The Collection <i class="fas fa-arrow-right"></i></a>
             <a href="#about" class="btn btn-ghost">Our Story</a>
         </div>
-        <div class="proof-bar">
-            <div class="proof-item"><i class="fas fa-check"></i> 100% US Sourced</div>
-            <div class="proof-divider"></div>
-            <div class="proof-item"><i class="fas fa-star"></i> One-Of-A-Kind Pieces</div>
-            <div class="proof-divider"></div>
-            <div class="proof-item"><i class="fas fa-medal"></i> Veteran Owned</div>
-        </div>
     </div>
-    <div class="scroll-cue">Scroll</div>
 </header>
 
 <main>
@@ -78,9 +68,9 @@
             <p class="lede">Every piece is a unique work of art, dyed by hand in Oklahoma.</p>
         </div>
 
-        <div class="filter-bar reveal">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="shirt">Shirts</button>
+        <div class="filter-bar reveal" id="filter-bar">
+            <button class="filter-btn active" data-filter="all">All Pieces</button>
+            <button class="filter-btn" data-filter="shirt">T-Shirts</button>
             <button class="filter-btn" data-filter="pants">Pants</button>
             <button class="filter-btn" data-filter="hoodie">Hoodies</button>
             <button class="filter-btn" data-filter="tapestry">Tapestries</button>
@@ -89,18 +79,17 @@
         </div>
 
         <div class="product-grid" id="product-grid">
-            <!-- Products will be dynamically injected here by script.js -->
+            <!-- This message will appear if the script fails -->
+            <p style="text-align: center; grid-column: 1 / -1;">Loading products...</p>
         </div>
     </section>
 
     <section class="about" id="about">
         <div class="about-flag-strip reveal">
-            <!-- UPDATED: Flag image path is now a full URL -->
             <img src="https://i.postimg.cc/W3B9tYfB/flag.jpeg" alt="American flag art">
         </div>
         <div class="about-grid">
             <div class="about-visual reveal">
-                <!-- UPDATED: Logo path is now a full URL -->
                 <div class="about-img-frame"><img src="https://i.postimg.cc/P5g42p5w/Logo.png" alt="Captain Tie Dye"></div>
                 <div class="about-stamp">Est<span>2017</span>Keystone Lake</div>
             </div>
@@ -109,7 +98,6 @@
                 <h2>Born In A <em>Clawfoot</em> Tub</h2>
                 <p class="script">&ldquo;It started as a hobby. It became the work.&rdquo;</p>
                 <p>In 2017, Capt. Tie Dye hatched on the shores of Keystone Lake, Oklahoma. When family medical issues arose, what started as a hobby began to take center stage. Pot ash, twine, boiling water and ice combined in the clawfoot tub of a converted shipping container to meet financial needs.</p>
-                <p>Dyed For America takes pride in these humble beginnings and continues to create each one-of-a-kind piece with the same passion and hands-on approach.</p>
             </div>
         </div>
     </section>
@@ -118,13 +106,12 @@
         <div class="section-head reveal">
             <span class="eyebrow">The Craft</span>
             <h2>Four <em>Promises</em>. Zero Compromise.</h2>
-            <div class="divider-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
         </div>
         <div class="mission-grid">
-            <div class="mission-card reveal delay-1"><div class="mission-icon"><i class="fas fa-hands-holding"></i></div><h3>Hand-Made</h3><p>Every fold, dye bath, and rinse is done by hand in a converted shipping container in Oklahoma.</p></div>
-            <div class="mission-card reveal delay-2"><div class="mission-icon"><i class="fas fa-flag-usa"></i></div><h3>US Sourced</h3><p>Dyes, blanks, string, and supplies — all sourced inside the United States. Quality first.</p></div>
-            <div class="mission-card reveal delay-3"><div class="mission-icon"><i class="fas fa-fingerprint"></i></div><h3>One Of One</h3><p>We do not produce "batches". Ice dye and gravity ensure every piece is a unique fingerprint.</p></div>
-            <div class="mission-card reveal delay-4"><div class="mission-icon"><i class="fas fa-medal"></i></div><h3>Veteran Owned</h3><p>Operated with the exact same attention to detail and discipline required in uniform.</p></div>
+            <div class="mission-card reveal"><div class="mission-icon"><i class="fas fa-hands-holding"></i></div><h3>Hand-Made</h3><p>Every fold, dye bath, and rinse is done by hand in Oklahoma.</p></div>
+            <div class="mission-card reveal"><div class="mission-icon"><i class="fas fa-flag-usa"></i></div><h3>US Sourced</h3><p>Dyes, blanks, string, and supplies — all sourced inside the United States.</p></div>
+            <div class="mission-card reveal"><div class="mission-icon"><i class="fas fa-fingerprint"></i></div><h3>One Of One</h3><p>Ice dye and gravity ensure every piece is a unique fingerprint.</p></div>
+            <div class="mission-card reveal"><div class="mission-icon"><i class="fas fa-medal"></i></div><h3>Veteran Owned</h3><p>Operated with the exact same attention to detail and discipline required in uniform.</p></div>
         </div>
     </section>
 
@@ -132,7 +119,6 @@
         <div class="section-head reveal">
             <span class="eyebrow">Get In Touch</span>
             <h2>Custom Work & <em>Questions</em></h2>
-            <p class="lede">Have an idea for a custom piece? Need a different size? Send a message directly to the dye vat.</p>
         </div>
         <div class="contact-grid">
             <div class="contact-info reveal">
@@ -140,33 +126,20 @@
                 <ul class="contact-list">
                     <li>
                         <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                        <div class="contact-meta">
-                            <div class="label">Email</div>
-                            <div class="val"><a href="mailto:DyedForAmerica@Gmail.com">DyedForAmerica@Gmail.com</a></div>
-                        </div>
+                        <div class="contact-meta"><div class="label">Email</div><div class="val"><a href="mailto:DyedForAmerica@Gmail.com">DyedForAmerica@Gmail.com</a></div></div>
                     </li>
                     <li>
                         <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <div class="contact-meta">
-                            <div class="label">Location</div>
-                            <div class="val">Keystone Lake, Oklahoma</div>
-                        </div>
+                        <div class="contact-meta"><div class="label">Location</div><div class="val">Keystone Lake, Oklahoma</div></div>
                     </li>
                 </ul>
-                <h3>Follow Us</h3>
-                <div class="social-row">
-                    <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                </div>
             </div>
             <form id="contactForm" class="contact-form reveal">
                 <div class="form-row">
-                    <div class="form-group"><label for="fname">Full Name</label><input type="text" id="fname" name="name" placeholder="John Doe" required></div>
-                    <div class="form-group"><label for="femail">Email Address</label><input type="email" id="femail" name="email" placeholder="you@example.com" required></div>
+                    <div class="form-group"><label for="fname">Full Name</label><input type="text" id="fname" name="name" required></div>
+                    <div class="form-group"><label for="femail">Email Address</label><input type="email" id="femail" name="email" required></div>
                 </div>
-                <div class="form-group"><label for="fsubject">Subject</label><input type="text" id="fsubject" name="subject" placeholder="Custom Order Inquiry" required></div>
-                <div class="form-group"><label for="fmessage">Message</label><textarea id="fmessage" name="message" placeholder="Tell us about your project or question..." required></textarea></div>
+                <div class="form-group"><label for="fmessage">Message</label><textarea id="fmessage" name="message" required></textarea></div>
                 <button type="submit" class="submit-btn">Send Message <i class="fas fa-paper-plane"></i></button>
             </form>
         </div>
@@ -174,52 +147,15 @@
 </main>
 
 <footer class="footer">
-    <div class="footer-grid">
-        <div class="foot-brand">
-            <div class="foot-brand-row">
-                <div class="nav-logo"><img src="https://i.postimg.cc/P5g42p5w/Logo.png" alt="Dyed For America Logo"></div>
-                <div>
-                    <div class="foot-wordmark">Dyed <span class="accent">/</span> For <span class="accent">/</span> America</div>
-                </div>
-            </div>
-            <span class="foot-tag">Bold colors. True freedom.</span>
-            <p>Hand-dyed, one-of-a-kind apparel and goods proudly made in the USA by a military veteran.</p>
-        </div>
-        <div class="foot-col">
-            <h4>Quick Links</h4>
-            <ul>
-                <li><a href="#shop"><i class="fas fa-angle-right"></i> Shop</a></li>
-                <li><a href="#about"><i class="fas fa-angle-right"></i> Our Story</a></li>
-                <li><a href="#mission"><i class="fas fa-angle-right"></i> Our Craft</a></li>
-                <li><a href="#contact"><i class="fas fa-angle-right"></i> Contact</a></li>
-            </ul>
-        </div>
-        <div class="foot-col">
-            <h4>Shop Categories</h4>
-            <ul>
-                <li><a href="#shop" onclick="document.querySelector('[data-filter=shirt]').click()"><i class="fas fa-angle-right"></i> Shirts</a></li>
-                <li><a href="#shop" onclick="document.querySelector('[data-filter=pants]').click()"><i class="fas fa-angle-right"></i> Pants</a></li>
-                <li><a href="#shop" onclick="document.querySelector('[data-filter=tapestry]').click()"><i class="fas fa-angle-right"></i> Tapestries</a></li>
-                <li><a href="#shop" onclick="document.querySelector('[data-filter=all]').click()"><i class="fas fa-angle-right"></i> View All</a></li>
-            </ul>
-        </div>
-        <div class="foot-col">
-            <h4>Follow Us</h4>
-            <p style="font-size: 14px; color: rgba(247,242,232,0.7); margin-bottom: 16px;">Connect on social media for the latest drops.</p>
-            <div class="foot-social">
-                <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            </div>
-        </div>
-    </div>
     <div class="foot-bottom">
         <p>&copy; 2026 Dyed For America. All Rights Reserved.</p>
         <span class="vet-mark"><i class="fas fa-medal"></i> Veteran Owned & Operated</span>
     </div>
 </footer>
 
-<script src="products.js"></script>
-<script src="script.js"></script>
+<!-- DEFER ensures scripts run after the HTML is ready, in the correct order -->
+<script src="products.js" defer></script>
+<script src="script.js" defer></script>
 
 </body>
 </html>
