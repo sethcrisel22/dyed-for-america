@@ -51,8 +51,8 @@
     </h1>
     <div class="hero-script">Bold colors. True freedom.</div>
     <div class="hero-actions">
-      <a href="#shop" class="btn btn-primary">Shop The Drop</a>
-      <a href="#about" class="btn btn-ghost">Our Story</a>
+      <a href="#shop" class="btn btn-primary">Shop The Drop <i class="fas fa-arrow-right"></i></a>
+      <a href="#about" class="btn btn-ghost">Our Story <i class="fas fa-anchor"></i></a>
     </div>
   </div>
 </header>
@@ -62,6 +62,7 @@
     <span class="eyebrow">The Collection</span>
     <h2>Wear <em>Something</em> Real</h2>
     <div class="divider-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+    <p class="lede">Every piece is dyed, rinsed, and inspected by hand. No two will ever match.</p>
   </div>
 
   <div class="filter-bar reveal">
@@ -75,7 +76,7 @@
   </div>
 
   <div class="product-grid" id="product-grid">
-    <!-- JavaScript builds the cards here -->
+    <!-- JavaScript will build the cards here -->
   </div>
 </section>
 
@@ -132,7 +133,7 @@
         <div class="form-group"><input type="email" id="femail" placeholder="Your Email" required></div>
         <div class="form-group"><input type="text" id="fsubject" placeholder="Subject" required></div>
         <div class="form-group"><textarea id="fmessage" rows="5" placeholder="Message" required></textarea></div>
-        <button type="submit" class="btn btn-primary">Send Message</button>
+        <button type="submit" class="btn btn-primary submit-btn">Send Message</button>
       </form>
     </div>
   </div>
@@ -149,7 +150,25 @@
   <div class="toast-text"><div class="title" id="toastTitle">Ready</div><p id="toastMsg">Done.</p></div>
 </div>
 
-<script src="products.js"></script>
+<!-- DATA INJECTED DIRECTLY TO PREVENT LOADING ERRORS -->
+<script>
+const stripeLinks = {
+  "shirt": "https://buy.stripe.com/cNi6oHf784L2goUdSgeZ202",
+  "pants": "https://buy.stripe.com/eVq7sLaQSdhyc8E8xWeZ203",
+  "socks": "https://buy.stripe.com/7sY5kD4sufpGc8E6pOeZ201",
+  "tapestry": "https://buy.stripe.com/4gM9AT7EG4L22y49C0eZ204",
+  "bedding": "https://buy.stripe.com/14A8wP3oqa5ma0w15ueZ205",
+  "hoodie": "https://buy.stripe.com/eVqcN58IK91ifkQ15ueZ207"
+};
+
+const products = [
+  { id: "SH-001", name: "Diagonal Rainbow Sweep", price: "25", size: "MED", cat: "shirt", img: "shirt.jpeg", status: "available" },
+  { id: "PA-001", name: "Pastel Galaxy Joggers", price: "45", size: "LG", cat: "pants", img: "pants.jpeg", status: "available" },
+  { id: "TAP-001", name: "Electric Peace Mandala", price: "75", size: "Giant", cat: "tapestry", img: "tapestry.jpeg", status: "available" },
+  { id: "SK-001", name: "Watercolor Knee Highs", price: "10", size: "OS", cat: "socks", img: "socks.jpeg", status: "available" },
+  { id: "BD-001", name: "Sunburst Bedspread Set", price: "300", size: "Queen", cat: "bedding", img: "bedspread.jpeg", status: "available" }
+];
+</script>
 <script src="script.js"></script>
 </body>
 </html>
