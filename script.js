@@ -1,12 +1,10 @@
-// 1. UI LOGIC (Menus & Scrolling)
+// --- UI LOGIC ---
 const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => { 
-    if(navbar) navbar.classList.toggle('scrolled', window.scrollY > 60); 
-});
+window.addEventListener('scroll', () => { if(navbar) navbar.classList.toggle('scrolled', window.scrollY > 60); });
 
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
-if(hamburger && mobileMenu) {
+if(hamburger) {
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('active');
         mobileMenu.classList.toggle('active');
@@ -15,14 +13,13 @@ if(hamburger && mobileMenu) {
 
 function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-// 2. PRODUCT ENGINE
+// --- DYNAMIC SHOP ENGINE ---
 const container = document.getElementById('product-grid');
 
 function displayProducts(filterValue = 'all') {
     if (!container) return;
     container.innerHTML = ''; 
 
-    // Use products from products.js
     const filtered = products.filter(item => filterValue === 'all' || item.cat === filterValue);
 
     filtered.forEach(item => {
@@ -34,7 +31,7 @@ function displayProducts(filterValue = 'all') {
             <div class="product-img-wrap">
                 ${isSold ? '<div class="product-badge featured" style="background:var(--red)">SOLD</div>' : '<div class="product-badge">1 OF 1</div>'}
                 <div class="product-badge sz">${item.size}</div>
-                <img src="${item.img}" alt="${item.name}" style="${isSold ? 'filter: grayscale(1) opacity(0.4)' : ''}">
+                <img src="${item.img}" alt="${item.name}" onerror="this.src='Logo.png'" style="${isSold ? 'filter: grayscale(1) opacity(0.4)' : ''}">
             </div>
             <div class="product-info">
                 <div class="product-cat">ID: #${item.id} &middot; ${item.cat.toUpperCase()}</div>
@@ -43,7 +40,7 @@ function displayProducts(filterValue = 'all') {
                     <div class="product-price">$${item.price}</div>
                     ${isSold 
                         ? '<button class="buy-btn" style="background:#666" disabled>SOLD OUT</button>' 
-                        : `<button onclick="goToStripe('${item.id}', '${item.price}')" class="buy-btn">Buy <i class="fas fa-arrow-right"></i></button>`
+                        : `<button onclick="goToStripe('${item.id}', '${item.cat}')" class="buy-btn">Buy <i class="fas fa-arrow-right"></i></button>`
                     }
                 </div>
             </div>
@@ -52,14 +49,17 @@ function displayProducts(filterValue = 'all') {
     });
 }
 
-function goToStripe(id, price) {
-    const baseLink = stripeLinks[price];
+function goToStripe(id, category) {
+    const baseLink = stripeLinks[category];
     if (baseLink) {
+        // We still send the ID to Stripe so it shows up in your dashboard automatically
         window.location.href = `${baseLink}?client_reference_id=${id}`;
+    } else {
+        alert("Payment link for this category not found.");
     }
 }
 
-// 3. FILTER BUTTON LOGIC
+// --- FILTERING ---
 document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', function() {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -68,13 +68,5 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     });
 });
 
-// 4. ANIMATION OBSERVER
-const revealObs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
-}, {threshold: 0.1});
-document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-
-// 5. START SHOP
-if (typeof products !== 'undefined') {
-    displayProducts();
-}
+// Start Shop
+if (typeof products !== 'undefined') { displayProducts(); }
