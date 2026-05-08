@@ -1,12 +1,12 @@
-console.log("Script.js loaded...");
-
-// --- UI LOGIC ---
+// 1. UI LOGIC (Menus & Scrolling)
 const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 60); });
+window.addEventListener('scroll', () => { 
+    if(navbar) navbar.classList.toggle('scrolled', window.scrollY > 60); 
+});
 
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
-if(hamburger) {
+if(hamburger && mobileMenu) {
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('active');
         mobileMenu.classList.toggle('active');
@@ -15,18 +15,14 @@ if(hamburger) {
 
 function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-// --- THE SHOP ENGINE ---
+// 2. PRODUCT ENGINE
 const container = document.getElementById('product-grid');
 
 function displayProducts(filterValue = 'all') {
-    console.log("Displaying products for filter:", filterValue);
-    if (!container) {
-        console.error("Product grid container not found!");
-        return;
-    }
+    if (!container) return;
     container.innerHTML = ''; 
 
-    // Use the 'products' array from products.js
+    // Use products from products.js
     const filtered = products.filter(item => filterValue === 'all' || item.cat === filterValue);
 
     filtered.forEach(item => {
@@ -47,7 +43,7 @@ function displayProducts(filterValue = 'all') {
                     <div class="product-price">$${item.price}</div>
                     ${isSold 
                         ? '<button class="buy-btn" style="background:#666" disabled>SOLD OUT</button>' 
-                        : `<button onclick="goToStripe('${item.id}', '${item.price}')" class="buy-btn">Buy Now</button>`
+                        : `<button onclick="goToStripe('${item.id}', '${item.price}')" class="buy-btn">Buy <i class="fas fa-arrow-right"></i></button>`
                     }
                 </div>
             </div>
@@ -63,7 +59,7 @@ function goToStripe(id, price) {
     }
 }
 
-// --- NEW FILTER LOGIC ---
+// 3. FILTER BUTTON LOGIC
 document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', function() {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -72,10 +68,13 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     });
 });
 
-// Run the engine
+// 4. ANIMATION OBSERVER
+const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+}, {threshold: 0.1});
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// 5. START SHOP
 if (typeof products !== 'undefined') {
-    console.log("Products data found. Initializing shop...");
     displayProducts();
-} else {
-    console.error("The 'products' array is missing! Check products.js");
 }
