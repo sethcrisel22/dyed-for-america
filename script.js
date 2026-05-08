@@ -22,6 +22,7 @@ function displayProducts(filterValue = 'all') {
     if (!container) return;
     container.innerHTML = ''; 
 
+    // Filter the products array (defined in products.js)
     const filtered = products.filter(item => filterValue === 'all' || item.cat === filterValue);
 
     filtered.forEach(item => {
@@ -54,30 +55,42 @@ function displayProducts(filterValue = 'all') {
 }
 
 function goToStripe(id, category) {
-    const baseLink = stripeLinks[category];
-    if (baseLink) {
-        window.location.href = `${baseLink}?client_reference_id=${id}`;
+    if (typeof stripeLinks !== 'undefined' && stripeLinks[category]) {
+        window.location.href = `${stripeLinks[category]}?client_reference_id=${id}`;
+    } else {
+        console.error("Stripe link missing for category:", category);
     }
 }
 
-// --- 3. FILTER BUTTONS ---
-document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        displayProducts(this.dataset.filter);
+// --- 3. FILTER BUTTON LOGIC ---
+function initFilters() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            displayProducts(this.dataset.filter);
+        });
     });
-});
+}
 
-// --- 4. REVEAL ANIMATION (For static sections) ---
+// --- 4. REVEAL ANIMATION OBSERVER ---
 const revealObs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
-}, {threshold: 0.1});
+    entries.forEach(e => { 
+        if(e.isIntersecting) e.target.classList.add('in'); 
+    });
+}, { threshold: 0.1 });
 
-// --- 5. INITIALIZE ---
+// --- 5. INITIALIZE EVERYTHING ---
 document.addEventListener('DOMContentLoaded', () => {
+    // Check if data is loaded
     if (typeof products !== 'undefined') {
         displayProducts();
+        initFilters();
+    } else {
+        console.error("Inventory data (products.js) not found!");
     }
+
+    // Start animations for static sections
     document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 });
