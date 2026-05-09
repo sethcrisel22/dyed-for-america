@@ -1,7 +1,7 @@
 // products.js
 // This array holds all of your store's inventory data.
 
-const products = [
+const products =[
   { 
     id: "SH-001", 
     name: "Diagonal Rainbow Sweep", 
@@ -18,7 +18,7 @@ const products = [
     price: "45", 
     size: "LG", 
     cat: "pants", 
-    img: "pants.jpg", // Local image file
+    img: "pants.jpeg", // Corrected extension
     desc: "Comfortable joggers with a soft, cosmic blend of pastel tones. Ideal for lounging or adventure.",
     status: "available" 
   },
@@ -28,7 +28,7 @@ const products = [
     price: "75", 
     size: "Giant", 
     cat: "tapestry", 
-    img: "tapestry.jpg", // Local image file
+    img: "tapestry.jpeg", // Corrected extension
     desc: "A massive, electrifying peace sign mandala. The ultimate statement piece for any wall or gathering.",
     status: "available" 
   },
@@ -38,7 +38,7 @@ const products = [
     price: "10", 
     size: "OS", 
     cat: "socks", 
-    img: "socks.jpg", // Local image file
+    img: "socks.jpeg", // Corrected extension
     desc: "Vibrant knee-high socks featuring a flowing watercolor design. Keep your feet cozy and colorful.",
     status: "available" 
   },
@@ -48,7 +48,7 @@ const products = [
     price: "120", 
     size: "Queen", 
     cat: "bedding", 
-    img: "bedspread.jpg", // Local image file
+    img: "bedspread.jpeg", // Corrected extension
     desc: "A premium hand-dyed bedspread to bring bold colors right into your bedroom.",
     status: "available" 
   },
