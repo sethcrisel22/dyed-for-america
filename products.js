@@ -1,4 +1,5 @@
 // products.js
+// This file contains all product data and Stripe payment links.
 
 const stripeLinks = {
   "shirt": "https://buy.stripe.com/cNi6oHf784L2goUdSgeZ202",
