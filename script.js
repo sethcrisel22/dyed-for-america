@@ -1,116 +1,81 @@
 // script.js
-// This file controls the dynamic rendering of products and user interactions.
+// This file handles the logic, formatting, and interactivity of the website.
 
-document.addEventListener('DOMContentLoaded', () => {
-    const productGrid = document.getElementById('product-grid');
-    const filterBar = document.getElementById('filter-bar');
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. Grab the elements we need from the HTML
+    const productGrid = document.getElementById("product-grid");
+    const filterBtns = document.querySelectorAll(".filter-btn");
 
-    if (!productGrid || !filterBar) {
-        console.error("Initialization failed: Essential HTML elements are missing.");
-        return;
-    }
-    if (typeof products === 'undefined' || !Array.isArray(products)) {
-        productGrid.innerHTML = "<p>Error: Product data could not be loaded.</p>";
-        console.error("Product data from products.js is missing or invalid.");
-        return;
-    }
+    // 2. Function to display products on the page
+    function renderProducts(filterCategory = "all") {
+        // Clear the "Loading Products..." text or any existing products
+        productGrid.innerHTML = ""; 
+        
+        // Filter the products based on the button clicked
+        const filteredProducts = products.filter(product => 
+            filterCategory === "all" || product.cat === filterCategory
+        );
 
-    const renderProducts = (filter = 'all') => {
-        const filtered = products.filter(p => filter === 'all' || p.cat === filter);
-        productGrid.innerHTML = ''; // Clear previous items
-
-        if (filtered.length === 0) {
-            productGrid.innerHTML = `<p style="grid-column: 1 / -1; text-align: center;">No products found in this category.</p>`;
+        // If a category is empty, show a friendly message
+        if (filteredProducts.length === 0) {
+            productGrid.innerHTML = "<p style='grid-column: 1 / -1; text-align: center;'>More items coming soon to this category!</p>";
             return;
         }
 
-        filtered.forEach((product, index) => {
-            const card = document.createElement('article');
-            // Add the reveal class for the animation fix
-            card.className = 'product-card reveal';
-            const isSold = product.status === 'sold';
-
-            const imgWrap = document.createElement('div');
-            imgWrap.className = 'product-img-wrap';
+        // Create a card for each product and add it to the grid
+        filteredProducts.forEach(product => {
+            const card = document.createElement("div");
+            card.className = "product-card";
             
-            const badge1 = document.createElement('div');
-            badge1.className = isSold ? 'product-badge featured' : 'product-badge';
-            badge1.textContent = isSold ? 'SOLD' : '1 OF 1';
-
-            const badge2 = document.createElement('div');
-            badge2.className = 'product-badge sz';
-            badge2.textContent = product.size;
-
-            const img = document.createElement('img');
-            img.src = product.img;
-            img.alt = product.name;
-            // Fallback to Logo.png if the image fails to load
-            img.onerror = () => { img.src = 'https://i.ibb.co/6b3R85v/Logo.png'; };
-
-            imgWrap.append(badge1, badge2, img);
-
-            const info = document.createElement('div');
-            info.className = 'product-info';
-
-            const cat = document.createElement('div');
-            cat.className = 'product-cat';
-            cat.textContent = `ID: #${product.id} · ${product.cat.toUpperCase()}`;
-
-            const name = document.createElement('h3');
-            name.className = 'product-name';
-            name.textContent = product.name;
-
-            const desc = document.createElement('p');
-            desc.className = 'product-desc';
-            desc.textContent = product.desc;
-
-            const foot = document.createElement('div');
-            foot.className = 'product-foot';
-
-            const price = document.createElement('div');
-            price.className = 'product-price';
-            price.textContent = `$${product.price}`;
-
-            const buyBtn = document.createElement('button');
-            buyBtn.className = 'buy-btn';
-            buyBtn.dataset.id = product.id;
-            buyBtn.dataset.cat = product.cat;
-            buyBtn.disabled = isSold;
-            buyBtn.innerHTML = isSold ? 'SOLD OUT' : 'Buy Now <i class="fas fa-arrow-right"></i>';
-
-            foot.append(price, buyBtn);
-            info.append(cat, name, desc, foot);
-            card.append(imgWrap, info);
+            card.innerHTML = `
+                <div class="product-image-wrapper">
+                    <img src="${product.img}" alt="${product.name}" style="width: 100%; height: auto; border-radius: 8px;">
+                </div>
+                <div class="product-details" style="padding: 15px 0;">
+                    <h3 style="margin: 0 0 10px 0;">${product.name}</h3>
+                    <p style="font-size: 0.9rem; color: #555; margin-bottom: 15px;">${product.desc}</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>$${product.price}</strong>
+                        <span style="font-size: 0.85rem; background: #eee; padding: 4px 8px; border-radius: 4px;">Size: ${product.size}</span>
+                    </div>
+                    <button style="width: 100%; margin-top: 15px; padding: 10px; background: #222; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
+                        Add to Cart
+                    </button>
+                </div>
+            `;
             productGrid.appendChild(card);
-
-            // Trigger the animation immediately after appending to DOM
-            setTimeout(() => {
-                card.classList.add('in');
-            }, 50 + (index * 50)); // Staggered animation effect
         });
-    };
+    }
 
-    filterBar.addEventListener('click', (e) => {
-        if (e.target.matches('.filter-btn')) {
-            filterBar.querySelector('.active').classList.remove('active');
-            e.target.classList.add('active');
-            renderProducts(e.target.dataset.filter);
-        }
+    // 3. Load all products when the page first opens
+    if (typeof products !== "undefined") {
+        renderProducts("all");
+    } else {
+        productGrid.innerHTML = "<p style='grid-column: 1 / -1; text-align: center;'>Error loading product data. Please check products.js.</p>";
+    }
+
+    // 4. Make the filter buttons interactive
+    filterBtns.forEach(btn => {
+        btn.addEventListener("click", (event) => {
+            // Remove the 'active' styling from all buttons
+            filterBtns.forEach(b => b.classList.remove("active"));
+            
+            // Add 'active' styling to the button that was just clicked
+            event.target.classList.add("active");
+            
+            // Get the category name from the button's data-filter attribute and re-render
+            const filterValue = event.target.getAttribute("data-filter");
+            renderProducts(filterValue);
+        });
     });
 
-    productGrid.addEventListener('click', (e) => {
-        const buyButton = e.target.closest('.buy-btn:not(:disabled)');
-        if (buyButton) {
-            const { id, cat } = buyButton.dataset;
-            if (stripeLinks[cat]) {
-                // Append client_reference_id for order tracking
-                window.location.href = `${stripeLinks[cat]}?client_reference_id=${id}`;
-            } else {
-                console.error(`Stripe link for category "${cat}" not found.`);
-                alert('Payment link for this item is currently unavailable.');
-            }
-        }
-    });
-
-    renderProducts('all');
+    // 5. Handle the Contact Form Submission
+    const contactForm = document.getElementById("contactForm");
+    if (contactForm) {
+        contactForm.addEventListener("submit", (event) => {
+            event.preventDefault(); // Prevents the page from refreshing
+            alert("Thank you for your message! We will get back to you soon.");
+            contactForm.reset(); // Clears the form fields
+        });
+    }
 });
