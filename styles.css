@@ -14,7 +14,7 @@ h1,h2,h3,h4{font-family:'Teko',sans-serif;font-weight:600;line-height:0.95;lette
 .nav-wordmark{font-family:'Teko',sans-serif;font-weight:700;font-size:22px;color:var(--cream);line-height:1;letter-spacing:0.04em;text-transform:uppercase;}
 .nav-wordmark .accent{color:var(--gold);}
 .hero{padding:0;position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--navy-deep);}
-.hero-bg{position:absolute;inset:0;background-image: url('https://i.postimg.cc/W3B9tYfB/flag.jpeg');background-size:cover;background-position:center;filter:contrast(1.08) saturate(1.15) brightness(0.6);transform:scale(1.05);}
+.hero-bg{position:absolute;inset:0;background-image: url('https://i.ibb.co/P9dYfz7/flag.jpeg');background-size:cover;background-position:center;filter:contrast(1.08) saturate(1.15) brightness(0.6);transform:scale(1.05);}
 .hero-overlay{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(11,31,61,0.5) 0%,rgba(6,20,41,0.92) 80%),linear-gradient(180deg,rgba(11,31,61,0.55) 0%,rgba(6,20,41,0.88) 100%);}
 .hero-content{position:relative;z-index:2;text-align:center;padding:160px 30px 100px;max-width:1200px;margin:0 auto;width:100%;}
 .hero h1{font-size:clamp(64px,12vw,192px);color:var(--cream);line-height:0.85;margin-bottom:22px;}
@@ -46,6 +46,11 @@ h1,h2,h3,h4{font-family:'Teko',sans-serif;font-weight:600;line-height:0.95;lette
 .product-price{font-family:'Teko',sans-serif;font-size:32px;font-weight:700;color:var(--navy);line-height:1;}
 .buy-btn{display:inline-flex;align-items:center;gap:10px;padding:13px 20px;background:var(--red);color:var(--cream);font-family:'Teko',sans-serif;font-size:14px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;transition:all 0.3s var(--ease);}
 .buy-btn:disabled{background:#666;cursor:not-allowed;}
+
+/* Animation Fix */
+.reveal { opacity: 0; transform: translateY(15px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
 .about{padding-top:0; padding-bottom: 140px;}
 .about-flag-strip{width:100%;height:240px;overflow:hidden;position:relative;}
 .about-flag-strip img{width:100%;height:100%;object-fit:cover;filter:brightness(0.82);}
