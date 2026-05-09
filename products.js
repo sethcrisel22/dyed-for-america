@@ -1,14 +1,5 @@
 // products.js
-// This file contains all product data and Stripe payment links.
-
-const stripeLinks = {
-  "shirt": "https://buy.stripe.com/cNi6oHf784L2goUdSgeZ202",
-  "pants": "https://buy.stripe.com/eVq7sLaQSdhyc8E8xWeZ203",
-  "socks": "https://buy.stripe.com/7sY5kD4sufpGc8E6pOeZ201",
-  "tapestry": "https://buy.stripe.com/4gM9AT7EG4L22y49C0eZ204",
-  "bedding": "https://buy.stripe.com/14A8wP3oqa5ma0w15ueZ205",
-  "hoodie": "https://buy.stripe.com/eVqcN58IK91ifkQ15ueZ207"
-};
+// This array holds all of your store's inventory data.
 
 const products = [
   { 
@@ -17,7 +8,7 @@ const products = [
     price: "25", 
     size: "MED", 
     cat: "shirt", 
-    img: "https://i.ibb.co/Q8M9Mmy/shirt.jpeg", 
+    img: "shirt.jpeg", // Local image file
     desc: "A classic crewneck tee featuring a vibrant, diagonal burst of color. Perfect for standing out.",
     status: "available" 
   },
@@ -27,7 +18,7 @@ const products = [
     price: "45", 
     size: "LG", 
     cat: "pants", 
-    img: "https://i.ibb.co/yQGq430/pants.jpeg", 
+    img: "pants.jpg", // Local image file
     desc: "Comfortable joggers with a soft, cosmic blend of pastel tones. Ideal for lounging or adventure.",
     status: "available" 
   },
@@ -37,7 +28,7 @@ const products = [
     price: "75", 
     size: "Giant", 
     cat: "tapestry", 
-    img: "https://i.ibb.co/yVv1VfK/tapestry.jpeg", 
+    img: "tapestry.jpg", // Local image file
     desc: "A massive, electrifying peace sign mandala. The ultimate statement piece for any wall or gathering.",
     status: "available" 
   },
@@ -47,18 +38,28 @@ const products = [
     price: "10", 
     size: "OS", 
     cat: "socks", 
-    img: "https://i.ibb.co/hXf0xWp/socks.jpeg", 
-    desc: "A subtle wash of watercolor hues on comfortable, durable knee-high socks. One size fits most.",
+    img: "socks.jpg", // Local image file
+    desc: "Vibrant knee-high socks featuring a flowing watercolor design. Keep your feet cozy and colorful.",
     status: "available" 
   },
   { 
     id: "BD-001", 
-    name: "Sunburst Bedspread Set", 
-    price: "300", 
+    name: "Dreamscape Bedspread", 
+    price: "120", 
     size: "Queen", 
     cat: "bedding", 
-    img: "https://i.ibb.co/gZ1sMv9/bedspread.jpeg", 
-    desc: "Transform your bedroom with this radiant sunburst design. Includes queen-sized duvet and shams.",
+    img: "bedspread.jpg", // Local image file
+    desc: "A premium hand-dyed bedspread to bring bold colors right into your bedroom.",
+    status: "available" 
+  },
+  { 
+    id: "FL-001", 
+    name: "Freedom Flag", 
+    price: "40", 
+    size: "Standard", 
+    cat: "flag", 
+    img: "flag.jpeg", // Local image file
+    desc: "Show your pride with this beautifully dyed decorative flag.",
     status: "available" 
   }
 ];
