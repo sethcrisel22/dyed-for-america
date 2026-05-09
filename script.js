@@ -1,183 +1,113 @@
 // script.js
+// This file controls the dynamic rendering of products and user interactions.
 
-// --- 1. MAIN INITIALIZATION ---
-// This runs after the HTML document has been fully loaded and parsed.
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOM fully loaded. Initializing site...");
-
-    // Setup UI elements like navbar and mobile menu
-    initializeUI();
-
-    // Setup the dynamic shop section
-    initializeShop();
-
-    // Setup scroll-triggered animations for static content
-    initializeScrollAnimations();
-});
-
-
-// --- 2. UI INITIALIZATION ---
-function initializeUI() {
-    // Navbar scroll effect
-    const navbar = document.getElementById('navbar');
-    if (navbar) {
-        window.addEventListener('scroll', () => {
-            navbar.classList.toggle('scrolled', window.scrollY > 60);
-        });
-    }
-
-    // Mobile hamburger menu toggle
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    if (hamburger && mobileMenu) {
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-        });
-    }
-}
-
-
-// --- 3. SHOP ENGINE ---
-function initializeShop() {
     const productGrid = document.getElementById('product-grid');
     const filterBar = document.getElementById('filter-bar');
 
-    // Safety check: if essential elements don't exist, stop.
     if (!productGrid || !filterBar) {
-        console.error("Shop initialization failed: Product grid or filter bar not found.");
+        console.error("Initialization failed: Essential HTML elements are missing.");
+        return;
+    }
+    if (typeof products === 'undefined' || !Array.isArray(products)) {
+        productGrid.innerHTML = "<p>Error: Product data could not be loaded.</p>";
+        console.error("Product data from products.js is missing or invalid.");
         return;
     }
 
-    // Check if product data is available from products.js
-    if (typeof products === 'undefined' || products.length === 0) {
-        console.error("Product data is missing or empty.");
-        productGrid.innerHTML = '<p style="text-align: center; grid-column: 1 / -1;">Could not load product data.</p>';
-        return;
-    }
-
-    console.log(`Found ${products.length} products. Ready to render.`);
-
-    // --- Event Listener for Filter Buttons ---
-    filterBar.addEventListener('click', (event) => {
-        // Check if a filter button was actually clicked
-        if (event.target.classList.contains('filter-btn')) {
-            const filterValue = event.target.dataset.filter;
-            
-            // Update active state on buttons
-            filterBar.querySelector('.active').classList.remove('active');
-            event.target.classList.add('active');
-            
-            console.log(`Filtering by: ${filterValue}`);
-            renderProducts(filterValue);
-        }
-    });
-
-    // --- Event Listener for Buy Buttons (Event Delegation) ---
-    productGrid.addEventListener('click', (event) => {
-        const buyButton = event.target.closest('.buy-btn');
-        if (buyButton && !buyButton.disabled) {
-            const productId = buyButton.dataset.id;
-            const productCat = buyButton.dataset.cat;
-            goToStripe(productId, productCat);
-        }
-    });
-
-    // Initial render of all products
-    renderProducts('all');
-}
-
-/**
- * Renders products into the grid based on the selected category.
- * @param {string} filter - The category to display (e.g., 'shirt', 'all').
- */
-function renderProducts(filter = 'all') {
-    const productGrid = document.getElementById('product-grid');
-    
-    try {
+    const renderProducts = (filter = 'all') => {
         const filtered = products.filter(p => filter === 'all' || p.cat === filter);
-
-        // Clear the grid before rendering new items
-        productGrid.innerHTML = '';
+        productGrid.innerHTML = ''; // Clear previous items
 
         if (filtered.length === 0) {
-            productGrid.innerHTML = `<p style="text-align: center; grid-column: 1 / -1;">No products found in this category.</p>`;
+            productGrid.innerHTML = `<p style="grid-column: 1 / -1; text-align: center;">No products found in this category.</p>`;
             return;
         }
 
         filtered.forEach(product => {
-            const isSold = product.status === 'sold';
+            // --- Secure Element Creation ---
             const card = document.createElement('article');
-            card.className = 'product-card reveal in'; // 'in' class makes it visible immediately
+            card.className = 'product-card reveal in';
 
-            card.innerHTML = `
-                <div class="product-img-wrap">
-                    ${isSold ? '<div class="product-badge featured">SOLD</div>' : '<div class="product-badge">1 OF 1</div>'}
-                    <div class="product-badge sz">${product.size}</div>
-                    <img src="${product.img}" alt="${product.name}" onerror="this.onerror=null;this.src='https://i.postimg.cc/P5g42p5w/Logo.png';">
-                </div>
-                <div class="product-info">
-                    <div class="product-cat">ID: #${product.id} &middot; ${product.cat.toUpperCase()}</div>
-                    <h3 class="product-name">${product.name}</h3>
-                    <p class="product-desc">${product.desc}</p>
-                    <div class="product-foot">
-                        <div class="product-price">$${product.price}</div>
-                        <button 
-                            class="buy-btn" 
-                            data-id="${product.id}" 
-                            data-cat="${product.cat}" 
-                            ${isSold ? 'disabled' : ''}
-                        >
-                            ${isSold ? 'SOLD OUT' : 'Buy Now <i class="fas fa-arrow-right"></i>'}
-                        </button>
-                    </div>
-                </div>
-            `;
+            const isSold = product.status === 'sold';
+
+            // Image container
+            const imgWrap = document.createElement('div');
+            imgWrap.className = 'product-img-wrap';
+            
+            const badge1 = document.createElement('div');
+            badge1.className = isSold ? 'product-badge featured' : 'product-badge';
+            badge1.textContent = isSold ? 'SOLD' : '1 OF 1';
+
+            const badge2 = document.createElement('div');
+            badge2.className = 'product-badge sz';
+            badge2.textContent = product.size;
+
+            const img = document.createElement('img');
+            img.src = product.img;
+            img.alt = product.name;
+            img.onerror = () => { img.src = 'https://i.postimg.cc/P5g42p5w/Logo.png'; }; // Fallback
+
+            imgWrap.append(badge1, badge2, img);
+
+            // Info container
+            const info = document.createElement('div');
+            info.className = 'product-info';
+
+            const cat = document.createElement('div');
+            cat.className = 'product-cat';
+            cat.textContent = `ID: #${product.id} · ${product.cat.toUpperCase()}`;
+
+            const name = document.createElement('h3');
+            name.className = 'product-name';
+            name.textContent = product.name;
+
+            const desc = document.createElement('p');
+            desc.className = 'product-desc';
+            desc.textContent = product.desc;
+
+            // Footer container
+            const foot = document.createElement('div');
+            foot.className = 'product-foot';
+
+            const price = document.createElement('div');
+            price.className = 'product-price';
+            price.textContent = `$${product.price}`;
+
+            const buyBtn = document.createElement('button');
+            buyBtn.className = 'buy-btn';
+            buyBtn.dataset.id = product.id;
+            buyBtn.dataset.cat = product.cat;
+            buyBtn.disabled = isSold;
+            buyBtn.innerHTML = isSold ? 'SOLD OUT' : 'Buy Now <i class="fas fa-arrow-right"></i>';
+
+            foot.append(price, buyBtn);
+            info.append(cat, name, desc, foot);
+            card.append(imgWrap, info);
             productGrid.appendChild(card);
         });
-        console.log(`Successfully rendered ${filtered.length} products.`);
+    };
 
-    } catch (error) {
-        console.error("CRITICAL ERROR during product rendering:", error);
-        productGrid.innerHTML = `<p style="text-align: center; grid-column: 1 / -1; color: var(--red);">A critical error occurred. Please check the console.</p>`;
-    }
-}
-
-/**
- * Redirects to the appropriate Stripe checkout page.
- * @param {string} id - The product's unique ID.
- * @param {string} category - The product's category.
- */
-function goToStripe(id, category) {
-    if (typeof stripeLinks !== 'undefined' && stripeLinks[category]) {
-        const url = `${stripeLinks[category]}?client_reference_id=${id}`;
-        console.log(`Redirecting to Stripe for product ${id}: ${url}`);
-        window.location.href = url;
-    } else {
-        console.error(`Stripe link for category "${category}" not found.`);
-        alert('There was an error processing this item. Payment link is missing.');
-    }
-}
-
-
-// --- 4. SCROLL ANIMATIONS ---
-function initializeScrollAnimations() {
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('in');
-                observer.unobserve(entry.target); // Optional: stop observing after it's visible
-            }
-        });
-    }, { threshold: 0.1 });
-
-    // Find all elements with the .reveal class that are NOT dynamic product cards
-    document.querySelectorAll('.reveal:not(.product-card)').forEach(el => {
-        revealObserver.observe(el);
+    filterBar.addEventListener('click', (e) => {
+        if (e.target.matches('.filter-btn')) {
+            filterBar.querySelector('.active').classList.remove('active');
+            e.target.classList.add('active');
+            renderProducts(e.target.dataset.filter);
+        }
     });
-}
 
-// Utility to scroll to top, can be used by nav brand
-function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+    productGrid.addEventListener('click', (e) => {
+        const buyButton = e.target.closest('.buy-btn:not(:disabled)');
+        if (buyButton) {
+            const { id, cat } = buyButton.dataset;
+            if (stripeLinks[cat]) {
+                window.location.href = `${stripeLinks[cat]}?client_reference_id=${id}`;
+            } else {
+                console.error(`Stripe link for category "${cat}" not found.`);
+                alert('Payment link for this item is currently unavailable.');
+            }
+        }
+    });
+
+    renderProducts('all'); // Initial render
+});
