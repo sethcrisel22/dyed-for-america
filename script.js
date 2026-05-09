@@ -24,9 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        filtered.forEach(product => {
+        filtered.forEach((product, index) => {
             const card = document.createElement('article');
-            card.className = 'product-card';
+            // Add the reveal class for the animation fix
+            card.className = 'product-card reveal';
             const isSold = product.status === 'sold';
 
             const imgWrap = document.createElement('div');
@@ -43,7 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const img = document.createElement('img');
             img.src = product.img;
             img.alt = product.name;
-            img.onerror = () => { img.src = 'https://i.postimg.cc/P5g42p5w/Logo.png'; };
+            // Fallback to Logo.png if the image fails to load
+            img.onerror = () => { img.src = 'https://i.ibb.co/6b3R85v/Logo.png'; };
 
             imgWrap.append(badge1, badge2, img);
 
@@ -80,6 +82,11 @@ document.addEventListener('DOMContentLoaded', () => {
             info.append(cat, name, desc, foot);
             card.append(imgWrap, info);
             productGrid.appendChild(card);
+
+            // Trigger the animation immediately after appending to DOM
+            setTimeout(() => {
+                card.classList.add('in');
+            }, 50 + (index * 50)); // Staggered animation effect
         });
     };
 
@@ -96,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (buyButton) {
             const { id, cat } = buyButton.dataset;
             if (stripeLinks[cat]) {
+                // Append client_reference_id for order tracking
                 window.location.href = `${stripeLinks[cat]}?client_reference_id=${id}`;
             } else {
                 console.error(`Stripe link for category "${cat}" not found.`);
