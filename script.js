@@ -25,13 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         filtered.forEach(product => {
-            // --- Secure Element Creation ---
             const card = document.createElement('article');
-            card.className = 'product-card reveal in';
-
+            card.className = 'product-card';
             const isSold = product.status === 'sold';
 
-            // Image container
             const imgWrap = document.createElement('div');
             imgWrap.className = 'product-img-wrap';
             
@@ -46,11 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const img = document.createElement('img');
             img.src = product.img;
             img.alt = product.name;
-            img.onerror = () => { img.src = 'https://i.postimg.cc/P5g42p5w/Logo.png'; }; // Fallback
+            img.onerror = () => { img.src = 'https://i.postimg.cc/P5g42p5w/Logo.png'; };
 
             imgWrap.append(badge1, badge2, img);
 
-            // Info container
             const info = document.createElement('div');
             info.className = 'product-info';
 
@@ -66,7 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
             desc.className = 'product-desc';
             desc.textContent = product.desc;
 
-            // Footer container
             const foot = document.createElement('div');
             foot.className = 'product-foot';
 
@@ -109,5 +104,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    renderProducts('all'); // Initial render
+    renderProducts('all');
 });
