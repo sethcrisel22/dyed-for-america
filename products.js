@@ -57,17 +57,7 @@ const products =[
     status: "available",
     link: "https://buy.stripe.com/14A8wP3oqa5ma0w15ueZ205"
   },
-  { 
-    id: "FL-001", 
-    name: "Freedom Flag", 
-    price: "40", 
-    size: "Standard", 
-    cat: "flag", 
-    img: "flag.jpeg", 
-    desc: "Show your pride with this beautifully dyed decorative flag.",
-    status: "available",
-    link: "#" // No Stripe link provided for the flag yet
-  },
+ 
   { 
     id: "HD-001", 
     name: "Premium Hand-Dyed Hoodie", 
