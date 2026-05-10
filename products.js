@@ -10,7 +10,8 @@ const products =[
     cat: "shirt", 
     img: "shirt.jpeg", 
     desc: "A classic crewneck tee featuring a vibrant, diagonal burst of color. Perfect for standing out.",
-    status: "available" 
+    status: "available",
+    link: "https://buy.stripe.com/cNi6oHf784L2goUdSgeZ202"
   },
   { 
     id: "PA-001", 
@@ -20,7 +21,8 @@ const products =[
     cat: "pants", 
     img: "pants.jpeg", 
     desc: "Comfortable joggers with a soft, cosmic blend of pastel tones. Ideal for lounging or adventure.",
-    status: "available" 
+    status: "available",
+    link: "https://buy.stripe.com/eVq7sLaQSdhyc8E8xWeZ203"
   },
   { 
     id: "TAP-001", 
@@ -30,7 +32,8 @@ const products =[
     cat: "tapestry", 
     img: "tapestry.jpeg", 
     desc: "A massive, electrifying peace sign mandala. The ultimate statement piece for any wall or gathering.",
-    status: "available" 
+    status: "available",
+    link: "https://buy.stripe.com/4gM9AT7EG4L22y49C0eZ204"
   },
   { 
     id: "SK-001", 
@@ -40,7 +43,8 @@ const products =[
     cat: "socks", 
     img: "socks.jpeg", 
     desc: "Vibrant knee-high socks featuring a flowing watercolor design. Keep your feet cozy and colorful.",
-    status: "available" 
+    status: "available",
+    link: "https://buy.stripe.com/7sY5kD4sufpGc8E6pOeZ201"
   },
   { 
     id: "BD-001", 
@@ -50,7 +54,8 @@ const products =[
     cat: "bedding", 
     img: "bedspread.jpeg", 
     desc: "A premium hand-dyed bedspread to bring bold colors right into your bedroom.",
-    status: "available" 
+    status: "available",
+    link: "https://buy.stripe.com/14A8wP3oqa5ma0w15ueZ205"
   },
   { 
     id: "FL-001", 
@@ -60,6 +65,18 @@ const products =[
     cat: "flag", 
     img: "flag.jpeg", 
     desc: "Show your pride with this beautifully dyed decorative flag.",
-    status: "available" 
+    status: "available",
+    link: "#" // No Stripe link provided for the flag yet
+  },
+  { 
+    id: "HD-001", 
+    name: "Premium Hand-Dyed Hoodie", 
+    price: "65", 
+    size: "LG", 
+    cat: "hoodie", 
+    img: "Logo.png", // Placeholder image until you upload a hoodie photo
+    desc: "A cozy, premium hand-dyed hoodie. Bold colors for everyday wear.",
+    status: "available",
+    link: "https://buy.stripe.com/eVqcN58IK91ifkQ15ueZ207"
   }
 ];
