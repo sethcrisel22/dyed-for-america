@@ -49,7 +49,7 @@ const products =[
   { 
     id: "BD-001", 
     name: "Dreamscape Bedspread", 
-    price: "120", 
+    price: "300", 
     size: "Queen", 
     cat: "bedding", 
     img: "bedspread.jpeg", 
