@@ -1,0 +1,29 @@
+backend:
+  name: git-gateway # This allows you to log in without a GitHub account later
+  branch: main # Make sure this matches your GitHub branch (often 'main' or 'master')
+
+# This is where your uploaded photos will be saved
+media_folder: "images"
+public_folder: "images"
+
+collections:
+  - name: "inventory"
+    label: "Inventory"
+    files:
+      - label: "Product List"
+        name: "products"
+        file: "products.json" # The CMS will save everything into this file
+        fields:
+          - label: "Products"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "Product ID", name: "id", widget: "string"}
+              - {label: "Name", name: "name", widget: "string"}
+              - {label: "Price", name: "price", widget: "string"}
+              - {label: "Size", name: "size", widget: "string"}
+              - {label: "Category", name: "cat", widget: "select", options: ["shirt", "pants", "tapestry", "socks", "bedding"]}
+              - {label: "Image", name: "img", widget: "image"}
+              - {label: "Description", name: "desc", widget: "text"}
+              - {label: "Status", name: "status", widget: "select", options: ["available", "sold_out"]}
+              - {label: "Stripe Checkout Link", name: "link", widget: "string"}
