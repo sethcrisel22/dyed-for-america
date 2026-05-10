@@ -28,19 +28,20 @@ document.addEventListener("DOMContentLoaded", () => {
             card.className = "product-card";
             
             card.innerHTML = `
-                <div class="product-image-wrapper">
-                    <img src="${product.img}" alt="${product.name}" style="width: 100%; height: auto; border-radius: 8px;">
+                <div class="product-img-wrap">
+                    <img src="${product.img}" alt="${product.name}">
+                    <div class="product-badge sz">Size: ${product.size}</div>
                 </div>
-                <div class="product-details" style="padding: 15px 0;">
-                    <h3 style="margin: 0 0 10px 0;">${product.name}</h3>
-                    <p style="font-size: 0.9rem; color: #555; margin-bottom: 15px;">${product.desc}</p>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <strong>$${product.price}</strong>
-                        <span style="font-size: 0.85rem; background: #eee; padding: 4px 8px; border-radius: 4px;">Size: ${product.size}</span>
+                <div class="product-info">
+                    <div class="product-cat">${product.cat}</div>
+                    <h3 class="product-name">${product.name}</h3>
+                    <p class="product-desc">${product.desc}</p>
+                    <div class="product-foot">
+                        <div class="product-price">$${product.price}</div>
+                        <a href="${product.link}" class="buy-btn" target="_blank" rel="noopener noreferrer">
+                            Buy Now <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
-                    <button style="width: 100%; margin-top: 15px; padding: 10px; background: #222; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
-                        Add to Cart
-                    </button>
                 </div>
             `;
             productGrid.appendChild(card);
