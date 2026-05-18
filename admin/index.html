@@ -39,7 +39,6 @@
  
     /* ── Utilities ───────────────────────────────────────────── */
     .hidden { display: none !important; }
-    .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
  
     /* ── Loading Overlay ─────────────────────────────────────── */
     #loading-overlay {
@@ -128,7 +127,7 @@
     }
     @media(max-width:1000px) { .admin-main { grid-template-columns: 1fr; } }
  
-    /* ── Panel (shared card style) ───────────────────────────── */
+    /* ── Panel ───────────────────────────────────────────────── */
     .panel {
       background: var(--white); border: 1px solid var(--border);
       box-shadow: var(--shadow);
@@ -164,6 +163,10 @@
       font-family: 'Teko', sans-serif;
     }
     .upload-zone.has-image .img-overlay { display: block; }
+    .upload-progress {
+      height: 3px; background: var(--border); margin-top: -20px; margin-bottom: 20px; display: none;
+    }
+    .upload-progress-bar { height: 100%; width: 0; background: var(--gold); transition: width 0.3s ease; }
  
     /* ── Product Form ────────────────────────────────────────── */
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
@@ -215,10 +218,6 @@
       transition: all 0.2s; border-radius: var(--radius);
     }
     .btn-secondary:hover { border-color: var(--navy); background: var(--bg); }
-    .upload-progress {
-      height: 3px; background: var(--border); margin-top: -20px; margin-bottom: 20px; display: none;
-    }
-    .upload-progress-bar { height: 100%; width: 0; background: var(--gold); transition: width 0.3s ease; }
  
     /* ── Inventory Panel ─────────────────────────────────────── */
     .count-badge {
@@ -237,7 +236,6 @@
     }
     .inventory-search input:focus { outline: none; border-color: var(--gold); }
  
-    /* Product list items */
     #product-list { max-height: calc(100vh - 200px); overflow-y: auto; }
     .inv-empty { padding: 40px 24px; text-align: center; color: var(--muted); font-size: 14px; }
     .inv-item {
@@ -252,7 +250,6 @@
       width: 70px; height: 70px; object-fit: cover;
       border: 1px solid var(--border); border-radius: 4px; background: var(--bg);
     }
-    .inv-info {}
     .inv-name { font-family: 'Teko', sans-serif; font-size: 17px; color: var(--navy); line-height: 1; margin-bottom: 4px; text-transform: uppercase; }
     .inv-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 4px; }
     .inv-price { font-weight: 700; font-size: 14px; color: var(--navy); }
@@ -320,7 +317,6 @@
     }
     .btn-confirm-cancel:hover { border-color: var(--navy); }
  
-    /* ── Responsive tweaks ───────────────────────────────────── */
     @media(max-width:600px) {
       .admin-header { padding: 0 16px; }
       .panel-body { padding: 18px; }
@@ -332,7 +328,7 @@
 </head>
 <body>
  
-<!-- ── Loading overlay (shown on first paint) ────────────────── -->
+<!-- ── Loading overlay ────────────────────────────────────────── -->
 <div id="loading-overlay">
   <div class="spinner"></div>
   <p>Loading Admin…</p>
@@ -486,7 +482,7 @@
   <div class="confirm-box">
     <i class="fas fa-trash-alt"></i>
     <h3>Delete This Item?</h3>
-    <p>This permanently removes the product from your store. The photo will also be deleted. This cannot be undone.</p>
+    <p>This permanently removes the product from your store. This cannot be undone.</p>
     <div class="confirm-btns">
       <button class="btn-confirm-del"    id="confirm-yes">Yes, Delete It</button>
       <button class="btn-confirm-cancel" id="confirm-no">Keep It</button>
@@ -504,13 +500,15 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
 <script src="../firebase-config.js"></script>
  
 <script>
 /* ══════════════════════════════════════════════════════════════
-   Dyed For America — Admin Panel Logic
+   Dyed For America — Admin Panel (Cloudinary + Firebase)
    ══════════════════════════════════════════════════════════════ */
+ 
+// ── Cloudinary Config ───────────────────────────────────────────
+const CLOUDINARY_CLOUD_NAME = "df9gozf1a";
  
 // ── Guard: check firebase config ────────────────────────────────
 if (!window.firebaseReady || !window.auth) {
@@ -519,23 +517,21 @@ if (!window.firebaseReady || !window.auth) {
       <i class="fas fa-exclamation-triangle" style="font-size:48px;color:#C41E3A;margin-bottom:20px;display:block"></i>
       <h2 style="font-family:Teko,sans-serif;font-size:28px;margin-bottom:14px;text-transform:uppercase">Firebase Not Set Up</h2>
       <p style="font-size:14px;line-height:1.6;color:rgba(247,242,232,.8)">
-        Open <strong style="color:#E0AE45">firebase-config.js</strong> and replace the placeholder values with your Firebase project credentials, then refresh this page.
+        Check your firebase-config.js file and ensure all values are filled in correctly.
       </p>
-      <p style="margin-top:16px;font-size:12px;color:rgba(247,242,232,.5)">See FIREBASE_SETUP.md for step-by-step instructions.</p>
     </div>`;
 }
  
 // ── State ────────────────────────────────────────────────────────
-let editingId        = null;   // Firestore doc ID when editing
-let editingImgUrl    = null;   // existing img URL when editing
-let selectedFile     = null;   // File object for new upload
+let editingId        = null;
+let editingImgUrl    = null;
+let selectedFile     = null;
 let selectedStatus   = "available";
-let allInventory     = [];     // full unfiltered product list
-let deleteTarget     = null;   // { id, imgUrl } waiting for confirm
+let allInventory     = [];
+let deleteTarget     = null;
  
 const db      = window.db;
 const auth    = window.auth;
-const storage = window.storage;
  
 // ── DOM refs ─────────────────────────────────────────────────────
 const $ = id => document.getElementById(id);
@@ -585,7 +581,6 @@ function showToast(msg, type = "success") {
  
 // ── Auth ─────────────────────────────────────────────────────────
 auth.onAuthStateChanged(user => {
-  // Hide loading overlay
   loadingOl.classList.add("fade-out");
   setTimeout(() => loadingOl.classList.add("hidden"), 500);
  
@@ -619,7 +614,6 @@ loginBtn.addEventListener("click", async () => {
 });
  
 passIn.addEventListener("keydown", e => { if (e.key === "Enter") loginBtn.click(); });
- 
 $("logout-btn").addEventListener("click", () => auth.signOut());
  
 function showLoginError(msg) {
@@ -637,7 +631,7 @@ function friendlyAuthError(code) {
   return map[code] || "Sign-in failed. Please check your credentials.";
 }
  
-// ── Image Upload Zone ────────────────────────────────────────────
+// ── Image Upload to Cloudinary ───────────────────────────────────
 uploadZone.addEventListener("dragover", e => { e.preventDefault(); uploadZone.classList.add("dragover"); });
 uploadZone.addEventListener("dragleave", () => uploadZone.classList.remove("dragover"));
 uploadZone.addEventListener("drop", e => {
@@ -656,12 +650,14 @@ function handleFileSelected(file) {
   reader.onload = e => showPreview(e.target.result);
   reader.readAsDataURL(file);
 }
+ 
 function showPreview(src) {
   imgPreview.src = src;
   imgPreview.style.display = "block";
   uploadPrompt.style.display = "none";
   uploadZone.classList.add("has-image");
 }
+ 
 function clearPreview() {
   imgPreview.src = "";
   imgPreview.style.display = "none";
@@ -669,6 +665,47 @@ function clearPreview() {
   uploadZone.classList.remove("has-image");
   imgInput.value = "";
   selectedFile = null;
+}
+ 
+// ── Upload to Cloudinary ─────────────────────────────────────────
+function uploadImageToCloudinary(file) {
+  return new Promise((resolve, reject) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "dyed_for_america");
+    formData.append("cloud_name", CLOUDINARY_CLOUD_NAME);
+ 
+    uploadProgress.style.display = "block";
+ 
+    const xhr = new XMLHttpRequest();
+ 
+    xhr.upload.addEventListener("progress", (e) => {
+      if (e.lengthComputable) {
+        const pct = (e.loaded / e.total) * 100;
+        progressBar.style.width = pct + "%";
+      }
+    });
+ 
+    xhr.addEventListener("load", () => {
+      uploadProgress.style.display = "none";
+      progressBar.style.width = "0";
+ 
+      if (xhr.status === 200) {
+        const response = JSON.parse(xhr.responseText);
+        resolve(response.secure_url);
+      } else {
+        reject(new Error("Upload failed"));
+      }
+    });
+ 
+    xhr.addEventListener("error", () => {
+      uploadProgress.style.display = "none";
+      reject(new Error("Upload failed"));
+    });
+ 
+    xhr.open("POST", `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`);
+    xhr.send(formData);
+  });
 }
  
 // ── Status Buttons ───────────────────────────────────────────────
@@ -679,6 +716,7 @@ function clearPreview() {
     selectedStatus = btn.dataset.val;
   });
 });
+ 
 function setStatus(val) {
   selectedStatus = val;
   [$("s-avail"), $("s-sold")].forEach(b => {
@@ -706,9 +744,8 @@ productForm.addEventListener("submit", async e => {
   try {
     let imgUrl = editingImgUrl;
  
-    // Upload new image if selected
     if (selectedFile) {
-      imgUrl = await uploadImage(selectedFile);
+      imgUrl = await uploadImageToCloudinary(selectedFile);
     }
  
     const data = {
@@ -743,35 +780,6 @@ productForm.addEventListener("submit", async e => {
   }
 });
  
-// ── Upload image to Firebase Storage ─────────────────────────────
-function uploadImage(file) {
-  return new Promise((resolve, reject) => {
-    const ext  = file.name.split(".").pop();
-    const path = `product-images/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-    const ref  = storage.ref(path);
-    const task = ref.put(file);
- 
-    uploadProgress.style.display = "block";
- 
-    task.on("state_changed",
-      snap => {
-        const pct = (snap.bytesTransferred / snap.totalBytes) * 100;
-        progressBar.style.width = pct + "%";
-      },
-      err => {
-        uploadProgress.style.display = "none";
-        reject(err);
-      },
-      async () => {
-        uploadProgress.style.display = "none";
-        progressBar.style.width = "0";
-        const url = await task.snapshot.ref.getDownloadURL();
-        resolve(url);
-      }
-    );
-  });
-}
- 
 // ── Reset form ───────────────────────────────────────────────────
 function resetForm() {
   editingId     = null;
@@ -793,13 +801,13 @@ async function loadInventory() {
   productList.innerHTML = `<p class="inv-empty"><i class="fas fa-spinner fa-spin"></i> Loading…</p>`;
   try {
     const snap = await db.collection("products").orderBy("createdAt", "desc").get()
-      .catch(() => db.collection("products").get()); // fallback if index not built
+      .catch(() => db.collection("products").get());
  
     allInventory = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     renderInventory(allInventory);
   } catch (err) {
     productList.innerHTML = `<p class="inv-empty" style="color:var(--red)">
-      <i class="fas fa-exclamation-triangle"></i> Failed to load products. Check your connection.
+      <i class="fas fa-exclamation-triangle"></i> Failed to load products.
     </p>`;
   }
 }
@@ -816,14 +824,10 @@ function renderInventory(items) {
   }
  
   productList.innerHTML = items.map(p => {
-    const thumb = p.img && p.img.startsWith("http")
-      ? p.img
-      : `../${p.img || ""}`;
     const isSold = p.status === "sold_out";
     return `
       <div class="inv-item" data-id="${p.id}">
-        <img class="inv-thumb" src="${thumb}" alt="${p.name}"
-             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'70\\' height=\\'70\\'%3E%3Crect width=\\'70\\' height=\\'70\\' fill=\\'%23EDEAE2\\'/%3E%3Ctext x=\\'50%25\\' y=\\'55%25\\' font-size=\\'22\\' text-anchor=\\'middle\\' fill=\\'%23C8922A\\'%3E🎨%3C/text%3E%3C/svg%3E'">
+        <img class="inv-thumb" src="${p.img || 'data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2770%27 height=%2770%27%3E%3Crect width=%2770%27 height=%2770%27 fill=%27%23EDEAE2%27/%3E%3Ctext x=%2750%25%27 y=%2755%25%27 font-size=%2722%27 text-anchor=%27middle%27 fill=%27%23C8922A%27%3E🎨%3C/text%3E%3C/svg%3E'}" alt="${p.name}">
         <div class="inv-info">
           <div class="inv-name">${p.name}</div>
           <div class="inv-meta">
@@ -835,7 +839,7 @@ function renderInventory(items) {
         </div>
         <div class="inv-actions">
           <button class="btn-edit"   onclick="startEdit('${p.id}')">Edit</button>
-          <button class="btn-delete" onclick="confirmDelete('${p.id}', '${(p.img || "").replace(/'/g,"\\'")}')">Delete</button>
+          <button class="btn-delete" onclick="confirmDelete('${p.id}')">Delete</button>
         </div>
       </div>`;
   }).join("");
@@ -856,10 +860,8 @@ invSearch.addEventListener("input", () => {
  
 // ── Edit ─────────────────────────────────────────────────────────
 async function startEdit(id) {
-  // Scroll form into view on mobile
   document.querySelector(".form-panel").scrollIntoView({ behavior: "smooth", block: "start" });
  
-  // Find in local cache
   const p = allInventory.find(x => x.id === id);
   if (!p) { showToast("Product not found.", "error"); return; }
  
@@ -867,7 +869,6 @@ async function startEdit(id) {
   editingImgUrl = p.img;
   selectedFile  = null;
  
-  // Populate fields
   $("f-name").value  = p.name  || "";
   $("f-price").value = p.price || "";
   $("f-size").value  = p.size  || "";
@@ -876,10 +877,8 @@ async function startEdit(id) {
   $("f-link").value  = p.link  || "";
   setStatus(p.status || "available");
  
-  // Show existing image preview
   if (p.img) {
-    const src = p.img.startsWith("http") ? p.img : `../${p.img}`;
-    showPreview(src);
+    showPreview(p.img);
   } else {
     clearPreview();
   }
@@ -889,11 +888,11 @@ async function startEdit(id) {
   submitBtn.querySelector("i").className = "fas fa-save";
   cancelBtn.classList.remove("hidden");
 }
-window.startEdit = startEdit; // expose for inline onclick
+window.startEdit = startEdit;
  
 // ── Delete ───────────────────────────────────────────────────────
-function confirmDelete(id, imgUrl) {
-  deleteTarget = { id, imgUrl };
+function confirmDelete(id) {
+  deleteTarget = { id };
   confirmOverlay.classList.remove("hidden");
 }
 window.confirmDelete = confirmDelete;
@@ -902,17 +901,11 @@ confirmYes.addEventListener("click", async () => {
   if (!deleteTarget) return;
   confirmOverlay.classList.add("hidden");
  
-  const { id, imgUrl } = deleteTarget;
+  const { id } = deleteTarget;
   deleteTarget = null;
  
   try {
     await db.collection("products").doc(id).delete();
- 
-    // Delete image from Storage if it's a Firebase URL
-    if (imgUrl && imgUrl.includes("firebasestorage.googleapis.com")) {
-      try { await storage.refFromURL(imgUrl).delete(); } catch (_) { /* ignore */ }
-    }
- 
     showToast("Product deleted.", "success");
     if (editingId === id) resetForm();
     loadInventory();
@@ -926,7 +919,6 @@ confirmNo.addEventListener("click", () => {
   deleteTarget = null;
 });
  
-// Close confirm on overlay click
 confirmOverlay.addEventListener("click", e => {
   if (e.target === confirmOverlay) {
     confirmOverlay.classList.add("hidden");
