@@ -1,939 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dyed For America — Admin</title>
-  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <style>
-    /* ── Reset & Tokens ─────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --navy:    #0B1F3D;
-      --navy-d:  #061429;
-      --red:     #C41E3A;
-      --gold:    #C8922A;
-      --gold-l:  #E0AE45;
-      --cream:   #F7F2E8;
-      --bg:      #EDEAE2;
-      --white:   #FFFFFF;
-      --border:  #D9D3C8;
-      --muted:   #6B7280;
-      --success: #16A34A;
-      --ease:    cubic-bezier(0.22,1,0.36,1);
-      --radius:  6px;
-      --shadow:  0 4px 20px rgba(11,31,61,0.12);
-    }
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--navy);
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-    }
-    h1,h2,h3 { font-family: 'Teko', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; line-height: 1; }
-    input, textarea, select, button { font-family: inherit; }
-    img { display: block; max-width: 100%; }
-    a { color: inherit; text-decoration: none; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dyed For America | Bold Colors. True Freedom.</title>
+    <meta name="description" content="Dyed For America — Veteran-owned, hand-dyed premium apparel. Bold colors. True freedom.">
+    <link rel="icon" href="Logo.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
  
-    /* ── Utilities ───────────────────────────────────────────── */
-    .hidden { display: none !important; }
-    .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
- 
-    /* ── Loading Overlay ─────────────────────────────────────── */
-    #loading-overlay {
-      position: fixed; inset: 0; background: var(--navy-d);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 20px; z-index: 9999; transition: opacity 0.4s ease;
-    }
-    #loading-overlay.fade-out { opacity: 0; pointer-events: none; }
-    .spinner {
-      width: 44px; height: 44px; border: 3px solid rgba(200,146,42,0.3);
-      border-top-color: var(--gold); border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    #loading-overlay p { color: var(--gold); font-family: 'Teko', sans-serif; font-size: 18px; letter-spacing: 0.2em; text-transform: uppercase; }
- 
-    /* ── Login Screen ────────────────────────────────────────── */
-    #login-screen {
-      min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      background: var(--navy-d); padding: 24px;
-    }
-    .login-box {
-      width: 100%; max-width: 420px;
-      background: var(--navy); border: 1px solid rgba(200,146,42,0.25);
-      padding: 48px 40px; box-shadow: var(--shadow);
-    }
-    .login-logo {
-      width: 80px; height: 80px; border-radius: 50%; background: var(--cream);
-      border: 2px solid var(--gold); overflow: hidden; margin: 0 auto 24px;
-    }
-    .login-logo img { width: 100%; height: 100%; object-fit: cover; }
-    .login-box h1 { font-size: 32px; color: var(--cream); text-align: center; margin-bottom: 8px; }
-    .login-box p.subtitle { font-size: 13px; color: var(--gold-l); text-align: center; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 36px; font-family: 'Teko', sans-serif; }
-    .login-field { margin-bottom: 18px; }
-    .login-field label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-l); margin-bottom: 8px; }
-    .login-field input {
-      width: 100%; padding: 13px 15px; background: rgba(247,242,232,0.05);
-      border: 1px solid rgba(200,146,42,0.25); color: var(--cream);
-      font-size: 15px; transition: border-color 0.2s;
-    }
-    .login-field input:focus { outline: none; border-color: var(--gold); background: rgba(247,242,232,0.08); }
-    .login-field input::placeholder { color: rgba(247,242,232,0.35); }
-    #login-error {
-      background: rgba(196,30,58,0.15); border: 1px solid var(--red);
-      color: #fca5a5; padding: 10px 14px; font-size: 13px;
-      margin-bottom: 18px; display: none;
-    }
-    .btn-login {
-      width: 100%; padding: 15px; background: var(--red); color: var(--cream);
-      font-family: 'Teko', sans-serif; font-size: 18px; font-weight: 700;
-      letter-spacing: 0.2em; text-transform: uppercase; border: none; cursor: pointer;
-      transition: background 0.2s var(--ease); display: flex; align-items: center; justify-content: center; gap: 10px;
-    }
-    .btn-login:hover { background: var(--gold); color: var(--navy); }
-    .btn-login:disabled { background: var(--muted); cursor: not-allowed; }
- 
-    /* ── Admin Header ────────────────────────────────────────── */
-    .admin-header {
-      position: sticky; top: 0; z-index: 100;
-      background: var(--navy); border-bottom: 2px solid var(--gold);
-      padding: 0 24px; height: 64px;
-      display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.25);
-    }
-    .header-brand { display: flex; align-items: center; gap: 14px; }
-    .header-logo { width: 40px; height: 40px; border-radius: 50%; background: var(--cream); border: 1px solid var(--gold); overflow: hidden; flex-shrink: 0; }
-    .header-logo img { width: 100%; height: 100%; object-fit: cover; }
-    .header-wordmark { font-family: 'Teko', sans-serif; font-size: 20px; color: var(--cream); line-height: 1; }
-    .header-wordmark .gold { color: var(--gold); }
-    .header-badge { font-size: 10px; color: var(--gold-l); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 3px; }
-    .header-right { display: flex; align-items: center; gap: 16px; }
-    #user-email { font-size: 13px; color: rgba(247,242,232,0.6); display: none; }
-    @media(min-width:600px) { #user-email { display: block; } }
-    .btn-logout {
-      padding: 8px 16px; background: transparent; border: 1px solid rgba(200,146,42,0.4);
-      color: var(--gold); font-family: 'Teko', sans-serif; font-size: 14px;
-      letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 8px;
-      transition: all 0.2s;
-    }
-    .btn-logout:hover { background: rgba(200,146,42,0.12); border-color: var(--gold); }
- 
-    /* ── Main Layout ─────────────────────────────────────────── */
-    .admin-main {
-      max-width: 1400px; margin: 0 auto; padding: 28px 20px;
-      display: grid; grid-template-columns: 420px 1fr; gap: 24px; align-items: start;
-    }
-    @media(max-width:1000px) { .admin-main { grid-template-columns: 1fr; } }
- 
-    /* ── Panel (shared card style) ───────────────────────────── */
-    .panel {
-      background: var(--white); border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-    }
-    .panel-header {
-      padding: 20px 24px 16px; border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    }
-    .panel-header h2 { font-size: 22px; color: var(--navy); }
-    .panel-body { padding: 24px; }
- 
-    /* ── Image Upload Zone ───────────────────────────────────── */
-    .upload-zone {
-      border: 2px dashed var(--border); background: var(--bg);
-      position: relative; cursor: pointer; margin-bottom: 20px;
-      transition: border-color 0.2s, background 0.2s; min-height: 180px;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-    }
-    .upload-zone:hover, .upload-zone.dragover { border-color: var(--gold); background: rgba(200,146,42,0.04); }
-    .upload-zone.has-image { border-style: solid; border-color: var(--gold); min-height: 220px; }
-    #img-input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-    .upload-prompt { text-align: center; padding: 32px 20px; pointer-events: none; }
-    .upload-prompt i { font-size: 36px; color: var(--gold); margin-bottom: 12px; display: block; }
-    .upload-prompt .up-title { font-family: 'Teko', sans-serif; font-size: 18px; color: var(--navy); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
-    .upload-prompt .up-sub { font-size: 12px; color: var(--muted); }
-    #img-preview { width: 100%; height: 220px; object-fit: cover; display: none; }
-    .img-overlay {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      background: rgba(11,31,61,0.75); color: var(--cream);
-      font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
-      padding: 8px; text-align: center; display: none;
-      font-family: 'Teko', sans-serif;
-    }
-    .upload-zone.has-image .img-overlay { display: block; }
- 
-    /* ── Product Form ────────────────────────────────────────── */
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-    @media(max-width:480px) { .form-grid { grid-template-columns: 1fr; } }
-    .fg { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
-    .fg:last-child { margin-bottom: 0; }
-    .form-grid .fg { margin-bottom: 0; }
-    .fg label {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--navy); opacity: 0.7;
-    }
-    .fg input, .fg textarea, .fg select {
-      padding: 10px 12px; border: 1px solid var(--border); background: var(--white);
-      color: var(--navy); font-size: 14px; border-radius: var(--radius);
-      transition: border-color 0.2s, box-shadow 0.2s; width: 100%;
-    }
-    .fg input:focus, .fg textarea:focus, .fg select:focus {
-      outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(200,146,42,0.12);
-    }
-    .fg textarea { resize: vertical; min-height: 80px; }
-    .fg .hint { font-size: 11px; color: var(--muted); margin-top: 3px; }
- 
-    /* Status Toggle */
-    .status-row { display: flex; gap: 10px; }
-    .status-btn {
-      flex: 1; padding: 10px 8px; border: 2px solid var(--border); background: var(--white);
-      font-family: 'Teko', sans-serif; font-size: 15px; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
-      transition: all 0.2s; border-radius: var(--radius); color: var(--muted);
-    }
-    .status-btn.active[data-val="available"] { background: var(--success); border-color: var(--success); color: #fff; }
-    .status-btn.active[data-val="sold_out"]  { background: var(--red);     border-color: var(--red);     color: #fff; }
- 
-    /* Form Actions */
-    .form-actions { display: flex; gap: 12px; margin-top: 20px; }
-    .btn-primary {
-      flex: 1; padding: 13px 20px; background: var(--red); color: var(--cream);
-      font-family: 'Teko', sans-serif; font-size: 17px; font-weight: 700;
-      letter-spacing: 0.18em; text-transform: uppercase; border: none; cursor: pointer;
-      transition: background 0.2s var(--ease); display: flex; align-items: center; justify-content: center; gap: 10px;
-      border-radius: var(--radius);
-    }
-    .btn-primary:hover:not(:disabled) { background: var(--navy); }
-    .btn-primary:disabled { background: var(--muted); cursor: not-allowed; }
-    .btn-secondary {
-      padding: 13px 20px; background: transparent; border: 2px solid var(--border);
-      color: var(--navy); font-family: 'Teko', sans-serif; font-size: 17px; font-weight: 700;
-      letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer;
-      transition: all 0.2s; border-radius: var(--radius);
-    }
-    .btn-secondary:hover { border-color: var(--navy); background: var(--bg); }
-    .upload-progress {
-      height: 3px; background: var(--border); margin-top: -20px; margin-bottom: 20px; display: none;
-    }
-    .upload-progress-bar { height: 100%; width: 0; background: var(--gold); transition: width 0.3s ease; }
- 
-    /* ── Inventory Panel ─────────────────────────────────────── */
-    .count-badge {
-      background: var(--navy); color: var(--gold); padding: 4px 12px;
-      font-family: 'Teko', sans-serif; font-size: 14px; letter-spacing: 0.14em;
-      text-transform: uppercase; border-radius: 20px; white-space: nowrap;
-    }
-    .inventory-search {
-      padding: 16px 20px; border-bottom: 1px solid var(--border);
-    }
-    .inventory-search input {
-      width: 100%; padding: 9px 14px 9px 36px; border: 1px solid var(--border);
-      background: var(--bg); font-size: 14px; border-radius: var(--radius);
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cpath d='m21 21-4.35-4.35'%3E%3C/path%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: 12px center;
-    }
-    .inventory-search input:focus { outline: none; border-color: var(--gold); }
- 
-    /* Product list items */
-    #product-list { max-height: calc(100vh - 200px); overflow-y: auto; }
-    .inv-empty { padding: 40px 24px; text-align: center; color: var(--muted); font-size: 14px; }
-    .inv-item {
-      display: grid; grid-template-columns: 70px 1fr auto;
-      gap: 14px; align-items: center;
-      padding: 14px 20px; border-bottom: 1px solid var(--border);
-      transition: background 0.15s;
-    }
-    .inv-item:last-child { border-bottom: none; }
-    .inv-item:hover { background: var(--bg); }
-    .inv-thumb {
-      width: 70px; height: 70px; object-fit: cover;
-      border: 1px solid var(--border); border-radius: 4px; background: var(--bg);
-    }
-    .inv-info {}
-    .inv-name { font-family: 'Teko', sans-serif; font-size: 17px; color: var(--navy); line-height: 1; margin-bottom: 4px; text-transform: uppercase; }
-    .inv-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 4px; }
-    .inv-price { font-weight: 700; font-size: 14px; color: var(--navy); }
-    .badge {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; padding: 2px 8px; border-radius: 20px;
-    }
-    .badge-cat  { background: rgba(11,31,61,0.08); color: var(--navy); }
-    .badge-avail{ background: rgba(22,163,74,0.12); color: var(--success); }
-    .badge-sold { background: rgba(196,30,58,0.12); color: var(--red); }
-    .badge-size { background: rgba(200,146,42,0.15); color: #92621a; }
-    .inv-actions { display: flex; flex-direction: column; gap: 8px; }
-    .btn-edit, .btn-delete {
-      padding: 7px 14px; font-family: 'Teko', sans-serif; font-size: 13px;
-      font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-      cursor: pointer; border-radius: 4px; border: none; transition: all 0.2s;
-      white-space: nowrap;
-    }
-    .btn-edit   { background: var(--navy); color: var(--cream); }
-    .btn-edit:hover   { background: var(--gold); color: var(--navy); }
-    .btn-delete { background: transparent; border: 1px solid var(--border); color: var(--muted); }
-    .btn-delete:hover { background: var(--red); border-color: var(--red); color: #fff; }
- 
-    /* ── Toast ───────────────────────────────────────────────── */
-    #toast {
-      position: fixed; bottom: 28px; right: 28px; z-index: 9998;
-      background: var(--navy); color: var(--cream);
-      padding: 16px 20px; border-left: 4px solid var(--gold);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-      display: flex; align-items: center; gap: 14px; max-width: 360px;
-      transform: translateX(120%); transition: transform 0.4s var(--ease);
-    }
-    #toast.show { transform: translateX(0); }
-    #toast.success { border-color: var(--success); }
-    #toast.error   { border-color: var(--red); }
-    #toast i { font-size: 18px; flex-shrink: 0; }
-    #toast.success i { color: var(--success); }
-    #toast.error   i { color: var(--red); }
-    #toast p { font-size: 13px; line-height: 1.4; }
- 
-    /* ── Confirm Dialog ──────────────────────────────────────── */
-    #confirm-overlay {
-      position: fixed; inset: 0; background: rgba(6,20,41,0.7);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 9000; padding: 24px;
-    }
-    .confirm-box {
-      background: var(--white); padding: 36px; max-width: 400px; width: 100%;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.3); text-align: center;
-    }
-    .confirm-box i { font-size: 40px; color: var(--red); margin-bottom: 16px; display: block; }
-    .confirm-box h3 { font-size: 24px; margin-bottom: 10px; }
-    .confirm-box p { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.5; }
-    .confirm-btns { display: flex; gap: 12px; justify-content: center; }
-    .btn-confirm-del {
-      padding: 12px 28px; background: var(--red); color: #fff;
-      font-family: 'Teko', sans-serif; font-size: 16px; letter-spacing: 0.14em;
-      text-transform: uppercase; border: none; cursor: pointer; border-radius: 4px;
-    }
-    .btn-confirm-del:hover { background: #a01a30; }
-    .btn-confirm-cancel {
-      padding: 12px 28px; background: transparent; border: 2px solid var(--border);
-      font-family: 'Teko', sans-serif; font-size: 16px; letter-spacing: 0.14em;
-      text-transform: uppercase; cursor: pointer; border-radius: 4px;
-    }
-    .btn-confirm-cancel:hover { border-color: var(--navy); }
- 
-    /* ── Responsive tweaks ───────────────────────────────────── */
-    @media(max-width:600px) {
-      .admin-header { padding: 0 16px; }
-      .panel-body { padding: 18px; }
-      .inv-item { grid-template-columns: 56px 1fr; }
-      .inv-actions { flex-direction: row; grid-column: 1 / -1; }
-      #toast { bottom: 16px; right: 16px; left: 16px; max-width: none; }
-    }
-  </style>
+    <!-- ═══════════════════════════════════════════════════════════
+         Firebase SDK (read-only for storefront — auth & storage
+         are only loaded in the admin panel)
+         ═══════════════════════════════════════════════════════════ -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <!-- firebase-config.js initializes the app and sets window.db -->
+    <script src="firebase-config.js"></script>
 </head>
 <body>
  
-<!-- ── Loading overlay (shown on first paint) ────────────────── -->
-<div id="loading-overlay">
-  <div class="spinner"></div>
-  <p>Loading Admin…</p>
-</div>
- 
-<!-- ── Login Screen ───────────────────────────────────────────── -->
-<div id="login-screen" class="hidden">
-  <div class="login-box">
-    <div class="login-logo"><img src="../Logo.png" alt="Logo" onerror="this.style.display='none'"></div>
-    <h1>Admin Login</h1>
-    <p class="subtitle">Dyed For America</p>
-    <div id="login-error"></div>
-    <div class="login-field">
-      <label for="email-in">Email Address</label>
-      <input type="email" id="email-in" autocomplete="username" placeholder="you@example.com">
+<nav class="navbar" id="navbar">
+    <div class="nav-brand">
+        <div class="nav-logo"><img src="Logo.png" alt="Dyed For America Logo"></div>
+        <div>
+            <div class="nav-wordmark">Dyed <span class="accent">/</span> For <span class="accent">/</span> America</div>
+        </div>
     </div>
-    <div class="login-field">
-      <label for="pass-in">Password</label>
-      <input type="password" id="pass-in" autocomplete="current-password" placeholder="••••••••">
+</nav>
+ 
+<header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Dyed For America</h1>
+        <div class="hero-script">Bold colors. True freedom.</div>
     </div>
-    <button class="btn-login" id="login-btn">
-      <i class="fas fa-lock-open"></i> Sign In
-    </button>
-  </div>
-</div>
+</header>
  
-<!-- ── Dashboard ─────────────────────────────────────────────── -->
-<div id="dashboard" class="hidden">
- 
-  <header class="admin-header">
-    <div class="header-brand">
-      <div class="header-logo"><img src="../Logo.png" alt="Logo" onerror="this.style.display='none'"></div>
-      <div>
-        <div class="header-wordmark">Dyed <span class="gold">/</span> For <span class="gold">/</span> America</div>
-        <div class="header-badge">Admin Dashboard</div>
-      </div>
-    </div>
-    <div class="header-right">
-      <span id="user-email"></span>
-      <button class="btn-logout" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
-    </div>
-  </header>
- 
-  <main class="admin-main">
- 
-    <!-- LEFT: Add / Edit form ─────────────────────────────────── -->
-    <div class="panel form-panel">
-      <div class="panel-header">
-        <h2 id="form-title">Add New Product</h2>
-      </div>
-      <div class="panel-body">
- 
-        <!-- Image Upload -->
-        <div class="upload-zone" id="upload-zone">
-          <input type="file" id="img-input" accept="image/*" aria-label="Upload product photo">
-          <div class="upload-prompt" id="upload-prompt">
-            <i class="fas fa-camera"></i>
-            <div class="up-title">Click to Upload Photo</div>
-            <div class="up-sub">JPG, PNG, WEBP — any size</div>
-          </div>
-          <img id="img-preview" alt="Preview" src="">
-          <div class="img-overlay"><i class="fas fa-sync-alt"></i> Click to Change Photo</div>
+<main>
+    <section class="shop" id="shop">
+        <div class="section-head">
+            <span class="eyebrow">The Collection</span>
+            <h2>Wear <em>Something</em> Real</h2>
+            <div class="divider-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            <p class="lede">Every piece is a unique work of art, dyed by hand in Oklahoma.</p>
         </div>
  
-        <!-- Upload progress -->
-        <div class="upload-progress" id="upload-progress">
-          <div class="upload-progress-bar" id="progress-bar"></div>
+        <div class="filter-bar" id="filter-bar">
+            <button class="filter-btn active" data-filter="all">All Pieces</button>
+            <button class="filter-btn" data-filter="shirt">T-Shirts</button>
+            <button class="filter-btn" data-filter="pants">Pants</button>
+            <button class="filter-btn" data-filter="hoodie">Hoodies</button>
+            <button class="filter-btn" data-filter="tapestry">Tapestries</button>
+            <button class="filter-btn" data-filter="socks">Socks</button>
+            <button class="filter-btn" data-filter="bedding">Bedding</button>
         </div>
  
-        <form id="product-form" novalidate>
-          <div class="form-grid">
-            <div class="fg">
-              <label for="f-name">Product Name *</label>
-              <input id="f-name" type="text" placeholder="e.g. Electric Peace Mandala" required>
-            </div>
-            <div class="fg">
-              <label for="f-price">Price ($) *</label>
-              <input id="f-price" type="number" min="0" step="0.01" placeholder="25" required>
-            </div>
-            <div class="fg">
-              <label for="f-size">Size</label>
-              <input id="f-size" type="text" placeholder="S / M / L / XL / OS / Queen">
-            </div>
-            <div class="fg">
-              <label for="f-cat">Category *</label>
-              <select id="f-cat">
-                <option value="shirt">👕 T-Shirt</option>
-                <option value="pants">👖 Pants</option>
-                <option value="hoodie">🧥 Hoodie</option>
-                <option value="tapestry">🎨 Tapestry</option>
-                <option value="socks">🧦 Socks</option>
-                <option value="bedding">🛏️ Bedding</option>
-              </select>
-            </div>
-          </div>
- 
-          <div class="fg">
-            <label for="f-desc">Description</label>
-            <textarea id="f-desc" placeholder="Describe this piece — the colors, pattern, feel…"></textarea>
-          </div>
- 
-          <div class="fg">
-            <label for="f-link">Stripe Checkout Link *</label>
-            <input id="f-link" type="url" placeholder="https://buy.stripe.com/…">
-            <span class="hint">Paste the link from your Stripe payment link dashboard</span>
-          </div>
- 
-          <div class="fg">
-            <label>Status</label>
-            <div class="status-row">
-              <button type="button" class="status-btn active" data-val="available" id="s-avail">
-                <i class="fas fa-check-circle"></i> Available
-              </button>
-              <button type="button" class="status-btn" data-val="sold_out" id="s-sold">
-                <i class="fas fa-times-circle"></i> Sold Out
-              </button>
-            </div>
-          </div>
- 
-          <div class="form-actions">
-            <button type="submit" class="btn-primary" id="submit-btn">
-              <i class="fas fa-plus-circle"></i>
-              <span id="submit-label">Add Product</span>
-            </button>
-            <button type="button" class="btn-secondary hidden" id="cancel-btn">Cancel</button>
-          </div>
- 
-        </form>
-      </div>
-    </div>
- 
-    <!-- RIGHT: Inventory list ────────────────────────────────── -->
-    <div class="panel inventory-panel">
-      <div class="panel-header">
-        <h2>Current Inventory</h2>
-        <span class="count-badge" id="count-badge">0 items</span>
-      </div>
-      <div class="inventory-search">
-        <input type="search" id="inv-search" placeholder="Search by name or category…">
-      </div>
-      <div id="product-list">
-        <p class="inv-empty"><i class="fas fa-spinner fa-spin"></i> Loading…</p>
-      </div>
-    </div>
- 
-  </main>
-</div>
- 
-<!-- ── Delete Confirm Dialog ─────────────────────────────────── -->
-<div id="confirm-overlay" class="hidden">
-  <div class="confirm-box">
-    <i class="fas fa-trash-alt"></i>
-    <h3>Delete This Item?</h3>
-    <p>This permanently removes the product from your store. The photo will also be deleted. This cannot be undone.</p>
-    <div class="confirm-btns">
-      <button class="btn-confirm-del"    id="confirm-yes">Yes, Delete It</button>
-      <button class="btn-confirm-cancel" id="confirm-no">Keep It</button>
-    </div>
-  </div>
-</div>
- 
-<!-- ── Toast ─────────────────────────────────────────────────── -->
-<div id="toast">
-  <i id="toast-icon"></i>
-  <p id="toast-msg"></p>
-</div>
- 
-<!-- ── Firebase SDK (compat) ─────────────────────────────────── -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
-<script src="../firebase-config.js"></script>
- 
-<script>
-/* ══════════════════════════════════════════════════════════════
-   Dyed For America — Admin Panel Logic
-   ══════════════════════════════════════════════════════════════ */
- 
-// ── Guard: check firebase config ────────────────────────────────
-if (!window.firebaseReady || !window.auth) {
-  document.getElementById("loading-overlay").innerHTML = `
-    <div style="max-width:480px;padding:40px;background:#0B1F3D;border:1px solid #C8922A;text-align:center;color:#F7F2E8">
-      <i class="fas fa-exclamation-triangle" style="font-size:48px;color:#C41E3A;margin-bottom:20px;display:block"></i>
-      <h2 style="font-family:Teko,sans-serif;font-size:28px;margin-bottom:14px;text-transform:uppercase">Firebase Not Set Up</h2>
-      <p style="font-size:14px;line-height:1.6;color:rgba(247,242,232,.8)">
-        Open <strong style="color:#E0AE45">firebase-config.js</strong> and replace the placeholder values with your Firebase project credentials, then refresh this page.
-      </p>
-      <p style="margin-top:16px;font-size:12px;color:rgba(247,242,232,.5)">See FIREBASE_SETUP.md for step-by-step instructions.</p>
-    </div>`;
-}
- 
-// ── State ────────────────────────────────────────────────────────
-let editingId        = null;   // Firestore doc ID when editing
-let editingImgUrl    = null;   // existing img URL when editing
-let selectedFile     = null;   // File object for new upload
-let selectedStatus   = "available";
-let allInventory     = [];     // full unfiltered product list
-let deleteTarget     = null;   // { id, imgUrl } waiting for confirm
- 
-const db      = window.db;
-const auth    = window.auth;
-const storage = window.storage;
- 
-// ── DOM refs ─────────────────────────────────────────────────────
-const $ = id => document.getElementById(id);
-const loginScreen   = $("login-screen");
-const dashboard     = $("dashboard");
-const loadingOl     = $("loading-overlay");
- 
-const emailIn       = $("email-in");
-const passIn        = $("pass-in");
-const loginBtn      = $("login-btn");
-const loginError    = $("login-error");
- 
-const formTitle     = $("form-title");
-const productForm   = $("product-form");
-const submitBtn     = $("submit-btn");
-const submitLabel   = $("submit-label");
-const cancelBtn     = $("cancel-btn");
- 
-const uploadZone    = $("upload-zone");
-const imgInput      = $("img-input");
-const imgPreview    = $("img-preview");
-const uploadPrompt  = $("upload-prompt");
-const uploadProgress= $("upload-progress");
-const progressBar   = $("progress-bar");
- 
-const productList   = $("product-list");
-const countBadge    = $("count-badge");
-const invSearch     = $("inv-search");
- 
-const confirmOverlay= $("confirm-overlay");
-const confirmYes    = $("confirm-yes");
-const confirmNo     = $("confirm-no");
- 
-const toast         = $("toast");
-const toastIcon     = $("toast-icon");
-const toastMsg      = $("toast-msg");
- 
-// ── Toast ────────────────────────────────────────────────────────
-let toastTimer;
-function showToast(msg, type = "success") {
-  toastMsg.textContent = msg;
-  toastIcon.className  = type === "success" ? "fas fa-check-circle" : "fas fa-exclamation-circle";
-  toast.className      = `show ${type}`;
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { toast.className = ""; }, 3800);
-}
- 
-// ── Auth ─────────────────────────────────────────────────────────
-auth.onAuthStateChanged(user => {
-  // Hide loading overlay
-  loadingOl.classList.add("fade-out");
-  setTimeout(() => loadingOl.classList.add("hidden"), 500);
- 
-  if (user) {
-    loginScreen.classList.add("hidden");
-    dashboard.classList.remove("hidden");
-    $("user-email").textContent = user.email;
-    loadInventory();
-  } else {
-    loginScreen.classList.remove("hidden");
-    dashboard.classList.add("hidden");
-  }
-});
- 
-loginBtn.addEventListener("click", async () => {
-  const email = emailIn.value.trim();
-  const pass  = passIn.value;
-  if (!email || !pass) { showLoginError("Please enter your email and password."); return; }
- 
-  loginBtn.disabled = true;
-  loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in…';
-  loginError.style.display = "none";
- 
-  try {
-    await auth.signInWithEmailAndPassword(email, pass);
-  } catch (err) {
-    showLoginError(friendlyAuthError(err.code));
-    loginBtn.disabled = false;
-    loginBtn.innerHTML = '<i class="fas fa-lock-open"></i> Sign In';
-  }
-});
- 
-passIn.addEventListener("keydown", e => { if (e.key === "Enter") loginBtn.click(); });
- 
-$("logout-btn").addEventListener("click", () => auth.signOut());
- 
-function showLoginError(msg) {
-  loginError.textContent = msg;
-  loginError.style.display = "block";
-}
-function friendlyAuthError(code) {
-  const map = {
-    "auth/user-not-found":    "No account found with that email.",
-    "auth/wrong-password":    "Incorrect password. Please try again.",
-    "auth/invalid-email":     "Please enter a valid email address.",
-    "auth/too-many-requests": "Too many failed attempts. Try again later.",
-    "auth/invalid-credential":"Email or password is incorrect.",
-  };
-  return map[code] || "Sign-in failed. Please check your credentials.";
-}
- 
-// ── Image Upload Zone ────────────────────────────────────────────
-uploadZone.addEventListener("dragover", e => { e.preventDefault(); uploadZone.classList.add("dragover"); });
-uploadZone.addEventListener("dragleave", () => uploadZone.classList.remove("dragover"));
-uploadZone.addEventListener("drop", e => {
-  e.preventDefault();
-  uploadZone.classList.remove("dragover");
-  const file = e.dataTransfer.files[0];
-  if (file && file.type.startsWith("image/")) handleFileSelected(file);
-});
-imgInput.addEventListener("change", () => {
-  if (imgInput.files[0]) handleFileSelected(imgInput.files[0]);
-});
- 
-function handleFileSelected(file) {
-  selectedFile = file;
-  const reader = new FileReader();
-  reader.onload = e => showPreview(e.target.result);
-  reader.readAsDataURL(file);
-}
-function showPreview(src) {
-  imgPreview.src = src;
-  imgPreview.style.display = "block";
-  uploadPrompt.style.display = "none";
-  uploadZone.classList.add("has-image");
-}
-function clearPreview() {
-  imgPreview.src = "";
-  imgPreview.style.display = "none";
-  uploadPrompt.style.display = "block";
-  uploadZone.classList.remove("has-image");
-  imgInput.value = "";
-  selectedFile = null;
-}
- 
-// ── Status Buttons ───────────────────────────────────────────────
-[$("s-avail"), $("s-sold")].forEach(btn => {
-  btn.addEventListener("click", () => {
-    [$("s-avail"), $("s-sold")].forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    selectedStatus = btn.dataset.val;
-  });
-});
-function setStatus(val) {
-  selectedStatus = val;
-  [$("s-avail"), $("s-sold")].forEach(b => {
-    b.classList.toggle("active", b.dataset.val === val);
-  });
-}
- 
-// ── Form: submit ─────────────────────────────────────────────────
-productForm.addEventListener("submit", async e => {
-  e.preventDefault();
- 
-  const name  = $("f-name").value.trim();
-  const price = $("f-price").value.trim();
-  const link  = $("f-link").value.trim();
-  const cat   = $("f-cat").value;
- 
-  if (!name)  { showToast("Please enter a product name.", "error"); return; }
-  if (!price) { showToast("Please enter a price.", "error"); return; }
-  if (!link)  { showToast("Please paste a Stripe checkout link.", "error"); return; }
-  if (!selectedFile && !editingImgUrl) { showToast("Please upload a product photo.", "error"); return; }
- 
-  submitBtn.disabled = true;
-  submitLabel.textContent = editingId ? "Saving…" : "Adding…";
- 
-  try {
-    let imgUrl = editingImgUrl;
- 
-    // Upload new image if selected
-    if (selectedFile) {
-      imgUrl = await uploadImage(selectedFile);
-    }
- 
-    const data = {
-      name,
-      price,
-      size:   $("f-size").value.trim() || "OS",
-      cat,
-      desc:   $("f-desc").value.trim(),
-      link,
-      status: selectedStatus,
-      img:    imgUrl,
-    };
- 
-    if (editingId) {
-      await db.collection("products").doc(editingId).update(data);
-      showToast(`"${name}" updated successfully!`);
-    } else {
-      data.createdAt = firebase.firestore.FieldValue.serverTimestamp();
-      await db.collection("products").add(data);
-      showToast(`"${name}" added to the store!`);
-    }
- 
-    resetForm();
-    loadInventory();
- 
-  } catch (err) {
-    console.error(err);
-    showToast("Something went wrong. Check your internet connection.", "error");
-  } finally {
-    submitBtn.disabled = false;
-    submitLabel.textContent = editingId ? "Save Changes" : "Add Product";
-  }
-});
- 
-// ── Upload image to Firebase Storage ─────────────────────────────
-function uploadImage(file) {
-  return new Promise((resolve, reject) => {
-    const ext  = file.name.split(".").pop();
-    const path = `product-images/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-    const ref  = storage.ref(path);
-    const task = ref.put(file);
- 
-    uploadProgress.style.display = "block";
- 
-    task.on("state_changed",
-      snap => {
-        const pct = (snap.bytesTransferred / snap.totalBytes) * 100;
-        progressBar.style.width = pct + "%";
-      },
-      err => {
-        uploadProgress.style.display = "none";
-        reject(err);
-      },
-      async () => {
-        uploadProgress.style.display = "none";
-        progressBar.style.width = "0";
-        const url = await task.snapshot.ref.getDownloadURL();
-        resolve(url);
-      }
-    );
-  });
-}
- 
-// ── Reset form ───────────────────────────────────────────────────
-function resetForm() {
-  editingId     = null;
-  editingImgUrl = null;
-  selectedFile  = null;
-  productForm.reset();
-  clearPreview();
-  setStatus("available");
-  formTitle.textContent      = "Add New Product";
-  submitLabel.textContent    = "Add Product";
-  submitBtn.querySelector("i").className = "fas fa-plus-circle";
-  cancelBtn.classList.add("hidden");
-}
- 
-cancelBtn.addEventListener("click", resetForm);
- 
-// ── Load inventory ───────────────────────────────────────────────
-async function loadInventory() {
-  productList.innerHTML = `<p class="inv-empty"><i class="fas fa-spinner fa-spin"></i> Loading…</p>`;
-  try {
-    const snap = await db.collection("products").orderBy("createdAt", "desc").get()
-      .catch(() => db.collection("products").get()); // fallback if index not built
- 
-    allInventory = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    renderInventory(allInventory);
-  } catch (err) {
-    productList.innerHTML = `<p class="inv-empty" style="color:var(--red)">
-      <i class="fas fa-exclamation-triangle"></i> Failed to load products. Check your connection.
-    </p>`;
-  }
-}
- 
-// ── Render inventory list ────────────────────────────────────────
-function renderInventory(items) {
-  countBadge.textContent = `${items.length} item${items.length !== 1 ? "s" : ""}`;
- 
-  if (items.length === 0) {
-    productList.innerHTML = `<p class="inv-empty">
-      <i class="fas fa-box-open"></i><br>No products yet.<br>Add your first piece above!
-    </p>`;
-    return;
-  }
- 
-  productList.innerHTML = items.map(p => {
-    const thumb = p.img && p.img.startsWith("http")
-      ? p.img
-      : `../${p.img || ""}`;
-    const isSold = p.status === "sold_out";
-    return `
-      <div class="inv-item" data-id="${p.id}">
-        <img class="inv-thumb" src="${thumb}" alt="${p.name}"
-             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'70\\' height=\\'70\\'%3E%3Crect width=\\'70\\' height=\\'70\\' fill=\\'%23EDEAE2\\'/%3E%3Ctext x=\\'50%25\\' y=\\'55%25\\' font-size=\\'22\\' text-anchor=\\'middle\\' fill=\\'%23C8922A\\'%3E🎨%3C/text%3E%3C/svg%3E'">
-        <div class="inv-info">
-          <div class="inv-name">${p.name}</div>
-          <div class="inv-meta">
-            <span class="inv-price">$${p.price}</span>
-            <span class="badge badge-cat">${p.cat}</span>
-            ${p.size ? `<span class="badge badge-size">${p.size}</span>` : ""}
-            <span class="badge ${isSold ? "badge-sold" : "badge-avail"}">${isSold ? "Sold Out" : "Available"}</span>
-          </div>
+        <div class="product-grid" id="product-grid">
+            <p style="grid-column: 1 / -1; text-align: center;">Loading Products...</p>
         </div>
-        <div class="inv-actions">
-          <button class="btn-edit"   onclick="startEdit('${p.id}')">Edit</button>
-          <button class="btn-delete" onclick="confirmDelete('${p.id}', '${(p.img || "").replace(/'/g,"\\'")}')">Delete</button>
+    </section>
+ 
+    <section class="about" id="about">
+        <div class="about-flag-strip">
+            <img src="flag.jpeg" alt="American flag art detail">
         </div>
-      </div>`;
-  }).join("");
-}
+        <div class="about-grid">
+            <div class="about-visual">
+                <div class="about-img-frame"><img src="Logo.png" alt="Captain Tie Dye character"></div>
+                <div class="about-stamp">Est<span>2017</span>Keystone Lake</div>
+            </div>
+            <div class="about-content">
+                <span class="eyebrow">Our Story</span>
+                <h2>Born In A <em>Clawfoot</em> Tub</h2>
+                <p class="script">&ldquo;It started as a hobby. It became the work.&rdquo;</p>
+                <p>In 2017, Capt. Tie Dye hatched, fully grown, on the sandy shores of Keystone Lake, Oklahoma. Like a love child of Frosty the Snowman and Captain Underpants, Captain Tie Dye popped in with his top hat and pipe, his cape, and the long johns of many colors. With his trusty sidekicks, Rascal and Grenade, CTD set up camp in the festival scene, accompanied by an ever-changing array of scallywags and maidens of dubious virtue.</p>
+                <p>When family medical issues arose, what started as a hobby and creative outlet began to take center stage. Pot ash, twine, boiling water and ice combined in the clawfoot tub of a converted shipping container to meet financial needs. Basic spirals and splotches gave way to fractals, bleach, and reverse mandalas. A small but dedicated following from the mid-west continued growing across the US and Canada, eventually hopping the pond as far as New Zealand! No matter how far his reputation goes, CTD takes pride in his humble beginnings and continues to create each one-of-a-kind piece with his own hands, rinsing in that same tub, packing up and hitting the road to brighten festivals, concerts, and pop-ups everywhere.</p>
+            </div>
+        </div>
+    </section>
  
-// ── Search/filter ────────────────────────────────────────────────
-invSearch.addEventListener("input", () => {
-  const q = invSearch.value.toLowerCase().trim();
-  const filtered = q
-    ? allInventory.filter(p =>
-        p.name.toLowerCase().includes(q) ||
-        p.cat.toLowerCase().includes(q) ||
-        (p.desc || "").toLowerCase().includes(q)
-      )
-    : allInventory;
-  renderInventory(filtered);
-});
+    <section class="mission" id="mission">
+        <div class="section-head">
+            <span class="eyebrow">The Craft</span>
+            <h2>Four <em>Promises</em>. Zero Compromise.</h2>
+        </div>
+        <div class="mission-grid">
+            <div class="mission-card"><div class="mission-icon"><i class="fas fa-hands-holding"></i></div><h3>Hand-Made</h3><p>Every fold, dye bath, and rinse is done by hand.</p></div>
+            <div class="mission-card"><div class="mission-icon"><i class="fas fa-flag-usa"></i></div><h3>US Sourced</h3><p>Dyes, blanks, and supplies are all sourced inside the United States.</p></div>
+            <div class="mission-card"><div class="mission-icon"><i class="fas fa-fingerprint"></i></div><h3>One Of One</h3><p>Ice dye and gravity ensure every piece is a unique fingerprint.</p></div>
+            <div class="mission-card"><div class="mission-icon"><i class="fas fa-medal"></i></div><h3>Veteran Owned</h3><p>Operated with the exact same attention to detail required in uniform.</p></div>
+        </div>
+    </section>
  
-// ── Edit ─────────────────────────────────────────────────────────
-async function startEdit(id) {
-  // Scroll form into view on mobile
-  document.querySelector(".form-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+    <section class="contact" id="contact">
+        <div class="section-head">
+            <span class="eyebrow">Get In Touch</span>
+            <h2>Custom Work & <em>Questions</em></h2>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>Contact Details</h3>
+                <ul class="contact-list">
+                    <li>
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-meta">
+                            <div class="label">Email</div>
+                            <div class="val"><a href="mailto:DyedForAmerica@Gmail.com">DyedForAmerica@Gmail.com</a></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="contact-meta">
+                            <div class="label">Location</div>
+                            <div class="val">Keystone Lake, Oklahoma</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <form id="contactForm" class="contact-form">
+                <div class="form-row">
+                    <div class="form-group"><label for="fname">Full Name</label><input type="text" id="fname" name="name" required></div>
+                    <div class="form-group"><label for="femail">Email Address</label><input type="email" id="femail" name="email" required></div>
+                </div>
+                <div class="form-group"><label for="fmessage">Message</label><textarea id="fmessage" name="message" rows="4" required></textarea></div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+</main>
  
-  // Find in local cache
-  const p = allInventory.find(x => x.id === id);
-  if (!p) { showToast("Product not found.", "error"); return; }
+<footer class="footer">
+    <div class="foot-bottom">
+        <p>&copy; 2026 Dyed For America. All Rights Reserved.</p>
+        <span class="vet-mark"><i class="fas fa-medal"></i> Veteran Owned &amp; Operated</span>
+    </div>
+</footer>
  
-  editingId     = id;
-  editingImgUrl = p.img;
-  selectedFile  = null;
+<!-- products.js provides a local fallback array if Firestore is empty -->
+<script src="products.js"></script>
+<!-- script.js loads from Firestore first, falls back to products.js -->
+<script src="script.js"></script>
  
-  // Populate fields
-  $("f-name").value  = p.name  || "";
-  $("f-price").value = p.price || "";
-  $("f-size").value  = p.size  || "";
-  $("f-cat").value   = p.cat   || "shirt";
-  $("f-desc").value  = p.desc  || "";
-  $("f-link").value  = p.link  || "";
-  setStatus(p.status || "available");
- 
-  // Show existing image preview
-  if (p.img) {
-    const src = p.img.startsWith("http") ? p.img : `../${p.img}`;
-    showPreview(src);
-  } else {
-    clearPreview();
-  }
- 
-  formTitle.textContent   = "Edit Product";
-  submitLabel.textContent = "Save Changes";
-  submitBtn.querySelector("i").className = "fas fa-save";
-  cancelBtn.classList.remove("hidden");
-}
-window.startEdit = startEdit; // expose for inline onclick
- 
-// ── Delete ───────────────────────────────────────────────────────
-function confirmDelete(id, imgUrl) {
-  deleteTarget = { id, imgUrl };
-  confirmOverlay.classList.remove("hidden");
-}
-window.confirmDelete = confirmDelete;
- 
-confirmYes.addEventListener("click", async () => {
-  if (!deleteTarget) return;
-  confirmOverlay.classList.add("hidden");
- 
-  const { id, imgUrl } = deleteTarget;
-  deleteTarget = null;
- 
-  try {
-    await db.collection("products").doc(id).delete();
- 
-    // Delete image from Storage if it's a Firebase URL
-    if (imgUrl && imgUrl.includes("firebasestorage.googleapis.com")) {
-      try { await storage.refFromURL(imgUrl).delete(); } catch (_) { /* ignore */ }
-    }
- 
-    showToast("Product deleted.", "success");
-    if (editingId === id) resetForm();
-    loadInventory();
-  } catch (err) {
-    showToast("Delete failed. Please try again.", "error");
-  }
-});
- 
-confirmNo.addEventListener("click", () => {
-  confirmOverlay.classList.add("hidden");
-  deleteTarget = null;
-});
- 
-// Close confirm on overlay click
-confirmOverlay.addEventListener("click", e => {
-  if (e.target === confirmOverlay) {
-    confirmOverlay.classList.add("hidden");
-    deleteTarget = null;
-  }
-});
-</script>
 </body>
 </html>
  
