@@ -1,151 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dyed For America | Bold Colors. True Freedom.</title>
-    <meta name="description" content="Dyed For America — Veteran-owned, hand-dyed premium apparel. Bold colors. True freedom.">
-    <link rel="icon" href="Logo.png" type="image/png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
- 
-    <!-- ═══════════════════════════════════════════════════════════
-         Firebase SDK (read-only for storefront — auth & storage
-         are only loaded in the admin panel)
-         ═══════════════════════════════════════════════════════════ -->
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-    <!-- firebase-config.js initializes the app and sets window.db -->
-    <script src="firebase-config.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dyed For America | Bold Colors. True Freedom.</title>
+  <meta name="description" content="Dyed For America — Veteran-owned, hand-dyed premium apparel. Bold colors. True freedom.">
+  <link rel="icon" href="Logo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&family=Rye&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
 </head>
 <body>
  
+<!-- NAVBAR -->
 <nav class="navbar" id="navbar">
-    <div class="nav-brand">
-        <div class="nav-logo"><img src="Logo.png" alt="Dyed For America Logo"></div>
-        <div>
-            <div class="nav-wordmark">Dyed <span class="accent">/</span> For <span class="accent">/</span> America</div>
-        </div>
+  <div class="nav-brand">
+    <div class="nav-logo"><img src="Logo.png" alt="Dyed For America Logo"></div>
+    <div class="nav-brand-text">
+      <div class="nav-wordmark">Dyed <span class="nav-star">★</span> For <span class="nav-star">★</span> America</div>
+      <div class="nav-subline"><span class="nav-star">★</span> Veteran Owned &amp; Operated <span class="nav-flag">🇺🇸</span></div>
     </div>
+  </div>
 </nav>
  
-<header class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-        <h1>Dyed For America</h1>
-        <div class="hero-script">Bold colors. True freedom.</div>
-    </div>
+<!-- HERO — Wood Plank -->
+<header class="hero-plank" id="home">
+  <div class="plank-grain"></div>
+  <div class="plank-nails">
+    <span class="nail nail-tl"></span><span class="nail nail-tr"></span>
+    <span class="nail nail-bl"></span><span class="nail nail-br"></span>
+  </div>
+  <div class="plank-content">
+    <div class="plank-eyebrow">★ &nbsp; Handcrafted in Oklahoma &nbsp; ★</div>
+    <h1 class="plank-headline">Shop the Ship!</h1>
+    <p class="plank-sub">Every piece one of a kind. Every color earned.</p>
+  </div>
 </header>
  
-<main>
-    <section class="shop" id="shop">
-        <div class="section-head">
-            <span class="eyebrow">The Collection</span>
-            <h2>Wear <em>Something</em> Real</h2>
-            <div class="divider-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-            <p class="lede">Every piece is a unique work of art, dyed by hand in Oklahoma.</p>
-        </div>
+<!-- 3×3 CATEGORY GRID -->
+<section class="gallery-section" id="shop">
+  <div class="gallery-grid" id="gallery-grid">
+    <!-- Tiles built by script.js -->
+  </div>
+</section>
  
-        <div class="filter-bar" id="filter-bar">
-            <button class="filter-btn active" data-filter="all">All Pieces</button>
-            <button class="filter-btn" data-filter="shirt">T-Shirts</button>
-            <button class="filter-btn" data-filter="pants">Pants</button>
-            <button class="filter-btn" data-filter="hoodie">Hoodies</button>
-            <button class="filter-btn" data-filter="tapestry">Tapestries</button>
-            <button class="filter-btn" data-filter="socks">Socks</button>
-            <button class="filter-btn" data-filter="bedding">Bedding</button>
-        </div>
+<!-- TAGLINE -->
+<div class="tagline-strip">
+  <span class="tagline-word">Bold Colors</span>
+  <span class="tagline-star" aria-hidden="true">
+    <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" class="tiedye-star-svg">
+      <defs>
+        <radialGradient id="tdg" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="#E040FB"/>
+          <stop offset="20%"  stop-color="#FF6B35"/>
+          <stop offset="40%"  stop-color="#FFD600"/>
+          <stop offset="60%"  stop-color="#00E5FF"/>
+          <stop offset="80%"  stop-color="#00C853"/>
+          <stop offset="100%" stop-color="#E040FB"/>
+        </radialGradient>
+      </defs>
+      <polygon points="30,2 37,22 58,22 42,35 48,56 30,44 12,56 18,35 2,22 23,22" fill="url(#tdg)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+    </svg>
+  </span>
+  <span class="tagline-word">True Freedom</span>
+</div>
  
-        <div class="product-grid" id="product-grid">
-            <p style="grid-column: 1 / -1; text-align: center;">Loading Products...</p>
-        </div>
-    </section>
+<!-- FLOATING SCROLL CUE -->
+<div class="scroll-cue-wrap" id="scroll-cue">
+  <span class="scroll-label">Yargh, who B CTD</span>
+  <div class="scroll-arrow"><i class="fas fa-chevron-down"></i></div>
+</div>
  
-    <section class="about" id="about">
-        <div class="about-flag-strip">
-            <img src="flag.jpeg" alt="American flag art detail">
-        </div>
-        <div class="about-grid">
-            <div class="about-visual">
-                <div class="about-img-frame"><img src="Logo.png" alt="Captain Tie Dye character"></div>
-                <div class="about-stamp">Est<span>2017</span>Keystone Lake</div>
-            </div>
-            <div class="about-content">
-                <span class="eyebrow">Our Story</span>
-                <h2>Born In A <em>Clawfoot</em> Tub</h2>
-                <p class="script">&ldquo;It started as a hobby. It became the work.&rdquo;</p>
-                <p>In 2017, Capt. Tie Dye hatched, fully grown, on the sandy shores of Keystone Lake, Oklahoma. Like a love child of Frosty the Snowman and Captain Underpants, Captain Tie Dye popped in with his top hat and pipe, his cape, and the long johns of many colors. With his trusty sidekicks, Rascal and Grenade, CTD set up camp in the festival scene, accompanied by an ever-changing array of scallywags and maidens of dubious virtue.</p>
-                <p>When family medical issues arose, what started as a hobby and creative outlet began to take center stage. Pot ash, twine, boiling water and ice combined in the clawfoot tub of a converted shipping container to meet financial needs. Basic spirals and splotches gave way to fractals, bleach, and reverse mandalas. A small but dedicated following from the mid-west continued growing across the US and Canada, eventually hopping the pond as far as New Zealand! No matter how far his reputation goes, CTD takes pride in his humble beginnings and continues to create each one-of-a-kind piece with his own hands, rinsing in that same tub, packing up and hitting the road to brighten festivals, concerts, and pop-ups everywhere.</p>
-            </div>
-        </div>
-    </section>
- 
-    <section class="mission" id="mission">
-        <div class="section-head">
-            <span class="eyebrow">The Craft</span>
-            <h2>Four <em>Promises</em>. Zero Compromise.</h2>
-        </div>
-        <div class="mission-grid">
-            <div class="mission-card"><div class="mission-icon"><i class="fas fa-hands-holding"></i></div><h3>Hand-Made</h3><p>Every fold, dye bath, and rinse is done by hand.</p></div>
-            <div class="mission-card"><div class="mission-icon"><i class="fas fa-flag-usa"></i></div><h3>US Sourced</h3><p>Dyes, blanks, and supplies are all sourced inside the United States.</p></div>
-            <div class="mission-card"><div class="mission-icon"><i class="fas fa-fingerprint"></i></div><h3>One Of One</h3><p>Ice dye and gravity ensure every piece is a unique fingerprint.</p></div>
-            <div class="mission-card"><div class="mission-icon"><i class="fas fa-medal"></i></div><h3>Veteran Owned</h3><p>Operated with the exact same attention to detail required in uniform.</p></div>
-        </div>
-    </section>
- 
-    <section class="contact" id="contact">
-        <div class="section-head">
-            <span class="eyebrow">Get In Touch</span>
-            <h2>Custom Work & <em>Questions</em></h2>
-        </div>
-        <div class="contact-grid">
-            <div class="contact-info">
-                <h3>Contact Details</h3>
-                <ul class="contact-list">
-                    <li>
-                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                        <div class="contact-meta">
-                            <div class="label">Email</div>
-                            <div class="val"><a href="mailto:DyedForAmerica@Gmail.com">DyedForAmerica@Gmail.com</a></div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <div class="contact-meta">
-                            <div class="label">Location</div>
-                            <div class="val">Keystone Lake, Oklahoma</div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <form id="contactForm" class="contact-form">
-                <div class="form-row">
-                    <div class="form-group"><label for="fname">Full Name</label><input type="text" id="fname" name="name" required></div>
-                    <div class="form-group"><label for="femail">Email Address</label><input type="email" id="femail" name="email" required></div>
-                </div>
-                <div class="form-group"><label for="fmessage">Message</label><textarea id="fmessage" name="message" rows="4" required></textarea></div>
-                <button type="submit" class="submit-btn">Send Message</button>
-            </form>
-        </div>
-    </section>
-</main>
- 
-<footer class="footer">
-    <div class="foot-bottom">
-        <p>&copy; 2026 Dyed For America. All Rights Reserved.</p>
-        <span class="vet-mark"><i class="fas fa-medal"></i> Veteran Owned &amp; Operated</span>
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-flag-strip"><img src="flag.jpeg" alt="American flag art detail"></div>
+  <div class="about-grid">
+    <div class="about-visual">
+      <div class="about-img-frame"><img src="Logo.png" alt="Captain Tie Dye character"></div>
+      <div class="about-stamp">Est<span>2017</span>Keystone Lake</div>
     </div>
+    <div class="about-content">
+      <span class="eyebrow">Our Story</span>
+      <h2>Born In A <em>Clawfoot</em> Tub</h2>
+      <p class="script">&ldquo;It started as a hobby. It became the work.&rdquo;</p>
+      <p>In 2017, Capt. Tie Dye hatched, fully grown, on the sandy shores of Keystone Lake, Oklahoma. Like a love child of Frosty the Snowman and Captain Underpants, Captain Tie Dye popped in with his top hat and pipe, his cape, and the long johns of many colors. With his trusty sidekicks, Rascal and Grenade, CTD set up camp in the festival scene, accompanied by an ever-changing array of scallywags and maidens of dubious virtue.</p>
+      <p>When family medical issues arose, what started as a hobby and creative outlet began to take center stage. Pot ash, twine, boiling water and ice combined in the clawfoot tub of a converted shipping container to meet financial needs. Basic spirals and splotches gave way to fractals, bleach, and reverse mandalas. A small but dedicated following from the mid-west continued growing across the US and Canada, eventually hopping the pond as far as New Zealand!</p>
+    </div>
+  </div>
+</section>
+ 
+<!-- MISSION -->
+<section class="mission" id="mission">
+  <div class="section-head">
+    <span class="eyebrow">The Craft</span>
+    <h2>Four <em>Promises</em>. Zero Compromise.</h2>
+  </div>
+  <div class="mission-grid">
+    <div class="mission-card"><div class="mission-icon"><i class="fas fa-hands-holding"></i></div><h3>Hand-Made</h3><p>Every fold, dye bath, and rinse is done by hand.</p></div>
+    <div class="mission-card"><div class="mission-icon"><i class="fas fa-flag-usa"></i></div><h3>US Sourced</h3><p>Dyes, blanks, and supplies are all sourced inside the United States.</p></div>
+    <div class="mission-card"><div class="mission-icon"><i class="fas fa-fingerprint"></i></div><h3>One Of One</h3><p>Ice dye and gravity ensure every piece is a unique fingerprint.</p></div>
+    <div class="mission-card"><div class="mission-icon"><i class="fas fa-medal"></i></div><h3>Veteran Owned</h3><p>Operated with the exact same attention to detail required in uniform.</p></div>
+  </div>
+</section>
+ 
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-head">
+    <span class="eyebrow">Get In Touch</span>
+    <h2>Custom Work &amp; <em>Questions</em></h2>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h3>Contact Details</h3>
+      <ul class="contact-list">
+        <li>
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <div class="contact-meta">
+            <div class="label">Email</div>
+            <div class="val"><a href="mailto:DyedForAmerica@Gmail.com">DyedForAmerica@Gmail.com</a></div>
+          </div>
+        </li>
+        <li>
+          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="contact-meta">
+            <div class="label">Location</div>
+            <div class="val">Keystone Lake, Oklahoma</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <form id="contactForm" class="contact-form">
+      <div class="form-row">
+        <div class="form-group"><label for="fname">Full Name</label><input type="text" id="fname" name="name" required></div>
+        <div class="form-group"><label for="femail">Email Address</label><input type="email" id="femail" name="email" required></div>
+      </div>
+      <div class="form-group"><label for="fmessage">Message</label><textarea id="fmessage" name="message" rows="4" required></textarea></div>
+      <button type="submit" class="submit-btn">Send Message</button>
+    </form>
+  </div>
+</section>
+ 
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="foot-bottom">
+    <p>&copy; 2026 Dyed For America. All Rights Reserved.</p>
+    <span class="vet-mark"><i class="fas fa-medal"></i> Veteran Owned &amp; Operated</span>
+  </div>
 </footer>
  
-<!-- products.js provides a local fallback array if Firestore is empty -->
-<script src="products.js"></script>
-<!-- script.js loads from Firestore first, falls back to products.js -->
-<script src="script.js"></script>
+<!-- CATEGORY PAGE OVERLAY -->
+<div class="cat-overlay" id="cat-overlay">
+  <div class="cat-page">
+    <div class="cat-page-header">
+      <button class="cat-back" id="cat-back"><i class="fas fa-arrow-left"></i> All Categories</button>
+      <h2 class="cat-page-title" id="cat-page-title">Category</h2>
+    </div>
+    <div class="cat-page-grid" id="cat-page-grid"></div>
+  </div>
+</div>
  
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lb-close"><i class="fas fa-times"></i></button>
+  <button class="lb-prev"  id="lb-prev"><i class="fas fa-chevron-left"></i></button>
+  <button class="lb-next"  id="lb-next"><i class="fas fa-chevron-right"></i></button>
+  <div class="lb-track-wrap">
+    <div class="lb-track" id="lb-track"></div>
+  </div>
+  <div class="lb-info-panel" id="lb-info-panel">
+    <div class="lb-dots"  id="lb-dots"></div>
+    <div class="lb-name"  id="lb-name"></div>
+    <div class="lb-size"  id="lb-size"></div>
+    <div class="lb-desc"  id="lb-desc"></div>
+    <div class="lb-foot">
+      <div class="lb-price" id="lb-price"></div>
+      <a class="lb-buy" id="lb-buy" href="#" target="_blank" rel="noopener">Buy Now <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</div>
+ 
+<script src="products.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
  
