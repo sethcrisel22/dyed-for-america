@@ -154,28 +154,38 @@ h1,h2,h3,h4 {
     0 10px 50px rgba(0,0,0,0.6);
 }
  
-/* Wood grain overlay */
+/* Wood grain overlay — pure CSS gradients, no SVG data URIs */
 .plank-grain {
   position: absolute; inset: 0; pointer-events: none;
   z-index: 1;
-}
-/* Primary grain — horizontal wood lines */
-.plank-grain::before {
-  content: '';
-  position: absolute; inset: 0;
-  opacity: 0.32;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 800 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain1'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02 0.85' numOctaves='4' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain1)'/%3E%3C/svg%3E");
-  background-size: 800px 300px;
+  /* Horizontal wood grain lines */
+  background-image:
+    repeating-linear-gradient(
+      180deg,
+      transparent 0px,
+      rgba(0,0,0,0.06) 1px,
+      transparent 2px,
+      rgba(255,200,120,0.04) 4px,
+      transparent 6px,
+      rgba(0,0,0,0.04) 8px,
+      transparent 12px,
+      rgba(255,180,80,0.03) 16px,
+      transparent 22px,
+      rgba(0,0,0,0.05) 24px,
+      transparent 32px,
+      rgba(255,160,60,0.03) 38px,
+      transparent 48px
+    ),
+    repeating-linear-gradient(
+      175deg,
+      transparent 0px,
+      rgba(0,0,0,0.03) 2px,
+      transparent 60px,
+      rgba(180,100,30,0.04) 62px,
+      transparent 120px
+    );
   mix-blend-mode: overlay;
-}
-/* Secondary grain — subtle knot / ring variation */
-.plank-grain::after {
-  content: '';
-  position: absolute; inset: 0;
-  opacity: 0.18;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain2'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.08 0.03' numOctaves='5' seed='8' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain2)'/%3E%3C/svg%3E");
-  background-size: 600px 400px;
-  mix-blend-mode: soft-light;
+  opacity: 0.9;
 }
  
 /* Corner nail bolts */
