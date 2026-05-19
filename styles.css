@@ -143,21 +143,39 @@ h1,h2,h3,h4 {
       #2C1810 85%,
       #1a0a04 100%
     );
-  border-top:    5px solid #1a0a04;
-  border-bottom: 5px solid #1a0a04;
+  border-top:    6px solid #0f0603;
+  border-bottom: 6px solid #0f0603;
   box-shadow:
-    inset 0 4px 20px rgba(0,0,0,0.6),
-    inset 0 -4px 20px rgba(0,0,0,0.6),
-    0 8px 40px rgba(0,0,0,0.5);
+    inset 0 0 60px rgba(0,0,0,0.55),
+    inset 0 4px 30px rgba(0,0,0,0.7),
+    inset 0 -4px 30px rgba(0,0,0,0.7),
+    inset 60px 0 80px rgba(0,0,0,0.25),
+    inset -60px 0 80px rgba(0,0,0,0.25),
+    0 10px 50px rgba(0,0,0,0.6);
 }
  
 /* Wood grain overlay */
 .plank-grain {
   position: absolute; inset: 0; pointer-events: none;
-  opacity: 0.18;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65 0.02' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-  background-size: 400px 200px;
+  z-index: 1;
+}
+/* Primary grain — horizontal wood lines */
+.plank-grain::before {
+  content: '';
+  position: absolute; inset: 0;
+  opacity: 0.32;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 800 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain1'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02 0.85' numOctaves='4' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain1)'/%3E%3C/svg%3E");
+  background-size: 800px 300px;
   mix-blend-mode: overlay;
+}
+/* Secondary grain — subtle knot / ring variation */
+.plank-grain::after {
+  content: '';
+  position: absolute; inset: 0;
+  opacity: 0.18;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain2'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.08 0.03' numOctaves='5' seed='8' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain2)'/%3E%3C/svg%3E");
+  background-size: 600px 400px;
+  mix-blend-mode: soft-light;
 }
  
 /* Corner nail bolts */
@@ -178,7 +196,8 @@ h1,h2,h3,h4 {
 .plank-content {
   position: relative; z-index: 3;
   text-align: center;
-  padding: 40px 30px;
+  padding: 40px 60px;
+  width: 100%;
 }
  
 .plank-eyebrow {
@@ -192,7 +211,7 @@ h1,h2,h3,h4 {
  
 .plank-headline {
   font-family: 'Rye', serif;
-  font-size: clamp(52px, 10vw, 120px);
+  font-size: clamp(52px, 12vw, 160px);
   font-weight: 400;
   text-transform: none;
   letter-spacing: 0.02em;
@@ -777,3 +796,4 @@ h1,h2,h3,h4 {
   .mission-grid { grid-template-columns:1fr; }
   .tagline-strip { flex-wrap:wrap; gap:12px; padding:24px 16px; }
 }
+ 
