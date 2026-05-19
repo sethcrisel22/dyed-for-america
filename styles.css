@@ -97,7 +97,14 @@ h1,h2,h3,h4 {
   display: flex; align-items: center; gap: 6px;
 }
 .nav-flag { font-size: 13px; }
-.nav-flag-emoji { font-size: 15px; margin-left: 4px; line-height: 1; }
+.nav-flag-svg {
+  width: 22px; height: 14px;
+  margin-left: 6px;
+  vertical-align: middle;
+  border-radius: 1px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  flex-shrink: 0;
+}
  
 @media(max-width:900px) {
   .navbar { padding: 10px 20px; }
@@ -822,4 +829,4 @@ h1,h2,h3,h4 {
   .mission-grid { grid-template-columns:1fr; }
   .tagline-strip { flex-wrap:wrap; gap:12px; padding:24px 16px; }
 }
- 
+
