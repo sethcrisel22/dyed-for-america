@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&family=Rye&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- CSS before Firebase SDKs to prevent render blocking -->
   <link rel="stylesheet" href="styles.css">
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
@@ -22,8 +23,15 @@
   <div class="nav-brand">
     <div class="nav-logo"><img src="Logo.png" alt="Dyed For America Logo"></div>
     <div class="nav-brand-text">
-      <div class="nav-wordmark">Dyed <span class="nav-star">★</span> For <span class="nav-star">★</span> America</div>
-      <div class="nav-subline"><span class="nav-star">★</span> Veteran Owned &amp; Operated <span class="nav-flag">🇺🇸</span></div>
+      <div class="nav-wordmark">
+        Dyed <span class="nav-star">&#9733;</span> For <span class="nav-star">&#9733;</span> America
+      </div>
+      <div class="nav-subline">
+        <span class="nav-star">&#9733;</span>
+        Veteran Owned &amp; Operated
+        <!-- FA flag instead of emoji to avoid Windows rendering as "us" -->
+        <i class="fas fa-flag nav-flag-icon"></i>
+      </div>
     </div>
   </div>
 </nav>
@@ -32,11 +40,13 @@
 <header class="hero-plank" id="home">
   <div class="plank-grain"></div>
   <div class="plank-nails">
-    <span class="nail nail-tl"></span><span class="nail nail-tr"></span>
-    <span class="nail nail-bl"></span><span class="nail nail-br"></span>
+    <span class="nail nail-tl"></span>
+    <span class="nail nail-tr"></span>
+    <span class="nail nail-bl"></span>
+    <span class="nail nail-br"></span>
   </div>
   <div class="plank-content">
-    <div class="plank-eyebrow">★ &nbsp; Handcrafted in Oklahoma &nbsp; ★</div>
+    <div class="plank-eyebrow">&#9733; &nbsp; Handcrafted in Oklahoma &nbsp; &#9733;</div>
     <h1 class="plank-headline">Shop the Ship!</h1>
     <p class="plank-sub">Every piece one of a kind. Every color earned.</p>
   </div>
@@ -45,7 +55,7 @@
 <!-- 3×3 CATEGORY GRID -->
 <section class="gallery-section" id="shop">
   <div class="gallery-grid" id="gallery-grid">
-    <!-- Tiles built by script.js -->
+    <!-- Built dynamically by script.js -->
   </div>
 </section>
  
@@ -53,9 +63,10 @@
 <div class="tagline-strip">
   <span class="tagline-word">Bold Colors</span>
   <span class="tagline-star" aria-hidden="true">
-    <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" class="tiedye-star-svg">
+    <!-- width/height set directly on SVG to prevent oversized flash before CSS loads -->
+    <svg width="52" height="52" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" class="tiedye-star-svg">
       <defs>
-        <radialGradient id="tdg" cx="50%" cy="50%" r="50%">
+        <radialGradient id="tdg-tiedye-star" cx="50%" cy="50%" r="50%">
           <stop offset="0%"   stop-color="#E040FB"/>
           <stop offset="20%"  stop-color="#FF6B35"/>
           <stop offset="40%"  stop-color="#FFD600"/>
@@ -64,7 +75,11 @@
           <stop offset="100%" stop-color="#E040FB"/>
         </radialGradient>
       </defs>
-      <polygon points="30,2 37,22 58,22 42,35 48,56 30,44 12,56 18,35 2,22 23,22" fill="url(#tdg)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+      <polygon
+        points="30,2 37,22 58,22 42,35 48,56 30,44 12,56 18,35 2,22 23,22"
+        fill="url(#tdg-tiedye-star)"
+        stroke="rgba(255,255,255,0.2)"
+        stroke-width="1"/>
     </svg>
   </span>
   <span class="tagline-word">True Freedom</span>
