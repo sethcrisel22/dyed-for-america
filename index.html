@@ -10,15 +10,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@700&family=Rye&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <!-- CSS before Firebase SDKs to prevent render blocking -->
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="styles.css?v=3">
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
   <script src="firebase-config.js"></script>
 </head>
 <body>
  
-<!-- NAVBAR -->
+<!-- ── NAVBAR ─────────────────────────────────────────────────── -->
 <nav class="navbar" id="navbar">
   <div class="nav-brand">
     <div class="nav-logo"><img src="Logo.png" alt="Dyed For America Logo"></div>
@@ -29,9 +28,7 @@
       <div class="nav-subline">
         <span class="nav-star">&#9733;</span>
         Veteran Owned &amp; Operated
-        <!-- FA flag instead of emoji to avoid Windows rendering as "us" -->
         <svg class="nav-flag-svg" viewBox="0 0 22 14" xmlns="http://www.w3.org/2000/svg" aria-label="American flag">
-          <!-- Red and white stripes -->
           <rect width="22" height="14" fill="#B22234"/>
           <rect y="1.08" width="22" height="1.08" fill="#fff"/>
           <rect y="3.23" width="22" height="1.08" fill="#fff"/>
@@ -39,32 +36,19 @@
           <rect y="7.54" width="22" height="1.08" fill="#fff"/>
           <rect y="9.69" width="22" height="1.08" fill="#fff"/>
           <rect y="11.85" width="22" height="1.08" fill="#fff"/>
-          <!-- Blue canton -->
           <rect width="9" height="7.54" fill="#3C3B6E"/>
-          <!-- Stars (simplified as white dots) -->
           <g fill="#fff">
-            <circle cx="1.5" cy="1.2" r="0.55"/>
-            <circle cx="3"   cy="1.2" r="0.55"/>
-            <circle cx="4.5" cy="1.2" r="0.55"/>
-            <circle cx="6"   cy="1.2" r="0.55"/>
-            <circle cx="7.5" cy="1.2" r="0.55"/>
-            <circle cx="2.25" cy="2.5" r="0.55"/>
-            <circle cx="3.75" cy="2.5" r="0.55"/>
-            <circle cx="5.25" cy="2.5" r="0.55"/>
-            <circle cx="6.75" cy="2.5" r="0.55"/>
-            <circle cx="1.5" cy="3.8" r="0.55"/>
-            <circle cx="3"   cy="3.8" r="0.55"/>
-            <circle cx="4.5" cy="3.8" r="0.55"/>
-            <circle cx="6"   cy="3.8" r="0.55"/>
-            <circle cx="7.5" cy="3.8" r="0.55"/>
-            <circle cx="2.25" cy="5.1" r="0.55"/>
-            <circle cx="3.75" cy="5.1" r="0.55"/>
-            <circle cx="5.25" cy="5.1" r="0.55"/>
-            <circle cx="6.75" cy="5.1" r="0.55"/>
-            <circle cx="1.5" cy="6.4" r="0.55"/>
-            <circle cx="3"   cy="6.4" r="0.55"/>
-            <circle cx="4.5" cy="6.4" r="0.55"/>
-            <circle cx="6"   cy="6.4" r="0.55"/>
+            <circle cx="1.5" cy="1.2" r="0.55"/><circle cx="3" cy="1.2" r="0.55"/>
+            <circle cx="4.5" cy="1.2" r="0.55"/><circle cx="6" cy="1.2" r="0.55"/>
+            <circle cx="7.5" cy="1.2" r="0.55"/><circle cx="2.25" cy="2.5" r="0.55"/>
+            <circle cx="3.75" cy="2.5" r="0.55"/><circle cx="5.25" cy="2.5" r="0.55"/>
+            <circle cx="6.75" cy="2.5" r="0.55"/><circle cx="1.5" cy="3.8" r="0.55"/>
+            <circle cx="3" cy="3.8" r="0.55"/><circle cx="4.5" cy="3.8" r="0.55"/>
+            <circle cx="6" cy="3.8" r="0.55"/><circle cx="7.5" cy="3.8" r="0.55"/>
+            <circle cx="2.25" cy="5.1" r="0.55"/><circle cx="3.75" cy="5.1" r="0.55"/>
+            <circle cx="5.25" cy="5.1" r="0.55"/><circle cx="6.75" cy="5.1" r="0.55"/>
+            <circle cx="1.5" cy="6.4" r="0.55"/><circle cx="3" cy="6.4" r="0.55"/>
+            <circle cx="4.5" cy="6.4" r="0.55"/><circle cx="6" cy="6.4" r="0.55"/>
             <circle cx="7.5" cy="6.4" r="0.55"/>
           </g>
         </svg>
@@ -73,80 +57,208 @@
   </div>
 </nav>
  
-<!-- HERO — Wood Plank -->
+<!-- ── HERO WOOD PLANK ────────────────────────────────────────── -->
 <header class="hero-plank" id="home">
   <div class="plank-grain"></div>
   <div class="plank-nails">
-    <span class="nail nail-tl"></span>
-    <span class="nail nail-tr"></span>
-    <span class="nail nail-bl"></span>
-    <span class="nail nail-br"></span>
+    <span class="nail nail-tl"></span><span class="nail nail-tr"></span>
+    <span class="nail nail-bl"></span><span class="nail nail-br"></span>
   </div>
   <div class="plank-content">
     <div class="plank-eyebrow">&#9733; &nbsp; Handcrafted in Oklahoma &nbsp; &#9733;</div>
     <h1 class="plank-headline">Shop the Ship!</h1>
-    <p class="plank-sub">Every piece one of a kind. Every color earned.</p>
+    <p class="plank-sub">Every piece is one of a kind.</p>
   </div>
 </header>
  
-<!-- 3×3 CATEGORY GRID -->
+<!-- ── 3x3 GALLERY ────────────────────────────────────────────── -->
 <section class="gallery-section" id="shop">
-  <div class="gallery-grid" id="gallery-grid">
-    <!-- Built dynamically by script.js -->
-  </div>
+  <div class="gallery-grid" id="gallery-grid"></div>
 </section>
  
-<!-- TAGLINE -->
+<!-- ── TAGLINE ────────────────────────────────────────────────── -->
 <div class="tagline-strip">
   <span class="tagline-word">Bold Colors</span>
   <span class="tagline-star" aria-hidden="true">
-    <!-- width/height set directly on SVG to prevent oversized flash before CSS loads -->
     <svg width="52" height="52" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" class="tiedye-star-svg">
       <defs>
-        <radialGradient id="tdg-tiedye-star" cx="50%" cy="50%" r="50%">
+        <radialGradient id="tdg-star" cx="50%" cy="50%" r="50%">
           <stop offset="0%"   stop-color="#E040FB"/>
-          <stop offset="20%"  stop-color="#FF6B35"/>
-          <stop offset="40%"  stop-color="#FFD600"/>
-          <stop offset="60%"  stop-color="#00E5FF"/>
-          <stop offset="80%"  stop-color="#00C853"/>
-          <stop offset="100%" stop-color="#E040FB"/>
+          <stop offset="25%"  stop-color="#FF6B35"/>
+          <stop offset="50%"  stop-color="#FFD600"/>
+          <stop offset="75%"  stop-color="#00E5FF"/>
+          <stop offset="100%" stop-color="#00C853"/>
         </radialGradient>
       </defs>
-      <polygon
-        points="30,2 37,22 58,22 42,35 48,56 30,44 12,56 18,35 2,22 23,22"
-        fill="url(#tdg-tiedye-star)"
-        stroke="rgba(255,255,255,0.2)"
-        stroke-width="1"/>
+      <polygon points="30,2 37,22 58,22 42,35 48,56 30,44 12,56 18,35 2,22 23,22"
+               fill="url(#tdg-star)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
     </svg>
   </span>
   <span class="tagline-word">True Freedom</span>
 </div>
  
-<!-- FLOATING SCROLL CUE -->
+<!-- ── FLOATING SCROLL CUE ────────────────────────────────────── -->
 <div class="scroll-cue-wrap" id="scroll-cue">
   <span class="scroll-label">Yargh, who B CTD</span>
   <div class="scroll-arrow"><i class="fas fa-chevron-down"></i></div>
 </div>
  
-<!-- ABOUT -->
+<!-- ══════════════════════════════════════════════════════════════
+     ABOUT — CAPTAIN'S CREW N' CREED
+══════════════════════════════════════════════════════════════ -->
 <section class="about" id="about">
-  <div class="about-flag-strip"><img src="flag.jpeg" alt="American flag art detail"></div>
-  <div class="about-grid">
-    <div class="about-visual">
-      <div class="about-img-frame"><img src="Logo.png" alt="Captain Tie Dye character"></div>
-      <div class="about-stamp">Est<span>2017</span>Keystone Lake</div>
-    </div>
-    <div class="about-content">
-      <span class="eyebrow">Our Story</span>
-      <h2>Born In A <em>Clawfoot</em> Tub</h2>
-      <p class="script">&ldquo;It started as a hobby. It became the work.&rdquo;</p>
+ 
+  <!-- Flag strip — unchanged -->
+  <div class="about-flag-strip">
+    <img src="flag.jpeg" alt="American flag art detail">
+  </div>
+ 
+  <!-- Section heading -->
+  <div class="crew-heading">
+    <span class="eyebrow">Our Story</span>
+    <h2>Captain's Crew <em>n'</em> Creed</h2>
+  </div>
+ 
+  <!-- ── Three-column: Bio | Porthole | Stamp + Rascal ──────── -->
+  <div class="crew-grid">
+ 
+    <!-- LEFT: CTD Bio -->
+    <div class="crew-col crew-bio-left">
       <p>In 2017, Capt. Tie Dye hatched, fully grown, on the sandy shores of Keystone Lake, Oklahoma. Like a love child of Frosty the Snowman and Captain Underpants, Captain Tie Dye popped in with his top hat and pipe, his cape, and the long johns of many colors. With his trusty sidekicks, Rascal and Grenade, CTD set up camp in the festival scene, accompanied by an ever-changing array of scallywags and maidens of dubious virtue.</p>
       <p>When family medical issues arose, what started as a hobby and creative outlet began to take center stage. Pot ash, twine, boiling water and ice combined in the clawfoot tub of a converted shipping container to meet financial needs. Basic spirals and splotches gave way to fractals, bleach, and reverse mandalas. A small but dedicated following from the mid-west continued growing across the US and Canada, eventually hopping the pond as far as New Zealand!</p>
     </div>
-  </div>
-</section>
  
-<!-- MISSION -->
+    <!-- CENTER: Porthole -->
+    <div class="crew-col porthole-col">
+      <div class="porthole-wood">
+ 
+        <!-- Wood grain overlay -->
+        <div class="porthole-wood-grain"></div>
+        <!-- Corner nails -->
+        <span class="p-nail p-nail-tl"></span><span class="p-nail p-nail-tr"></span>
+        <span class="p-nail p-nail-bl"></span><span class="p-nail p-nail-br"></span>
+ 
+        <!-- "The Tie Dye Tale" curved text — arcs over top of porthole -->
+        <svg class="tale-arc-svg" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <path id="tale-path" d="M 10,150 Q 150,10 290,150"/>
+          </defs>
+          <text font-family="Rye,serif" font-size="21" letter-spacing="3" fill="#C8922A"
+                filter="drop-shadow(0 1px 2px rgba(0,0,0,0.8))">
+            <textPath href="#tale-path" text-anchor="middle" startOffset="50%">
+              The Tie Dye Tale
+            </textPath>
+          </text>
+        </svg>
+ 
+        <!-- Porthole ring + carousel -->
+        <div class="porthole-ring">
+          <div class="porthole-inner" id="dr-porthole-inner">
+            <div class="porthole-placeholder">
+              <i class="fas fa-camera"></i>
+              <span>D &amp; R</span>
+            </div>
+          </div>
+          <!-- Porthole nav dots (built by JS if multiple photos) -->
+          <div class="porthole-dots" id="dr-porthole-dots"></div>
+        </div>
+ 
+      </div>
+    </div>
+ 
+    <!-- RIGHT: Barrel stamp + Rascal bio -->
+    <div class="crew-col crew-bio-right">
+ 
+      <!-- Whisky barrel circular stamp -->
+      <div class="barrel-stamp-wrap">
+        <svg class="barrel-stamp-svg" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <path id="stamp-arc-top" d="M 80,80 m -54,0 a 54,54 0 1,1 108,0"/>
+            <path id="stamp-arc-bot" d="M 80,80 m -54,0 a 54,54 0 0,0 108,0"/>
+          </defs>
+          <!-- Outer ring -->
+          <circle cx="80" cy="80" r="70" fill="none" stroke="#C8922A" stroke-width="1.5"/>
+          <!-- Dashed inner ring -->
+          <circle cx="80" cy="80" r="63" fill="none" stroke="#C8922A" stroke-width="1" stroke-dasharray="4,3"/>
+          <!-- Inner fill — subtle -->
+          <circle cx="80" cy="80" r="62" fill="rgba(200,146,42,0.06)"/>
+          <!-- Top text: EST. 2017 -->
+          <text font-family="Teko,sans-serif" font-size="14" fill="#C8922A" letter-spacing="4" font-weight="700">
+            <textPath href="#stamp-arc-top" text-anchor="middle" startOffset="25%">EST. 2017</textPath>
+          </text>
+          <!-- Bottom text: KEYSTONE LAKE -->
+          <text font-family="Teko,sans-serif" font-size="12" fill="#C8922A" letter-spacing="3" font-weight="600">
+            <textPath href="#stamp-arc-bot" text-anchor="middle" startOffset="75%">&#9733; KEYSTONE LAKE &#9733;</textPath>
+          </text>
+          <!-- Center star -->
+          <text x="80" y="88" text-anchor="middle" font-size="28" fill="#C8922A" opacity="0.7">&#9733;</text>
+        </svg>
+      </div>
+ 
+      <!-- Rascal bio -->
+      <div class="rascal-bio">
+        <h4 class="rascal-name">Rascal</h4>
+        <p>Rascal adopted me 7 years ago ish. I was driving a beat up car that had to have more water than gas, filling the radiator before work, and this guy jumped in and hasn't left. He's been everywhere I could take him and he's at home anywhere. Captain and general Tie Dye be man&hellip;</p>
+      </div>
+ 
+    </div>
+  </div><!-- end .crew-grid -->
+ 
+  <!-- ── Why We Love CTD ────────────────────────────────────── -->
+  <div class="love-section">
+ 
+    <div class="love-grid">
+ 
+      <!-- LEFT: Tie Dye Team photo carousel -->
+      <div class="about-carousel-wrap">
+        <h4 class="about-car-label">Tie Dye Team</h4>
+        <div class="about-carousel" id="team-carousel">
+          <div class="about-car-track" id="team-car-track">
+            <div class="about-car-empty">
+              <i class="fas fa-users"></i>
+              <span>Community photos coming soon!</span>
+            </div>
+          </div>
+          <div class="about-car-dots" id="team-car-dots"></div>
+          <button class="about-car-btn about-car-prev" id="team-prev"><i class="fas fa-chevron-left"></i></button>
+          <button class="about-car-btn about-car-next" id="team-next"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+ 
+      <!-- CENTER: Why We Love CTD bio + Product Promise -->
+      <div class="love-center">
+        <h3 class="love-title">Why We Love CTD</h3>
+        <p class="love-bio-text">His vibe is one of a kind. He brings Healing, Peace and Love everywhere he goes. He leads by example, takes care of his own, and always goes above and beyond for the community. Tie Dye our Guy!</p>
+ 
+        <div class="product-promise">
+          <div class="promise-star">&#9733;</div>
+          <h4 class="promise-title">Product Promise</h4>
+          <p>All of Captain Tie Dye's works are one of a kind! Infused with good vibrations, and hand crafted with the highest quality materials. Always. Across the 7 seas, no one else has threads like these!</p>
+        </div>
+      </div>
+ 
+      <!-- RIGHT: Development Process video carousel -->
+      <div class="about-carousel-wrap">
+        <h4 class="about-car-label">Development Process</h4>
+        <div class="about-carousel dev-process-carousel" id="dev-carousel">
+          <div class="about-car-track" id="dev-car-track">
+            <div class="about-car-empty">
+              <i class="fas fa-video"></i>
+              <span>Behind the scenes coming soon!</span>
+            </div>
+          </div>
+          <div class="about-car-dots" id="dev-car-dots"></div>
+          <button class="about-car-btn about-car-prev" id="dev-prev"><i class="fas fa-chevron-left"></i></button>
+          <button class="about-car-btn about-car-next" id="dev-next"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+ 
+    </div><!-- end .love-grid -->
+  </div><!-- end .love-section -->
+ 
+</section><!-- end .about -->
+ 
+<!-- ── MISSION ────────────────────────────────────────────────── -->
 <section class="mission" id="mission">
   <div class="section-head">
     <span class="eyebrow">The Craft</span>
@@ -160,7 +272,7 @@
   </div>
 </section>
  
-<!-- CONTACT -->
+<!-- ── CONTACT ────────────────────────────────────────────────── -->
 <section class="contact" id="contact">
   <div class="section-head">
     <span class="eyebrow">Get In Touch</span>
@@ -197,7 +309,7 @@
   </div>
 </section>
  
-<!-- FOOTER -->
+<!-- ── FOOTER ─────────────────────────────────────────────────── -->
 <footer class="footer">
   <div class="foot-bottom">
     <p>&copy; 2026 Dyed For America. All Rights Reserved.</p>
@@ -205,7 +317,7 @@
   </div>
 </footer>
  
-<!-- CATEGORY PAGE OVERLAY -->
+<!-- ── CATEGORY PAGE OVERLAY ──────────────────────────────────── -->
 <div class="cat-overlay" id="cat-overlay">
   <div class="cat-page">
     <div class="cat-page-header">
@@ -216,7 +328,7 @@
   </div>
 </div>
  
-<!-- LIGHTBOX -->
+<!-- ── LIGHTBOX ───────────────────────────────────────────────── -->
 <div class="lightbox" id="lightbox">
   <button class="lb-close" id="lb-close"><i class="fas fa-times"></i></button>
   <button class="lb-prev"  id="lb-prev"><i class="fas fa-chevron-left"></i></button>
@@ -224,7 +336,7 @@
   <div class="lb-track-wrap">
     <div class="lb-track" id="lb-track"></div>
   </div>
-  <div class="lb-info-panel" id="lb-info-panel">
+  <div class="lb-info-panel">
     <div class="lb-dots"  id="lb-dots"></div>
     <div class="lb-name"  id="lb-name"></div>
     <div class="lb-size"  id="lb-size"></div>
@@ -237,7 +349,7 @@
 </div>
  
 <script src="products.js"></script>
-<script src="script.js?v=2"></script>
+<script src="script.js?v=3"></script>
 </body>
 </html>
  
