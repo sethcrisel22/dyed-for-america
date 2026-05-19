@@ -312,7 +312,7 @@ h1,h2,h3,h4 {
 ══════════════════════════════════════════════════════════════ */
 .about { background: var(--cream); }
  
-.about-flag-strip { width: 100%; height: 240px; overflow: hidden; position: relative; }
+.about-flag-strip { width: 100%; height: 320px; overflow: hidden; position: relative; }
 .about-flag-strip img {
   width: 100%; height: 100%; object-fit: cover;
   object-position: center 45%; filter: brightness(0.82);
@@ -324,7 +324,8 @@ h1,h2,h3,h4 {
  
 /* Section heading */
 .crew-heading {
-  text-align: center; padding: 60px 40px 40px;
+  text-align: center; padding: 36px 40px 36px;
+  background: var(--cream);
 }
 .crew-heading h2 {
   font-size: clamp(40px, 6vw, 80px); color: var(--navy); line-height: 0.92;
@@ -332,8 +333,59 @@ h1,h2,h3,h4 {
 }
 .crew-heading h2 em { font-style: italic; font-weight: 500; color: var(--red); }
  
-/* Three-column crew grid */
+ 
+/* ── Full-width wood section behind crew grid ────────────────── */
+.crew-wood-section {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  padding: 60px 0 80px;
+ 
+  /* Same wood gradient as hero plank */
+  background:
+    repeating-linear-gradient(90deg, transparent 0px, rgba(0,0,0,0.03) 1px, transparent 2px, transparent 18px),
+    repeating-linear-gradient(180deg, rgba(255,255,255,0.015) 0px, transparent 3px, transparent 40px),
+    linear-gradient(160deg, #1a0a04 0%, #3b1c09 20%, #5c3317 40%, #4a2510 55%, #3b1c09 70%, #2C1810 85%, #1a0a04 100%);
+  border-top: 6px solid #0f0603;
+  border-bottom: 6px solid #0f0603;
+  box-shadow:
+    inset 0 0 60px rgba(0,0,0,0.5),
+    inset 60px 0 80px rgba(0,0,0,0.2),
+    inset -60px 0 80px rgba(0,0,0,0.2),
+    0 10px 40px rgba(0,0,0,0.5);
+}
+ 
+/* Wood grain overlay on the section */
+.crew-wood-section::before {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    repeating-linear-gradient(180deg,
+      transparent 0px, rgba(0,0,0,0.06) 1px, transparent 2px,
+      rgba(255,200,120,0.04) 4px, transparent 6px,
+      rgba(0,0,0,0.04) 8px, transparent 12px,
+      rgba(255,180,80,0.03) 16px, transparent 22px,
+      rgba(0,0,0,0.05) 24px, transparent 32px,
+      rgba(255,160,60,0.03) 38px, transparent 48px
+    ),
+    repeating-linear-gradient(175deg,
+      transparent 0px, rgba(0,0,0,0.03) 2px,
+      transparent 60px, rgba(180,100,30,0.04) 62px, transparent 120px
+    );
+  mix-blend-mode: overlay; opacity: 0.9;
+}
+ 
+/* Crew grid sits inside the wood section — keep layout max-width */
 .crew-grid {
+  max-width: 1300px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 380px 1fr;
+  gap: 50px; align-items: start;
+  padding: 0 40px;
+  position: relative; z-index: 2;
+}
+ 
+/* Three-column crew grid — overridden by .crew-wood-section context above */
+.crew-grid-DISABLED {
   max-width: 1300px; margin: 0 auto;
   display: grid; grid-template-columns: 1fr 380px 1fr;
   gap: 50px; align-items: start;
@@ -343,7 +395,9 @@ h1,h2,h3,h4 {
  
 /* CTD Bio left */
 .crew-bio-left p {
-  font-size: 15px; line-height: 1.85; color: rgba(11,31,61,0.82);
+  font-size: 15px; line-height: 1.85;
+  color: rgba(247,242,232,0.85);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 .crew-bio-left p + p { margin-top: 16px; }
  
@@ -356,33 +410,16 @@ h1,h2,h3,h4 {
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   padding: 20px 20px 28px;
- 
-  /* Wood texture — same as hero plank */
-  background:
-    repeating-linear-gradient(90deg, transparent 0px, rgba(0,0,0,0.03) 1px, transparent 2px, transparent 18px),
-    repeating-linear-gradient(180deg, rgba(255,255,255,0.015) 0px, transparent 3px, transparent 40px),
-    linear-gradient(160deg, #1a0a04 0%, #3b1c09 20%, #5c3317 40%, #4a2510 55%, #3b1c09 70%, #2C1810 85%, #1a0a04 100%);
-  border: 5px solid #0f0603;
+  /* No bg gradient — parent is already wood. Just inset shadow for depth. */
+  border: 3px solid rgba(15,6,3,0.6);
   border-radius: 6px;
   box-shadow:
-    inset 0 0 40px rgba(0,0,0,0.55),
-    inset 40px 0 60px rgba(0,0,0,0.2),
-    inset -40px 0 60px rgba(0,0,0,0.2),
-    0 12px 40px rgba(0,0,0,0.5);
+    inset 0 0 50px rgba(0,0,0,0.4),
+    inset 30px 0 50px rgba(0,0,0,0.15),
+    inset -30px 0 50px rgba(0,0,0,0.15);
 }
  
-/* Grain overlay on porthole wood */
-.porthole-wood-grain {
-  position: absolute; inset: 0; pointer-events: none; z-index: 1; border-radius: 4px;
-  background-image:
-    repeating-linear-gradient(180deg,
-      transparent 0px, rgba(0,0,0,0.07) 1px, transparent 2px,
-      rgba(255,200,120,0.04) 5px, transparent 7px,
-      rgba(0,0,0,0.05) 10px, transparent 15px,
-      rgba(255,180,80,0.03) 20px, transparent 28px
-    );
-  mix-blend-mode: overlay; opacity: 0.85;
-}
+/* porthole-wood-grain removed — parent .crew-wood-section already provides grain */
  
 /* Porthole corner nails */
 .p-nail { width: 13px; height: 13px; }
@@ -393,7 +430,7 @@ h1,h2,h3,h4 {
  
 /* "The Tie Dye Tale" curved text SVG — sits above the ring */
 .tale-arc-svg {
-  width: 300px; height: 90px;
+  width: 300px; height: 110px;
   position: relative; z-index: 4;
   margin-bottom: -10px; /* overlap slightly onto ring top */
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.9));
@@ -462,13 +499,15 @@ h1,h2,h3,h4 {
  
 /* ── Rascal bio ────────────────────────────────────────────── */
 .rascal-name {
-  font-size: 26px; color: var(--navy); letter-spacing: 0.06em;
+  font-size: 26px; color: var(--gold-l); letter-spacing: 0.06em;
   margin-bottom: 10px; line-height: 1;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
 }
 .rascal-bio p {
   font-size: 14px; line-height: 1.85;
-  color: rgba(11,31,61,0.78);
+  color: rgba(247,242,232,0.8);
   font-style: italic;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
  
 /* ══════════════════════════════════════════════════════════════
@@ -747,3 +786,4 @@ h1,h2,h3,h4 {
   .footer { padding: 40px 22px 26px; }
   .foot-bottom { flex-direction: column; text-align: center; }
 }
+ 
