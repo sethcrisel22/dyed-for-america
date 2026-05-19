@@ -334,6 +334,21 @@ h1,h2,h3,h4 {
 .crew-heading h2 em { font-style: italic; font-weight: 500; color: var(--red); }
  
  
+ 
+/* ── Wood section corner nails ──────────────────────────────── */
+.wood-nail {
+  position: absolute;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #d4a853, #8B6914, #5c4010);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.6), inset 0 1px 2px rgba(255,220,100,0.3);
+  z-index: 5;
+}
+.wood-nail-tl { top: 22px;  left: 28px; }
+.wood-nail-tr { top: 22px;  right: 28px; }
+.wood-nail-bl { bottom: 22px; left: 28px; }
+.wood-nail-br { bottom: 22px; right: 28px; }
+ 
 /* ── Full-width wood section behind crew grid ────────────────── */
 .crew-wood-section {
   width: 100%;
@@ -531,6 +546,7 @@ h1,h2,h3,h4 {
   letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--gold); padding-bottom: 10px;
   border-bottom: 1px solid rgba(200,146,42,0.3);
+  text-align: center;
 }
  
 .about-carousel {
@@ -612,11 +628,30 @@ h1,h2,h3,h4 {
 .love-title {
   font-size: clamp(28px, 3.5vw, 48px);
   color: var(--cream); line-height: 1; margin-bottom: 4px;
+  text-align: center;
 }
  
 .love-bio-text {
   font-size: 15px; line-height: 1.85;
   color: rgba(247,242,232,0.78);
+  text-align: center;
+}
+ 
+ 
+/* ── Love title colored spans ───────────────────────────────── */
+.love-red { color: var(--red); }
+.love-tiedye {
+  background: linear-gradient(90deg, #E040FB 0%, #FF6B35 25%, #FFD600 50%, #00E5FF 75%, #00C853 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+.guy-gold {
+  color: var(--gold);
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  font-weight: 700;
 }
  
 /* Product Promise */
@@ -643,6 +678,19 @@ h1,h2,h3,h4 {
   font-size: 13px; line-height: 1.8;
   color: rgba(247,242,232,0.75);
   font-style: italic;
+}
+ 
+ 
+/* ── Mission heading two-line layout ───────────────────────── */
+.zero-compromise {
+  display: block;
+  color: var(--cream);
+  text-decoration: underline;
+  text-decoration-color: var(--red);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
+  line-height: 1.1;
+  margin-top: 6px;
 }
  
 /* ══════════════════════════════════════════════════════════════
