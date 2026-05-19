@@ -685,12 +685,32 @@ h1,h2,h3,h4 {
 .zero-compromise {
   display: block;
   color: var(--cream);
-  text-decoration: underline;
-  text-decoration-color: var(--red);
-  text-decoration-thickness: 3px;
-  text-underline-offset: 6px;
+  font-style: italic;
   line-height: 1.1;
-  margin-top: 6px;
+  margin-top: 4px;
+}
+ 
+ 
+/* ── Mission heading italic & swoosh ───────────────────────── */
+.mission .section-head h2 em {
+  font-style: italic;
+}
+.promise-gold {
+  color: var(--gold);
+  font-style: italic;
+}
+.swoosh-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+  margin-bottom: 0;
+  width: 100%;
+}
+.swoosh-underline {
+  width: clamp(280px, 60%, 600px);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 2px 6px rgba(196,30,58,0.35));
 }
  
 /* ══════════════════════════════════════════════════════════════
