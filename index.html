@@ -120,6 +120,10 @@
  
   <!-- ── Three-column: Bio | Porthole | Stamp + Rascal ──────── -->
   <div class="crew-wood-section">
+  <span class="wood-nail wood-nail-tl"></span>
+  <span class="wood-nail wood-nail-tr"></span>
+  <span class="wood-nail wood-nail-bl"></span>
+  <span class="wood-nail wood-nail-br"></span>
   <div class="crew-grid">
  
     <!-- LEFT: CTD Bio -->
@@ -171,27 +175,22 @@
  
       <!-- Whisky barrel circular stamp -->
       <div class="barrel-stamp-wrap">
-        <svg class="barrel-stamp-svg" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+                <svg class="barrel-stamp-svg" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <path id="stamp-arc-top" d="M 80,80 m -54,0 a 54,54 0 1,1 108,0"/>
             <path id="stamp-arc-bot" d="M 80,80 m -54,0 a 54,54 0 0,0 108,0"/>
           </defs>
-          <!-- Outer ring -->
           <circle cx="80" cy="80" r="70" fill="none" stroke="#C8922A" stroke-width="1.5"/>
-          <!-- Dashed inner ring -->
           <circle cx="80" cy="80" r="63" fill="none" stroke="#C8922A" stroke-width="1" stroke-dasharray="4,3"/>
-          <!-- Inner fill — subtle -->
           <circle cx="80" cy="80" r="62" fill="rgba(200,146,42,0.06)"/>
-          <!-- Top text: EST. 2017 -->
-          <text font-family="Teko,sans-serif" font-size="14" fill="#C8922A" letter-spacing="4" font-weight="700">
-            <textPath href="#stamp-arc-top" text-anchor="middle" startOffset="25%">EST. 2017</textPath>
+          <text font-family="Teko,sans-serif" font-size="16" fill="#C8922A" letter-spacing="6" font-weight="700">
+            <textPath href="#stamp-arc-top" text-anchor="middle" startOffset="25%">EST.</textPath>
           </text>
-          <!-- Bottom text: KEYSTONE LAKE -->
-          <text font-family="Teko,sans-serif" font-size="12" fill="#C8922A" letter-spacing="3" font-weight="600">
+          <text x="80" y="94" text-anchor="middle" font-family="Teko,sans-serif"
+                font-size="34" fill="#C8922A" font-weight="700" letter-spacing="3">2017</text>
+          <text font-family="Teko,sans-serif" font-size="11" fill="#C8922A" letter-spacing="2" font-weight="600">
             <textPath href="#stamp-arc-bot" text-anchor="middle" startOffset="75%">&#9733; KEYSTONE LAKE &#9733;</textPath>
           </text>
-          <!-- Center star -->
-          <text x="80" y="88" text-anchor="middle" font-size="28" fill="#C8922A" opacity="0.7">&#9733;</text>
         </svg>
       </div>
  
@@ -228,8 +227,8 @@
  
       <!-- CENTER: Why We Love CTD bio + Product Promise -->
       <div class="love-center">
-        <h3 class="love-title">Why We Love CTD</h3>
-        <p class="love-bio-text">His vibe is one of a kind. He brings Healing, Peace and Love everywhere he goes. He leads by example, takes care of his own, and always goes above and beyond for the community. Tie Dye our Guy!</p>
+        <h3 class="love-title">Why We <span class="love-red">Love</span> <span class="love-tiedye">CTD</span></h3>
+        <p class="love-bio-text">His vibe is one of a kind. He brings Healing, Peace and Love everywhere he goes. He leads by example, takes care of his own, and always goes above and beyond for the community. <span class="guy-gold">Tie Dye is our Guy!</span></p>
  
         <div class="product-promise">
           <div class="promise-star">&#9733;</div>
@@ -263,7 +262,7 @@
 <section class="mission" id="mission">
   <div class="section-head">
     <span class="eyebrow">The Craft</span>
-    <h2>Four <em>Promises</em>. Zero Compromise.</h2>
+    <h2>Four Promises<br><span class="zero-compromise">Zero Compromise</span></h2>
   </div>
   <div class="mission-grid">
     <div class="mission-card"><div class="mission-icon"><i class="fas fa-hands-holding"></i></div><h3>Hand-Made</h3><p>Every fold, dye bath, and rinse is done by hand.</p></div>
