@@ -97,7 +97,7 @@ h1,h2,h3,h4 {
   display: flex; align-items: center; gap: 6px;
 }
 .nav-flag { font-size: 13px; }
-.nav-flag-icon { font-size: 12px; color: var(--gold-l); margin-left: 2px; }
+.nav-flag-emoji { font-size: 15px; margin-left: 4px; line-height: 1; }
  
 @media(max-width:900px) {
   .navbar { padding: 10px 20px; }
@@ -601,24 +601,28 @@ h1,h2,h3,h4 {
    LIGHTBOX
 ══════════════════════════════════════════════════════════════ */
 .lightbox {
-  position: fixed; inset: 0; z-index: 900;
+  position: fixed;
+  /* Start below the navbar so header stays visible */
+  top: 78px; left: 0; right: 0; bottom: 0;
+  z-index: 1100; /* above navbar z-index:1000 */
   background: rgba(6,20,41,0.97);
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   opacity: 0; pointer-events: none;
   transition: opacity 0.35s ease;
+  overflow-y: auto;
 }
 .lightbox.open { opacity: 1; pointer-events: all; }
  
 .lb-close {
-  /* Fixed so it always stays top-right regardless of scroll */
-  position: fixed; top: 20px; right: 24px;
+  /* Sticky inside lightbox — always at top-right, below navbar */
+  position: absolute; top: 16px; right: 20px;
   width: 52px; height: 52px; border-radius: 50%;
-  background: rgba(11,31,61,0.85); color: var(--cream);
-  font-size: 20px; z-index: 910; border: 2px solid var(--gold);
+  background: rgba(11,31,61,0.9); color: var(--cream);
+  font-size: 20px; z-index: 1110; border: 2px solid var(--gold);
   display: flex; align-items: center; justify-content: center;
   transition: all 0.2s;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
 }
 .lb-close:hover { background: var(--red); border-color: var(--red); transform: scale(1.1); }
  
@@ -651,7 +655,7 @@ h1,h2,h3,h4 {
   padding: 0 80px;
 }
 .lb-slide img {
-  max-height: 58vh;
+  max-height: 52vh;
   max-width: 100%;
   object-fit: contain;
   border-radius: 2px;
@@ -818,3 +822,4 @@ h1,h2,h3,h4 {
   .mission-grid { grid-template-columns:1fr; }
   .tagline-strip { flex-wrap:wrap; gap:12px; padding:24px 16px; }
 }
+ 
