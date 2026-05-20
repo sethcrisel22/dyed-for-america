@@ -413,6 +413,7 @@ h1,h2,h3,h4 {
   font-size: 15px; line-height: 1.85;
   color: rgba(247,242,232,0.85);
   text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  font-weight: 400;
 }
 .crew-bio-left p + p { margin-top: 16px; }
  
@@ -523,6 +524,7 @@ h1,h2,h3,h4 {
   color: rgba(247,242,232,0.8);
   font-style: italic;
   text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  font-weight: 400;
 }
  
 /* ══════════════════════════════════════════════════════════════
@@ -665,8 +667,22 @@ h1,h2,h3,h4 {
   font-weight: 700;
 }
 .rascal-name {
+  /* Inline uses: match surrounding text size, gold gloss effect */
   color: var(--gold);
+  font-weight: inherit;
+  text-shadow:
+    0 1px 0 rgba(255,240,160,0.6),
+    0 -1px 0 rgba(120,80,0,0.4),
+    0 0 8px rgba(200,146,42,0.3);
+}
+.rascal-header {
+  /* The "RASCAL" h4 heading — large, bold, gloss */
+  color: var(--gold-l);
   font-weight: 700;
+  text-shadow:
+    0 2px 0 rgba(255,240,160,0.5),
+    0 -1px 0 rgba(100,60,0,0.5),
+    0 0 12px rgba(200,146,42,0.4);
 }
 .general-name {
   color: #6B8E23;  /* Army olive green */
@@ -715,6 +731,7 @@ h1,h2,h3,h4 {
 /* ── Mission heading italic & swoosh ───────────────────────── */
 .mission .section-head h2 em {
   font-style: italic;
+  color: var(--cream);
 }
 .promise-gold {
   color: var(--gold);
@@ -1058,4 +1075,3 @@ h1,h2,h3,h4 {
   .aboard-fields .form-row { grid-template-columns: 1fr; }
   .program-desc { padding: 28px 22px; }
 }
- 
