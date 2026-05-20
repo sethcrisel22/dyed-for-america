@@ -663,8 +663,9 @@ h1,h2,h3,h4 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  display: inline;
-  font-weight: 700;
+  display: inline-block;  /* inline-block required for webkit-background-clip */
+  font-weight: inherit;   /* match surrounding text weight in bios */
+  color: #E040FB;         /* fallback if gradient unsupported */
 }
 .rascal-name {
   /* Inline uses: match surrounding text size, gold gloss effect */
@@ -677,6 +678,12 @@ h1,h2,h3,h4 {
 }
 .rascal-header {
   /* The "RASCAL" h4 heading — large, bold, gloss */
+  font-family: 'Teko', sans-serif;
+  font-size: 32px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 10px;
   color: var(--gold-l);
   font-weight: 700;
   text-shadow:
@@ -688,7 +695,7 @@ h1,h2,h3,h4 {
   color: #6B8E23;  /* Army olive green */
   font-weight: 700;
 }
-.zero-red       { color: var(--red); }
+.zero-red       { color: var(--gold); }  /* now gold per latest brief */
 .compromise-gold{ color: var(--gold); }
  
 /* Product Promise */
@@ -757,7 +764,6 @@ h1,h2,h3,h4 {
 .mission { padding: 140px 40px; background: var(--navy); color: var(--cream); position: relative; overflow: hidden; }
 .mission .section-head h2 { color: var(--cream); }
 .mission .section-head .eyebrow { color: var(--gold); }
-.mission .section-head h2 em { color: var(--gold); }
 .section-head { text-align: center; max-width: 800px; margin: 0 auto 80px; padding: 0 20px; }
 .section-head h2 { font-size: clamp(48px,7vw,96px); color: var(--navy); margin-bottom: 22px; line-height: 0.9; }
 .section-head h2 em { font-style: italic; color: var(--red); font-weight: 500; }
@@ -897,7 +903,7 @@ h1,h2,h3,h4 {
    COME ABOARD SECTION
 ══════════════════════════════════════════════════════════════ */
 .come-aboard {
-  background: var(--navy-deep);
+  background: var(--navy-deep) !important;
   padding: 100px 40px 80px;
   position: relative;
   overflow: hidden;
@@ -1075,3 +1081,4 @@ h1,h2,h3,h4 {
   .aboard-fields .form-row { grid-template-columns: 1fr; }
   .program-desc { padding: 28px 22px; }
 }
+ 
