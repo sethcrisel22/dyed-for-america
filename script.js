@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   initCategoryPageListeners();
   initScrollCue();
   initContactForm();
+  initAboardForm();
   initNavbarScroll();
 });
  
@@ -560,10 +561,65 @@ function initNavbarScroll() {
 function initContactForm() {
   const form = document.getElementById("contactForm");
   if (!form) return;
-  form.addEventListener("submit", e => {
+  form.addEventListener("submit", async e => {
     e.preventDefault();
-    alert("Thank you for your message! We will get back to you soon.");
-    form.reset();
+    const btn = form.querySelector('[type="submit"]');
+    const origHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    try {
+      const res = await fetch("https://formspree.io/f/mwvzlnon", {
+        method: "POST", body: new FormData(form),
+        headers: { Accept: "application/json" }
+      });
+      if (res.ok) {
+        btn.innerHTML = '<i class="fas fa-check"></i> Sent!';
+        btn.style.background = "#16A34A";
+        form.reset();
+        setTimeout(() => { btn.disabled=false; btn.innerHTML=origHTML; btn.style.background=""; }, 4000);
+      } else { throw new Error(); }
+    } catch {
+      btn.disabled = false; btn.innerHTML = origHTML;
+      alert("Something went wrong. Please email DyedForAmerica@Gmail.com directly.");
+    }
+  });
+}
+ 
+function initAboardForm() {
+  const form    = document.getElementById("aboardForm");
+  const success = document.getElementById("aboard-success");
+  if (!form) return;
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    const role = form.querySelector('input[name="role"]:checked');
+    if (!role) {
+      const prompt = form.querySelector(".radio-prompt");
+      if (prompt) {
+        const orig = prompt.textContent;
+        prompt.style.color = "#C41E3A";
+        prompt.textContent = "Please select Artist or Affiliate to continue:";
+        setTimeout(() => { prompt.style.color=""; prompt.textContent=orig; }, 3500);
+      }
+      return;
+    }
+    const btn = document.getElementById("aboard-submit");
+    const origHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    try {
+      const res = await fetch("https://formspree.io/f/mwvzlnon", {
+        method: "POST", body: new FormData(form),
+        headers: { Accept: "application/json" }
+      });
+      if (res.ok) {
+        form.style.display = "none";
+        success.classList.remove("hidden");
+        success.scrollIntoView({ behavior: "smooth", block: "center" });
+      } else { throw new Error(); }
+    } catch {
+      btn.disabled = false; btn.innerHTML = origHTML;
+      alert("Something went wrong. Please email DyedForAmerica@Gmail.com directly.");
+    }
   });
 }
  
