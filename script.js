@@ -1,4 +1,4 @@
-// script.js — Phase 3
+ // script.js — Phase 3
 // Gallery grid + About section carousels + porthole + video embedding
 // ALL event listeners are inside DOMContentLoaded
  
@@ -568,7 +568,7 @@ function initContactForm() {
     btn.disabled = true;
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
     try {
-      const res = await fetch("https://formspree.io/f/mwvzlnon", {
+      const res = await fetch("https://formspree.io/f/xlgvjwak", {
         method: "POST", body: new FormData(form),
         headers: { Accept: "application/json" }
       });
@@ -622,4 +622,3 @@ function initAboardForm() {
     }
   });
 }
- 
