@@ -414,16 +414,23 @@
             </div>
             <div class="fg">
               <label for="f-cat">Category *</label>
-              <select id="f-cat">
-                <option value="shirt">👕 Shirts</option>
-                <option value="sweatshirt">🧥 Sweatshirts</option>
-                <option value="pants">👖 Pants</option>
-                <option value="tapestry">🎨 Tapestries</option>
-                <option value="socks">🧦 Socks</option>
-                <option value="bedspread">🛏️ Bed Spreads</option>
-                <option value="hat">🧢 Hats</option>
-                <option value="hat-pin">📌 Hat Pins</option>
-                <option value="treasure">🏴‍☠️ Capn' Tie Dye's Treasure Chest</option>
+                            <select id="f-cat" onchange="toggleVideoField(this.value)">
+                <optgroup label="── Shop Products ──">
+                  <option value="shirt">👕 Shirts</option>
+                  <option value="sweatshirt">🧥 Sweatshirts</option>
+                  <option value="pants">👖 Pants</option>
+                  <option value="tapestry">🎨 Tapestries</option>
+                  <option value="socks">🧦 Socks</option>
+                  <option value="bedspread">🛏️ Bed Spreads</option>
+                  <option value="hat">🧢 Hats</option>
+                  <option value="hat-pin">📌 Hat Pins</option>
+                  <option value="treasure">🏴‍☠️ Capn' Tye Dye's Treasure Chest</option>
+                </optgroup>
+                <optgroup label="── About Section ──">
+                  <option value="d-and-r">📸 The Tye Dye Tale (Bio / Porthole Photos)</option>
+                  <option value="tie-dye-team">👥 Tye Dye Team (Company Photos)</option>
+                  <option value="development-process">🎬 Development Process (Video / How It's Made)</option>
+                </optgroup>
               </select>
             </div>
           </div>
@@ -438,6 +445,13 @@
             <input id="f-link" type="url" placeholder="https://buy.stripe.com/…">
             <span class="hint">Paste the link from your Stripe payment link dashboard</span>
           </div>
+ 
+          <div class="fg" id="video-url-group" style="display:none;">
+            <label for="f-video">Video URL (YouTube or Vimeo)</label>
+            <input id="f-video" type="url" placeholder="https://www.youtube.com/watch?v=…">
+            <span class="hint">For Development Process category. Paste a YouTube or Vimeo URL — it will embed directly on the site with thumbnail.</span>
+          </div>
+ 
  
           <div class="fg">
             <label>Status</label>
@@ -760,6 +774,7 @@ productForm.addEventListener("submit", async e => {
       link,
       status: selectedStatus,
       img:    imgUrl,
+      videoUrl: (document.getElementById('f-video') ? document.getElementById('f-video').value.trim() : ''),
     };
  
     if (editingId) {
@@ -928,6 +943,14 @@ confirmOverlay.addEventListener("click", e => {
     deleteTarget = null;
   }
 });
+ 
+// Show/hide video URL field based on category
+function toggleVideoField(catValue) {
+  const videoGroup = document.getElementById('video-url-group');
+  if (!videoGroup) return;
+  videoGroup.style.display = catValue === 'development-process' ? 'flex' : 'none';
+}
+window.toggleVideoField = toggleVideoField;
 </script>
 </body>
 </html>
