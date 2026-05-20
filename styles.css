@@ -654,6 +654,27 @@ h1,h2,h3,h4 {
   font-weight: 700;
 }
  
+ 
+/* ── Named character color spans ────────────────────────────── */
+.ctd-name {
+  background: linear-gradient(90deg, #E040FB 0%, #FF6B35 25%, #FFD600 50%, #00E5FF 75%, #00C853 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline;
+  font-weight: 700;
+}
+.rascal-name {
+  color: var(--gold);
+  font-weight: 700;
+}
+.general-name {
+  color: #6B8E23;  /* Army olive green */
+  font-weight: 700;
+}
+.zero-red       { color: var(--red); }
+.compromise-gold{ color: var(--gold); }
+ 
 /* Product Promise */
 .product-promise {
   background: rgba(200,146,42,0.07);
@@ -853,5 +874,188 @@ h1,h2,h3,h4 {
   .mission-grid { grid-template-columns: 1fr; }
   .footer { padding: 40px 22px 26px; }
   .foot-bottom { flex-direction: column; text-align: center; }
+}
+ 
+/* ══════════════════════════════════════════════════════════════
+   COME ABOARD SECTION
+══════════════════════════════════════════════════════════════ */
+.come-aboard {
+  background: var(--navy-deep);
+  padding: 100px 40px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.come-aboard::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(196,30,58,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 50%, rgba(200,146,42,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+ 
+/* ── Header area ─────────────────────────────────────────────── */
+.aboard-head {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 56px;
+}
+.aboard-title {
+  font-size: clamp(52px, 8vw, 100px);
+  color: var(--cream);
+  line-height: 0.9;
+  margin-bottom: 28px;
+  text-shadow: 0 2px 20px rgba(200,146,42,0.2);
+}
+.aboard-tagline {
+  font-size: clamp(16px, 2vw, 22px);
+  color: rgba(247,242,232,0.88);
+  line-height: 1.7;
+  margin-bottom: 18px;
+  font-family: 'DM Sans', sans-serif;
+}
+.aboard-red { color: var(--red); font-weight: 700; }
+.aboard-bottle {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(18px, 2.2vw, 26px);
+  color: var(--gold-l);
+  line-height: 1.5;
+}
+.aboard-star {
+  color: var(--gold);
+  margin-right: 6px;
+  font-size: 1.1em;
+}
+ 
+/* ── Success message ─────────────────────────────────────────── */
+.form-success {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--gold);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  border: 1px solid rgba(200,146,42,0.3);
+  background: rgba(200,146,42,0.06);
+}
+.form-success i { font-size: 40px; margin-bottom: 16px; display: block; }
+.form-success p {
+  font-family: 'Teko', sans-serif; font-size: 22px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.form-success.hidden { display: none; }
+ 
+/* ── Application form ────────────────────────────────────────── */
+.aboard-form {
+  max-width: 760px;
+  margin: 0 auto 60px;
+  position: relative; z-index: 2;
+}
+ 
+/* Radio buttons */
+.aboard-radio-group {
+  margin-bottom: 32px;
+  text-align: center;
+}
+.radio-prompt {
+  font-family: 'Teko', sans-serif;
+  font-size: 16px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold-l); margin-bottom: 18px;
+}
+.radio-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  margin: 0 20px;
+  position: relative;
+}
+.radio-label input[type="radio"] {
+  position: absolute; opacity: 0; width: 0; height: 0;
+}
+.radio-custom {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid rgba(200,146,42,0.5);
+  background: rgba(247,242,232,0.04);
+  flex-shrink: 0;
+  transition: all 0.2s var(--ease);
+  position: relative;
+}
+.radio-custom::after {
+  content: '';
+  position: absolute; inset: 3px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0; transition: opacity 0.2s ease;
+}
+.radio-label input[type="radio"]:checked ~ .radio-custom {
+  border-color: var(--gold);
+  background: rgba(200,146,42,0.1);
+}
+.radio-label input[type="radio"]:checked ~ .radio-custom::after { opacity: 1; }
+.radio-text {
+  font-family: 'Teko', sans-serif; font-size: 20px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--cream); transition: color 0.2s;
+}
+.radio-label input[type="radio"]:checked ~ .radio-text { color: var(--gold); }
+ 
+/* Form fields — reuse contact styles on dark bg */
+.aboard-fields .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 20px; }
+.aboard-fields .form-group { margin-bottom: 20px; }
+.aboard-fields .form-group label {
+  display: block; font-family: 'Teko', sans-serif;
+  font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold-l); margin-bottom: 9px;
+}
+.aboard-fields .form-group input,
+.aboard-fields .form-group textarea {
+  width: 100%; padding: 13px 15px;
+  background: rgba(247,242,232,0.04);
+  border: 1px solid rgba(200,146,42,0.2);
+  color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 15px;
+  transition: all 0.3s ease; resize: vertical;
+}
+.aboard-fields .form-group input:focus,
+.aboard-fields .form-group textarea:focus {
+  outline: none; border-color: var(--gold);
+  background: rgba(247,242,232,0.08);
+}
+.aboard-fields .form-group input::placeholder,
+.aboard-fields .form-group textarea::placeholder { color: rgba(247,242,232,0.35); }
+.aboard-fields .form-group textarea { min-height: 110px; }
+ 
+/* Submit button */
+.aboard-submit-btn {
+  width: 100%; padding: 17px;
+  background: var(--red); color: var(--cream);
+  font-family: 'Teko', sans-serif; font-size: 20px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  border: 2px solid var(--red); cursor: pointer;
+  transition: all 0.3s var(--ease);
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  margin-top: 8px;
+}
+.aboard-submit-btn:hover:not(:disabled) { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+.aboard-submit-btn:disabled { background: var(--muted, #6B7280); border-color: transparent; cursor: not-allowed; }
+ 
+/* ── Program description ─────────────────────────────────────── */
+.program-desc {
+  max-width: 760px; margin: 0 auto;
+  padding: 36px 40px;
+  border: 1px solid rgba(200,146,42,0.2);
+  background: rgba(247,242,232,0.03);
+  position: relative; z-index: 2;
+  text-align: center;
+}
+.program-desc p {
+  font-size: 15px; line-height: 1.85;
+  color: rgba(247,242,232,0.75);
+}
+.program-desc strong { color: var(--gold-l); font-weight: 700; }
+ 
+/* ── Responsive ──────────────────────────────────────────────── */
+@media(max-width:700px) {
+  .come-aboard { padding: 70px 22px 60px; }
+  .aboard-fields .form-row { grid-template-columns: 1fr; }
+  .program-desc { padding: 28px 22px; }
 }
  
