@@ -669,6 +669,7 @@ h1,h2,h3,h4 {
 }
 .rascal-name {
   /* Inline uses: match surrounding text size, gold gloss effect */
+  font-size: 1em !important;   /* force match to surrounding text — no upscaling */
   color: var(--gold);
   font-weight: inherit;
   text-shadow:
@@ -1081,4 +1082,3 @@ h1,h2,h3,h4 {
   .aboard-fields .form-row { grid-template-columns: 1fr; }
   .program-desc { padding: 28px 22px; }
 }
- 
