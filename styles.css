@@ -696,7 +696,7 @@ h1,h2,h3,h4 {
   color: #6B8E23;  /* Army olive green */
   font-weight: 700;
 }
-.zero-red       { color: var(--gold); }  /* now gold per latest brief */
+.zero-red       { color: var(--red); }
 .compromise-gold{ color: var(--gold); }
  
 /* Product Promise */
@@ -1082,3 +1082,4 @@ h1,h2,h3,h4 {
   .aboard-fields .form-row { grid-template-columns: 1fr; }
   .program-desc { padding: 28px 22px; }
 }
+ 
